@@ -22,3 +22,5 @@ type: brain
 - `.claudeignore` blocks: sessions/, backups/, shell-snapshots/
 - Only CLAUDE.md auto-loads (~450 tokens)
 - Write tool requires Read first on existing files
+- Always `.claudeignore` node_modules, dist, build, .next, coverage — sending these burns tokens silently
+- UI iteration workflows eat tokens fast — batch changes, use screenshots sparingly, describe diffs not full files
