@@ -105,23 +105,65 @@ Building on **agents-observe** pattern + **Marc Nuri dashboard** approach:
 5. **Session History** — Past sessions with duration, token cost, project, and outcome
 6. **Alerts** — Approaching token limits, device offline, session errors
 
-## Tech Stack
+## Deep Dive Findings
 
-- **Server**: Node.js + Express + WebSocket (real-time updates)
-- **Database**: SQLite (portable, zero-config) via better-sqlite3
-- **Dashboard**: Next.js + Tailwind + Recharts
-- **Data Collection**: Claude Code hooks (PostToolUse, Stop, SessionStart) POST to central server
-- **Deployment**: Docker Compose for easy self-hosting
+### agents-observe (v0.7.4)
+
+**Architecture**: `Claude Code Hooks → hook.sh → observe_cli.mjs → HTTP POST → Hono Server → SQLite + WebSocket → React Dashboard`
+
+Key patterns adopted:
+- **Backgrounded hook script** — reads stdin, backgrounds the POST, exits in <5ms to avoid blocking Claude Code
+- **Server-initiated callbacks** — POST response includes `requests` array for data the server needs from the client (e.g., session slug from local transcript)
+- **25 hook events** instrumented — every lifecycle event Claude Code exposes
+- **Deduped Pre/PostToolUse** — paired client-side into single rows
+
+Limitations we addressed:
+- No device identity → our envelope includes `device_id`, `device_name`, `hostname`
+- No token tracking → our schema has `token_snapshots` table
+- No aggregate dashboard → our StatsOverview + DeviceGrid
+- Localhost-only → our server binds to all interfaces
+
+### Marc Nuri AI Coding Agent Dashboard (not open-sourced)
+
+**Architecture**: Push-based heartbeat model with enricher chain.
+
+Key patterns to adopt:
+- **Enricher chain** — raw hook data passes through enrichers that each extract specific info (model name, tokens, context %, PR URLs). Makes the system agent-agnostic.
+- **Context usage %** — the most actionable metric. High context predicts need for intervention.
+- **Embedded terminal** — clicking a session opens a live browser terminal via WebSocket relay to remote tmux session.
+- **Device registration + project picker** — select device, select repo, spin up a new Claude Code session remotely.
+
+### claude-code-hooks-multi-agent-observability (1,337 stars)
+
+**Architecture**: `Claude Code → Python hooks → HTTP POST → Bun/TypeScript server → SQLite → WebSocket → Vue 3 Dashboard`
+
+Key patterns to adopt:
+- **Dual-hook pattern** — each event chains two scripts: (1) domain-specific (e.g., security validation in PreToolUse) and (2) universal `send_event.py` for telemetry. Separates concerns.
+- **`--server-url` already parameterized** — hooks accept remote server URL as CLI arg, making multi-device trivial.
+- **AI-generated summaries** — `--summarize` flag calls Anthropic API to summarize event payload before sending.
+- **Human-in-the-loop** — dashboard supports inline responses to agent questions (approve/deny/text input).
+- **Swim lane view** — side-by-side comparison of multiple agent behaviors.
+
+## Tech Stack (Implemented)
+
+- **Server**: Hono + WebSocket + better-sqlite3 (WAL mode)
+- **Database**: SQLite with 4 tables: devices, sessions, events, token_snapshots
+- **Dashboard**: React 19 + Tailwind CSS + custom charts
+- **Data Collection**: Hook script (bash) + heartbeat cron on each machine
+- **Deployment**: Docker Compose
 
 ## Action Items
 
 - [x] Research existing projects and prior art
-- [ ] Deep dive into agents-observe, Marc Nuri dashboard, claude-code-hooks architectures
-- [ ] Scaffold project with server + dashboard
-- [ ] Build device registry and heartbeat system
-- [ ] Build token aggregation pipeline
-- [ ] Build live session tracking
-- [ ] Build web dashboard UI
+- [x] Deep dive into agents-observe, Marc Nuri dashboard, claude-code-hooks architectures
+- [x] Scaffold project with server + dashboard
+- [x] Build device registry and heartbeat system
+- [x] Build token aggregation pipeline
+- [x] Build web dashboard UI (StatsOverview, DeviceGrid, SessionList, TokenChart)
+- [ ] Add enricher chain pattern (context %, PR detection, model extraction)
+- [ ] Add session detail view with event timeline
+- [ ] Add embedded terminal (WebSocket relay to tmux)
+- [ ] Add authentication for remote access
 - [ ] Deploy and configure hooks on all 7 machines
 
 ## Related
