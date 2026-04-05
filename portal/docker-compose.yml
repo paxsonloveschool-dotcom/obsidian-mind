@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  portal:
+    build: .
+    ports:
+      - "4981:4981"
+      - "4980:4980"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORTAL_PORT=4981
+    restart: unless-stopped

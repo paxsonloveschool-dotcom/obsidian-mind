@@ -1,0 +1,46 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh SessionStart"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh UserPromptSubmit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh PreToolUse"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh PostToolUse"
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh Stop"
+      }
+    ],
+    "SubagentStart": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh SubagentStart"
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "command",
+        "command": "/path/to/portal/src/hooks/hook.sh SubagentStop"
+      }
+    ]
+  }
+}
