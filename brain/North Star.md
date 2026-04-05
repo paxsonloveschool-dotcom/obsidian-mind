@@ -1,54 +1,29 @@
 ---
-date:
-description: "Living document of goals, focus areas, and aspirations — read at session start, updated when direction shifts"
-tags:
-  - brain
-  - north-star
-aliases:
-  - Goals
-  - Focus
+date: 2026-04-05
+description: Living goals document — read at every session start
+tags: [north-star, goals, brain]
+type: brain
 ---
 
 # North Star
 
-A living document of goals, aspirations, and current focus areas. Both you and Claude write to this. Claude reads it at the start of meaningful work sessions and references it when making suggestions.
+## Vision (3-Year)
+- [ ] TODO: Define your 3-year vision
 
-## Current Focus
+## Annual Goals (2026)
+- [ ] TODO: Define 2026 goals
 
-_What am I working toward right now?_
+## Current Quarter Focus (Q2 2026)
+- [ ] TODO: Define Q2 priorities
 
--
+## Active Projects
+- None yet — use `/standup` to get started
 
-## Goals
+## Principles
+- Act with urgency
+- Build systems, not just solutions
+- Automate the repetitive
 
-### Short-term (This Quarter)
-
--
-
-### Medium-term (This Half)
-
--
-
-### Long-term (This Year+)
-
--
-
-## Aspirations
-
-_What kind of engineer/person am I becoming?_
-
--
-
-## Anti-goals
-
-_What am I explicitly NOT optimizing for?_
-
--
-
-## Shifts Log
-
-Record when focus changes, with date and reason.
-
-| Date | Shift | Reason |
-|------|-------|--------|
-|      | Created North Star | Initial setup |
+## Anti-Goals
+- Perfectionism over progress
+- Manual work that can be automated

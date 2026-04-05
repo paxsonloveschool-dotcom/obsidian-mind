@@ -1,21 +1,33 @@
 ---
-description: "Index of memory topics — key decisions, patterns, gotchas, people context"
-tags:
-  - brain
-  - index
+date: 2026-04-05
+description: Auto-loaded memory index — points to vault brain/ notes
+tags: [brain, memory, index]
+type: index
 ---
 
 # Memories
 
-Persistent context and knowledge retained across sessions. Each topic lives in its own note — follow the links.
+## Key Decisions
+- 2026-04-05: Set up Claude Code with autopilot, token efficiency, second brain architecture
+- See [[Key Decisions]] for full decision records
 
-- [[Key Decisions]] — architectural and workflow decisions worth recalling
-- [[Patterns]] — recurring patterns and conventions discovered across work
-- [[Gotchas]] — things that have bitten before and will bite again
-- [[People & Context]] — org structure, teams, review history, dynamics
-- [[North Star]] — living goals document, read at session start
-- [[Skills]] — custom slash commands and workflows
+## Lessons Learned
+- GitHub classic PATs need explicit `repo` scope — fine-grained tokens show "none"
+- `gh auth login --web` times out fast — use `--with-token` instead
+- Token-optimized context: only CLAUDE.md auto-loads (~450 tokens)
 
-## Recent Context
+## Systems Built
+- CLAUDE.md — Autopilot + efficiency rules
+- [[North Star]] — Goals and priorities
+- MASTER_SOP.md — Complete operational manual (in claude-code-config repo)
 
--
+## Lookup Table
+| Topic | Location |
+|-------|----------|
+| Goals & priorities | [[North Star]] |
+| Key decisions | [[Key Decisions]] |
+| Reusable patterns | [[Patterns]] |
+| Active work | work/active/ |
+| People notes | org/people/ |
+| Performance | perf/ |
+| Config & setup | ~/claude-code-config/ |

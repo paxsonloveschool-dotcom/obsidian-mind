@@ -1,32 +1,24 @@
 ---
-description: "Vault entry point — embedded dashboards, quick links, current focus"
-tags:
-  - index
+date: 2026-04-05
+description: Vault entry point — quick links and dashboards
+tags: [index, moc]
+type: index
 ---
 
 # Home
 
-## Current Focus
-
-![[North Star#Current Focus]]
-
-## Active Work
-
-![[Work Dashboard.base#Active Work]]
-
-## Incidents
-
-![[Incidents.base#All Incidents]]
-
 ## Quick Links
+- [[brain/North Star|North Star]] — Goals & priorities
+- [[work/Index|Work Index]] — Active projects
+- [[brain/Memories|Memories]] — What Claude remembers
+- [[perf/Brag Doc|Brag Doc]] — Wins & achievements
+- [[org/People & Context|People & Context]] — Org knowledge
 
-- [[Index|Work Notes]] | [[People & Context]] | [[Brag Doc]]
-- [[Memories]] | [[North Star]] | [[Skills]]
+## Brain
+- [[brain/Key Decisions|Key Decisions]]
+- [[brain/Patterns|Patterns]]
+- [[brain/Gotchas|Gotchas]]
+- [[brain/Skills|Skills]]
 
-## Recent 1:1s
-
-![[1-1 History.base#All 1:1s]]
-
-## People
-
-![[People Directory.base#By Team]]
+## Commands
+Run `/standup` to start your day. Run `/wrap-up` to end a session.

@@ -1,23 +1,13 @@
 ---
-description: "Index of quarterly brag notes — impact, competency evidence, technical growth, feedback per quarter"
-tags:
-  - perf
-  - index
+date: 2026-04-05
+description: Running log of wins, impact, and achievements
+tags: [perf, index]
+type: index
 ---
 
 # Brag Doc
 
-A running log of impact, wins, and growth. Each quarter is its own note — open the one you need.
+## Q2 2026
 
-## Current Year
-
-| Quarter | Highlights | Review |
-|---------|-----------|--------|
-|         |           |        |
-
-## How This Works
-
-- Each quarter note has: Competency Evidence, Impact & Deliverables, Technical Growth, Collaboration, Feedback
-- Competency evidence links both the competency and the work note
-- Review prep: open the quarter(s) covered by the review period, follow the links
-- Backlinks from quarterly notes accumulate on competency notes and work notes automatically
+### Systems & Infrastructure
+- 2026-04-05: Built complete Claude Code second brain system — autopilot, token optimization (83-87% reduction), obsidian-mind vault, 12 repos researched and cloned, MASTER_SOP created

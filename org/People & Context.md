@@ -1,42 +1,14 @@
 ---
-description: "Org context, teams, stakeholders, review history, and dynamics"
-tags:
-  - org
-  - index
+date: 2026-04-05
+description: Organizational knowledge — people, teams, context
+tags: [index, moc]
+type: index
 ---
 
 # People & Context
 
-Key context about teams, stakeholders, or collaborators. See also [[Memories]] for session context and [[Skills]] for workflows.
-
-## Role & Org
-
--
+## People
+*Add person notes to `org/people/` as you work with them.*
 
 ## Teams
-
-Team notes in `org/teams/`:
-
--
-
-## Performance Reviews
-
--
-
-## Manager Timeline
-
--
-
-## People
-
-Individual notes in `org/people/`:
-
--
-
-## Review Goals
-
--
-
-## Recurring Growth Themes
-
--
+*Add team notes to `org/teams/` as needed.*
