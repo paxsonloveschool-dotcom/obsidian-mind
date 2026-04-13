@@ -27,6 +27,35 @@ Vendored from [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextle
 
 **Mandate**: On any UI, visual, or design-adjacent task, load `ui-ux-pro-max` first via the Skill tool and query the relevant domain before writing code or markup. Treat the 10-priority rule table in its SKILL.md as a hard checklist (accessibility → touch → performance → style → layout → typography/color → animation → ...). Never ship raw hex colors, text < 12px, focus-ring removal, icon-only buttons without aria labels, or hover-only interactions. For multi-surface work (brand + components + presentation), compose the skills: `brand` + `design-system` → `ui-styling` → `ui-ux-pro-max` review pass.
 
+### Orchestration Skills & Agents (oh-my-claudecode bundle)
+
+Cherry-pick vendored from [`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode) (MIT, v4.11.6). This vault pulls in the standalone pieces only -- the 19 agents and 33 skills that do **not** depend on the plugin runtime, hooks, or `$CLAUDE_PLUGIN_ROOT`. Skipped: `cancel`, `hud`, `omc-setup`, `team` (require the plugin loader), plus the hooks, Node scripts, `src/`, `dist/`, `bridge/`, `shellmark/`, `missions/`, npm dependencies.
+
+**Agents** (`.claude/agents/`, 19): `analyst`, `architect`, `code-reviewer`, `code-simplifier`, `critic`, `debugger`, `designer`, `document-specialist`, `executor`, `explore`, `git-master`, `planner`, `qa-tester`, `scientist`, `security-reviewer`, `test-engineer`, `tracer`, `verifier`, `writer`. These are generic dev roles that coexist with the vault-specific agents (`brag-spotter`, `vault-librarian`, `slack-archaeologist`, etc.) -- no name collisions.
+
+**Skills** (`.claude/skills/`, 33 new):
+
+| Category | Skills |
+|----------|--------|
+| Planning & reasoning | `plan`, `ralplan`, `deep-dive`, `deep-interview`, `deepinit`, `sciomc` |
+| Execution modes | `autopilot`, `ralph`, `ultrawork`, `ultraqa`, `ccg` (Claude+Codex+Gemini tri-model) |
+| Debugging & verification | `debug`, `trace`, `verify`, `visual-verdict`, `ai-slop-cleaner` |
+| Memory & knowledge | `remember`, `wiki`, `writer-memory`, `learner`, `omc-reference` |
+| Meta / skill authoring | `skill`, `skillify`, `self-improve` |
+| Project workflow | `project-session-manager`, `release`, `setup`, `omc-doctor`, `omc-teams` |
+| Context & comms | `ask`, `external-context`, `configure-notifications`, `mcp-setup` |
+
+**Usage guidance**: These skills are for **dev/orchestration work**, not note-taking. For vault work (notes, people, performance review, incidents), keep using `/standup`, `/dump`, `/wrap-up`, etc. When the task is actual software engineering inside this vault repo (modifying `.claude/`, scripts, hooks, templates), compose OMC skills: `plan` → `ralph` or `autopilot` for execution → `verify` → `ai-slop-cleaner` before commit. For ambiguous requests, `ralplan` gates vague work with consensus planning before execution. For bug hunts, `trace` → `deep-interview` via `deep-dive`.
+
+**Team orchestration not available in this install.** `team`, `cancel`, `hud`, and `omc-setup` were intentionally skipped because they hard-depend on the OMC plugin loader. To get those plus the full hook pipeline, install at the user level via:
+
+```
+/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode
+/plugin install oh-my-claudecode
+```
+
+That is a separate install outside this vault repo -- run it yourself in the Claude Code CLI when you want the full orchestration runtime.
+
 ### Custom Slash Commands
 
 Defined in `.claude/commands/`. See [[Skills]] for full documentation.
