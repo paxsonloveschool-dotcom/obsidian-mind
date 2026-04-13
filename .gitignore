@@ -16,3 +16,8 @@
 
 # Session logs (local transcripts)
 thinking/session-logs/
+
+# Python bytecode / coverage (from vendored skills)
+__pycache__/
+*.pyc
+.coverage

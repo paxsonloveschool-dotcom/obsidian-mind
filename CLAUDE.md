@@ -13,6 +13,20 @@ This vault has [obsidian-skills](https://github.com/kepano/obsidian-skills) inst
 - **defuddle**: Extract clean markdown from web pages via `defuddle parse <url> --md`.
 - **qmd**: Semantic search across the vault via [QMD](https://github.com/tobi/qmd). Use PROACTIVELY before reading files -- `qmd query "..."` for hybrid search, `qmd search "..."` for keyword, `qmd vsearch "..."` for semantic. Falls back to grep/glob if QMD not installed.
 
+### Design Skills (UI/UX Pro Max bundle)
+
+Vendored from [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) (MIT). These auto-activate whenever work touches how a feature **looks, feels, moves, or is interacted with** -- new pages, components, color/typography choices, UI reviews, accessibility, animation, responsive behavior, brand output, slides, banners.
+
+- **ui-ux-pro-max**: Primary design intelligence engine. 67 UI styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, 25 chart types across 15 stacks. Query via `python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<query>" --domain <style|color|typography|product|landing|chart|ux>`. Use for every substantial UI task.
+- **design**: Umbrella design skill -- brand identity, logos (55 styles), CIP mockups, HTML presentations, banners, icons (15 styles, SVG), social photos.
+- **design-system**: Three-layer token architecture (primitive → semantic → component), CSS variables, spacing/typography scales, component specs.
+- **ui-styling**: shadcn/ui + Radix + Tailwind component patterns, canvas-based visuals, dark mode, accessible layouts.
+- **brand**: Voice, visual identity, messaging frameworks, style guides, brand compliance.
+- **banner-design**: Social/ads/web/print banners across 13+ styles and all major platforms.
+- **slides**: Strategic HTML presentations with Chart.js, design tokens, copywriting formulas.
+
+**Mandate**: On any UI, visual, or design-adjacent task, load `ui-ux-pro-max` first via the Skill tool and query the relevant domain before writing code or markup. Treat the 10-priority rule table in its SKILL.md as a hard checklist (accessibility → touch → performance → style → layout → typography/color → animation → ...). Never ship raw hex colors, text < 12px, focus-ring removal, icon-only buttons without aria labels, or hover-only interactions. For multi-surface work (brand + components + presentation), compose the skills: `brand` + `design-system` → `ui-styling` → `ui-ux-pro-max` review pass.
+
 ### Custom Slash Commands
 
 Defined in `.claude/commands/`. See [[Skills]] for full documentation.
