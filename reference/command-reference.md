@@ -1,6 +1,6 @@
 ---
-date: 2026-04-13
-description: Quick lookup table for all 17 slash commands — purpose, usage, subagents invoked, when to use, related playbooks
+date: 2026-04-15
+description: Quick lookup table for all 20 slash commands — purpose, usage, subagents invoked, when to use, related playbooks
 tags: [reference, commands, moc]
 type: index
 ---
@@ -182,7 +182,18 @@ Quick-scan table for all slash commands in `.claude/commands/`. For full command
 | **Outputs** | Synthesis presented in chat (file optional) |
 | **Related** | [[../brain/Workflows#Weekly Review]] |
 
-## Knowledge Promotion Commands
+## Thinking & Promotion Commands
+
+### `/think`
+
+| | |
+|---|---|
+| **Purpose** | Scaffold a thinking note with standard structure (Question, Analysis, Conclusions, Next Steps) |
+| **Usage** | `/think <topic>` or `/think <topic> for <context>` |
+| **Subagents** | None |
+| **When to use** | Before starting structured reasoning on an open question — makes later promotion clean |
+| **Outputs** | `thinking/YYYY-MM-DD-<slug>.md` with frontmatter and standard sections |
+| **Related** | [[../brain/playbooks/Promote Thinking]] |
 
 ### `/promote`
 
@@ -206,6 +217,30 @@ Quick-scan table for all slash commands in `.claude/commands/`. For full command
 | **Outputs** | List of suggested links, optional auto-apply |
 | **Related** | [[../brain/playbooks/Find Missing Links]] |
 
+## Verification & Curation Commands (adapted from oh-my-claudecode)
+
+### `/verify`
+
+| | |
+|---|---|
+| **Purpose** | Verify a claim/change/note with concrete evidence — code, vault note, factual claim, process, or decision |
+| **Usage** | `/verify <target>` |
+| **Subagents** | `review-fact-checker` (for review claims), `omc-verifier` (general) |
+| **When to use** | Before claiming "done" on any task; when a review draft needs fact-checking |
+| **Outputs** | Structured verdict (VERIFIED / PARTIALLY / NOT VERIFIED / CONTRADICTED) with evidence |
+| **Related** | [[ohmyclaude-catalog]], [[../brain/playbooks/Run Vault Audit]] |
+
+### `/remember`
+
+| | |
+|---|---|
+| **Purpose** | Curate session findings into the right memory surface (brain topic notes, playbooks, work notes, indexes) |
+| **Usage** | `/remember` (interactive) or `/remember <specific finding>` |
+| **Subagents** | None (uses memory-curator for brain curation when scale warrants) |
+| **When to use** | End of substantive sessions; when scattered insights need durable homes |
+| **Outputs** | Appends to existing notes, creates new ones, updates indexes, flags duplicates/conflicts |
+| **Related** | [[ohmyclaude-catalog]], [[../brain/Memories]], [[../brain/playbooks/Promote Thinking]] |
+
 ## Cross-Reference Tables
 
 ### Commands by phase
@@ -216,7 +251,8 @@ Quick-scan table for all slash commands in `.claude/commands/`. For full command
 | Capture | `/capture-1on1`, `/incident-capture`, `/slack-scan`, `/dump` |
 | Performance | `/peer-scan`, `/review-brief`, `/self-review`, `/review-peer`, `/humanize` |
 | Maintenance | `/vault-audit`, `/vault-upgrade`, `/project-archive`, `/weekly` |
-| Promotion | `/promote`, `/connect` |
+| Thinking & Promotion | `/think`, `/promote`, `/connect` |
+| Verification & Curation | `/verify`, `/remember` |
 
 ### Commands by subagent invoked
 
@@ -229,7 +265,9 @@ Quick-scan table for all slash commands in `.claude/commands/`. For full command
 | `review-prep` | `/review-brief` |
 | `brag-spotter` | `/wrap-up`, `/weekly` |
 | `vault-migrator` | `/vault-upgrade` |
-| `review-fact-checker` | `/self-review`, `/review-peer` (called internally) |
+| `review-fact-checker` | `/self-review`, `/review-peer`, `/verify` (called internally) |
+| `omc-verifier` | `/verify` (general verification) |
+| `memory-curator` | `/remember` (for large-scale brain curation) |
 
 ## Related
 

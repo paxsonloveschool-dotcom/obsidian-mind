@@ -1,5 +1,5 @@
 ---
-date: 2026-04-13
+date: 2026-04-15
 description: Meta documentation of the obsidian-mind vault — folder roles, frontmatter contracts, dataflow between commands and agents and bases
 tags: [reference, architecture, moc]
 type: index
@@ -38,8 +38,8 @@ obsidian-mind/
 ├── thinking/                # Scratchpad — promote then delete
 ├── templates/               # Note templates
 └── .claude/                 # Claude Code configuration
-    ├── commands/            # 15 slash commands
-    ├── agents/              # 9 subagents
+    ├── commands/            # 20 slash commands
+    ├── agents/              # 28 subagents (11 vault-native + 17 omc-adapted)
     ├── scripts/             # Hook scripts
     ├── settings.json        # Hook configuration
     └── skills/              # Skills (obsidian, qmd, defuddle, etc.)
@@ -213,11 +213,11 @@ Delete thinking note
 | UserPromptSubmit | `.claude/scripts/classify-message.py` | Match user input against signal patterns, inject routing hints |
 | PostToolUse (Write/Edit/MultiEdit) | `.claude/scripts/validate-write.py` | Check frontmatter has date/description/tags, check for wikilinks |
 | PreCompact | `.claude/scripts/pre-compact.sh` | Backup session transcript to thinking/session-logs/ |
-| Stop | inline echo | Print session-end checklist |
+| Stop | `.claude/scripts/stop-checklist.sh` | Real vault health check (uncommitted changes, stale thinking, orphans, missing frontmatter) |
 
 ## Bases (the dynamic layer)
 
-7 `.base` files in `bases/`. Each renders as a queryable view.
+9 `.base` files in `bases/`. Each renders as a queryable view.
 
 | Base | Filter source | Surface |
 |------|---------------|---------|
@@ -228,6 +228,8 @@ Delete thinking note
 | `Review Evidence` | `perf/**` filtered by `cycle`, `person` | Review materials |
 | `Competency Map` | `perf/competencies/**` with backlink count | Competencies and their evidence |
 | `Templates` | `templates/**` | All templates |
+| `Playbooks` | `brain/playbooks/**` with reference count | Playbook catalog by usage and recency |
+| `Brain Topics` | `brain/` (excluding playbooks) with age flag | Brain topic notes with stale-flag view |
 
 Bases are filterable, sortable, and embeddable in markdown notes via `![[<base>]]`.
 
@@ -262,7 +264,11 @@ The vault is at template version 3.3.0 per `vault-manifest.json`. Version finger
 
 - [[command-reference]]
 - [[agent-reference]]
+- [[ohmyclaude-catalog]] — imported agents/skills catalog
+- [[README|Reference index]]
+- [[codebase-doc-template]] — template for project reference docs
 - [[../brain/Capabilities]]
 - [[../brain/Workflows]]
 - [[../brain/Patterns]]
+- [[../brain/Build Log]] — session-by-session expansion history
 - [[../CLAUDE]]
