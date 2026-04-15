@@ -39,6 +39,11 @@ See [[Automation#Build Order (Priority)]] for the full rationale. Summary:
 6. [ ] **Content / social / email drafting** (Week 8-10, volume play)
 7. [ ] **Deliverable QC agent** (Week 10-12, quality safety net)
 
+## Per-Business Sub-Projects
+
+- [[Restore Marketing Automation/README|Restore Marketing Co Automation]] — **scaffolding complete, awaiting owner config + credentials.** 8 agents, 7 workflows, 4 executable scripts, full architecture, runbook, escalation rules, monitoring. See [[Restore Marketing Automation/open-questions|open questions]] for what's blocking go-live.
+- [ ] **HP Landscaping Automation** — not yet built. Different schema (seasonal, route-based, crew-dispatched, local). Will be forked from the Restore structure after Restore v0.1 ships.
+
 ## Composition
 
 Skills available for this work (all vendored into `.claude/skills/`):

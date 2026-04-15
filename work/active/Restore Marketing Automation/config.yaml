@@ -1,0 +1,251 @@
+# ============================================================================
+# Restore Marketing Co — Automation Config
+# ============================================================================
+# Fill this in to turn the orchestration from scaffolding into a live system.
+# Every field with a TODO marker needs your input. Every field without a TODO
+# has a reasonable default. Comments explain what the field drives.
+#
+# This file is read by every agent at runtime. When you change it, agents
+# pick up the change on their next run — no restart needed.
+#
+# NEVER put API keys or secrets in this file. Credentials go in .env (see
+# integrations.md for the pattern).
+# ============================================================================
+
+company:
+  name: "Restore Marketing Co"
+  legal_entity: "TODO: LLC name / DBA / corporation"
+  owner: "TODO: your full legal name (shows on contracts)"
+  email: "TODO: primary business email"
+  phone: "TODO: business phone (optional but useful for contracts)"
+  website: "TODO: https://restoremarketing.co or similar"
+  time_zone: "TODO: e.g. America/New_York, America/Los_Angeles"
+  business_hours:
+    start: "09:00"
+    end: "17:00"
+    days: ["Mon", "Tue", "Wed", "Thu", "Fri"]
+  tax_id: "TODO: EIN / Tax ID (only used on invoices)"
+  address:
+    line1: "TODO"
+    line2: ""
+    city: "TODO"
+    state: "TODO"
+    zip: "TODO"
+    country: "USA"
+
+# ============================================================================
+# SERVICES — what Restore Marketing Co actually sells
+# ============================================================================
+# Every proposal the automation generates is built from one or more of these.
+# List the services you ACTUALLY deliver. If you have more, add them.
+# ============================================================================
+
+services:
+  # Example structure — REPLACE with your real services
+  - id: "website-audit"
+    name: "TODO: Website & Marketing Audit"
+    short_description: "TODO: one-line description"
+    deliverables:
+      - "TODO: what does the client actually receive?"
+    pricing:
+      model: "fixed"          # fixed | hourly | retainer | project
+      amount: 0               # TODO: your price
+      currency: "USD"
+    typical_timeline_days: 7
+    ideal_for: "TODO: what kind of client buys this?"
+
+  - id: "monthly-retainer"
+    name: "TODO: Full-Service Marketing Retainer"
+    short_description: "TODO"
+    deliverables:
+      - "TODO"
+    pricing:
+      model: "retainer"
+      amount: 0               # TODO: monthly retainer amount
+      currency: "USD"
+      billing_frequency: "monthly"
+    typical_timeline_days: 30
+    ideal_for: "TODO"
+
+  # Add more services as needed — the automation handles any number
+
+# ============================================================================
+# PRICING FLOOR & APPROVAL RULES
+# ============================================================================
+# The proposal agent is allowed to auto-generate within these guardrails.
+# Anything outside these bounds triggers escalation to the owner.
+# ============================================================================
+
+pricing_rules:
+  minimum_deal_size: 0          # TODO: USD; proposals below this get escalated
+  maximum_auto_approved: 0      # TODO: USD; proposals above this require owner approval
+  discount_ceiling_pct: 0       # TODO: max % discount agent may offer without asking
+  payment_terms_default: "Net 15"     # Net 7 / Net 15 / Net 30
+  retainer_commitment_months: 3 # Minimum retainer term before rollover
+
+# ============================================================================
+# ICP — Ideal Client Profile
+# ============================================================================
+# The qualification agent scores every lead against this. Leads below the
+# threshold are auto-disqualified with a gentle "not the right fit" message.
+# ============================================================================
+
+icp:
+  # Define your ideal client. Used by `icp-builder` and `lead-qualification` skills.
+  company_type: "TODO: e.g. local service businesses, B2B SaaS, DTC e-commerce, professional services"
+  company_size_employees:
+    min: 0                      # TODO
+    max: 0                      # TODO
+  company_revenue_annual:
+    min: 0                      # TODO: USD
+    max: 0                      # TODO: USD
+  industries_good_fit:
+    - "TODO: list industries where you win"
+  industries_avoid:
+    - "TODO: industries you don't serve (or do badly)"
+  geographic_focus:
+    - "TODO: regions you serve"
+  budget_minimum_monthly: 0     # TODO: smallest monthly spend you'll take
+  decision_maker_roles:
+    - "TODO: CEO, Founder, VP Marketing, etc."
+  disqualifiers:
+    - "TODO: automatic reasons to pass (e.g. 'requires equity compensation', 'competing with existing client', 'no marketing budget')"
+
+  scoring:
+    # The qualifier assigns points based on fit. Tune these weights.
+    weights:
+      industry_match: 30
+      budget_fit: 30
+      company_size_fit: 20
+      decision_maker_reached: 15
+      geographic_fit: 5
+    thresholds:
+      auto_qualify: 70          # Score >= this → auto-route to discovery call
+      gray_zone: 50             # 50-69 → escalate to owner for judgment call
+      auto_disqualify: 49       # < 50 → polite decline, archived with reason
+
+# ============================================================================
+# TEAM — who touches the system besides the owner
+# ============================================================================
+
+team:
+  owner:
+    name: "TODO: your name"
+    email: "TODO"
+    role: "founder"
+    can_approve_proposals: true
+    can_approve_contracts: true
+  members: []
+  # Add employees / contractors here as the team grows:
+  # - name: "Contractor Name"
+  #   email: "..."
+  #   role: "designer" | "writer" | "developer" | "strategist"
+  #   can_approve_proposals: false
+  #   can_approve_contracts: false
+
+# ============================================================================
+# AGENT AUTONOMY LEVELS
+# ============================================================================
+# Controls how much each agent can do without asking. Levels:
+#   - review-required: agent drafts, owner reviews + approves before sending
+#   - review-optional: agent sends, summary posted to owner for passive review
+#   - fully-autonomous: agent sends, no owner touch unless escalation triggered
+#
+# RECOMMENDATION: start every agent at review-required for the first month.
+# Promote to review-optional after 5 successful runs. Promote to fully-
+# autonomous after 20 successful runs + zero escalations.
+# ============================================================================
+
+agent_autonomy:
+  intake_qualification: "review-optional"   # Low risk, high volume
+  proposal: "review-required"               # High risk, client-facing, revenue-impacting
+  onboarding: "review-optional"             # Standard content, medium risk
+  project_coordinator: "fully-autonomous"   # Internal only, low risk
+  deliverable_qc: "review-required"         # Quality gate, owner should see fails
+  invoicing: "review-required"              # Start here, promote after v0.1 validation
+  reporting: "fully-autonomous"             # Data aggregation, low risk
+  retention: "review-required"              # Relationship-sensitive, high risk
+
+# ============================================================================
+# OPERATIONAL RHYTHM — when automations fire
+# ============================================================================
+
+schedules:
+  weekly_client_report:
+    day: "Monday"
+    time: "08:00"
+  monthly_invoicing:
+    day_of_month: 1
+    time: "09:00"
+  renewal_check:
+    cadence: "weekly"
+    day: "Friday"
+    days_before_renewal_to_alert: 30
+  payment_chase:
+    first_reminder_days_overdue: 3
+    second_reminder_days_overdue: 10
+    escalation_days_overdue: 21
+
+# ============================================================================
+# ESCALATION RECIPIENTS — where do agent questions go
+# ============================================================================
+
+escalation:
+  primary_channel: "TODO"   # options: email | slack | vault-only | sms
+  primary_recipient: "TODO" # email address, slack @handle, phone, or vault note path
+  severity_override:
+    critical: []    # Channels for critical-only (e.g., SMS only for urgent)
+    normal: []      # Default channels
+
+# ============================================================================
+# BRAND — how agents write and design
+# ============================================================================
+# Used by proposal, onboarding, and reporting agents for voice consistency.
+# Pairs with the installed `brand` + `market-brand` + `building-brand` skills.
+# ============================================================================
+
+brand:
+  voice_attributes:
+    - "TODO: e.g. direct, bold, not-corporate, confident, straight-talking"
+  tone_do:
+    - "TODO: e.g. use 'you' and 'we', cite specifics, show receipts"
+  tone_avoid:
+    - "TODO: e.g. no jargon, no hedging, no generic claims"
+  signature_phrases:
+    - "TODO: phrases you actually say"
+  forbidden_phrases:
+    - "TODO: things you'd never say (no 'synergy', no 'world-class', etc.)"
+  visual_identity:
+    primary_color: "TODO: #hex"
+    secondary_color: "TODO: #hex"
+    accent_color: "TODO: #hex"
+    heading_font: "TODO: Google Font name"
+    body_font: "TODO: Google Font name"
+    logo_path: "TODO: path to logo svg/png"
+
+# ============================================================================
+# METRICS & KPIs
+# ============================================================================
+# The reporting agent tracks these and alerts on thresholds. See monitoring.md.
+# ============================================================================
+
+kpi_targets:
+  leads_per_week: 0             # TODO: your target
+  qualified_rate_pct: 50        # Baseline, tune after first month
+  proposal_to_close_rate_pct: 25 # Baseline
+  average_deal_size_usd: 0      # TODO
+  monthly_recurring_revenue_target: 0 # TODO
+  churn_rate_monthly_pct_max: 5
+  owner_hours_per_week_target: 20  # We want to reduce this — tune downward
+
+# ============================================================================
+# FEATURE FLAGS
+# ============================================================================
+
+features:
+  auto_send_proposals: false        # Promote after review-required → review-optional
+  auto_send_invoices: false         # Promote after v0.1 validation
+  auto_chase_payments: false        # Promote after invoice v0.1 validation
+  auto_generate_reports: true       # Low risk
+  auto_disqualify_leads: true       # Low risk, high volume
+  auto_onboarding_email: false      # Promote after first successful manual run
