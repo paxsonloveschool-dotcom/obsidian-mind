@@ -28,6 +28,7 @@ CLAUDE.md describes *what* the vault is. Playbooks describe *how to do things in
 | [[Run Vault Audit]] | The vault feels messy or before a substantive session |
 | [[Emergency Token Triage]] | Context is filling up faster than expected |
 | [[Sync Self-Description]] | CLAUDE.md / README / CHANGELOG / vault-manifest lag behind the operational layer |
+| [[Sync to Profile]] | Promote portable vault items (omc agents, /verify, /think, Emergency Token Triage) to user-level `~/.claude/` so they work in every Claude Code session |
 
 ## Playbook conventions
 

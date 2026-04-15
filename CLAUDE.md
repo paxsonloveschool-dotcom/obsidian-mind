@@ -86,7 +86,7 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation and [[refe
 | `perf/evidence/` | PR deep scans, data extracts for reviews | Named `<Person> PRs - <Period>.md` |
 | `perf/<cycle>/` | Review cycle briefs + artifacts | Review briefs (private, manager, peer) |
 | `brain/` | Claude's operational knowledge | `Memories`, `North Star`, `Build Log`, `Key Decisions`, `Patterns`, `Gotchas`, `Skills`, `Workflows`, `Capabilities` |
-| `brain/playbooks/` | Repeatable procedures Claude follows | 11 playbooks; see `README.md` |
+| `brain/playbooks/` | Repeatable procedures Claude follows | 12 playbooks; see `README.md` |
 | `org/` | Organizational knowledge index | `People & Context.md` (MOC) |
 | `org/people/` | Atomic person notes | One note per person |
 | `org/teams/` | Team notes as graph nodes | One note per team |
@@ -395,6 +395,7 @@ Repeatable procedures in `brain/playbooks/`. When a task matches a playbook shap
 | [[brain/playbooks/Run Vault Audit]] | Vault feels messy, or before a substantive session |
 | [[brain/playbooks/Emergency Token Triage]] | Context is filling up faster than expected |
 | [[brain/playbooks/Sync Self-Description]] | CLAUDE.md / README / CHANGELOG lag behind reality |
+| [[brain/playbooks/Sync to Profile]] | Promote portable items (omc agents, /verify, /think) to user-level `~/.claude/` |
 
 ## Continuous Self-Improvement
 
@@ -412,6 +413,56 @@ The vault is a **self-editing system**. When you add a new command, agent, hook,
 **The sync playbook** ([[brain/playbooks/Sync Self-Description]]) describes the full procedure. It exists specifically because this layer is the one most likely to fall behind.
 
 **At session end**, if the session added anything to `.claude/`, `brain/`, `bases/`, or `reference/`, the wrap-up routine must run the sync playbook — not just update the Build Log.
+
+## Profile Sync (vault → user-level `~/.claude/`)
+
+Not everything in this vault is vault-specific. The 17 `omc-*` subagents, the portable versions of `/verify` and `/think`, and the `Emergency Token Triage` playbook all work in any Claude Code session regardless of project. These should live at **user level** (`~/.claude/`) so they're available everywhere — not just when you're inside this vault.
+
+**The script**: `scripts/sync-to-profile.sh` promotes the portable subset to `~/.claude/`. It reads `profile-sync-manifest.json` as the source of truth for what's portable vs vault-specific.
+
+**Usage**:
+
+```bash
+bash scripts/sync-to-profile.sh --dry-run    # preview every action
+bash scripts/sync-to-profile.sh              # install / update
+bash scripts/sync-to-profile.sh --uninstall  # remove everything the script installed
+```
+
+**What it installs** (per run):
+
+| Target | Count | Source |
+|--------|-------|--------|
+| `~/.claude/agents/omc-*.md` | 17 | `.claude/agents/omc-*.md` (direct copy — already generic) |
+| `~/.claude/commands/verify.md`, `think.md` | 2 | `scripts/portable/commands/` (generic versions) |
+| `~/.claude/playbooks/Emergency Token Triage.md` | 1 | `scripts/portable/playbooks/` |
+| `~/.claude/CLAUDE.md` managed section | 1 | `scripts/portable/CLAUDE-snippets/user-level-section.md` |
+| `~/.claude/.obsidian-mind-provenance.json` | 1 | Generated at install time |
+
+**Safety**:
+- Every existing file at a target path is backed up to `~/.claude/.obsidian-mind-backup/<timestamp>/` before being overwritten.
+- The managed CLAUDE.md section is bounded by `<!-- obsidian-mind-profile-sync:start ... end -->` markers; content outside the markers is never touched.
+- `--uninstall` removes installed items and strips the managed section but leaves user-authored content intact.
+- `--dry-run` shows every action before any write happens.
+
+**Portable vs vault-specific (the classification rule)**:
+
+- **Portable** — pure software engineering. No dependency on `brain/`, `work/`, `org/`, `perf/`, `bases/`, or Obsidian wikilinks.
+- **Vault-specific** — depends on the vault structure or conventions. Stays at project level.
+
+See [[brain/playbooks/Sync to Profile]] for the full playbook and [[profile-sync-manifest]] for the declarative manifest.
+
+**When to run the sync**:
+
+- After upgrading this vault (new omc agents, new portable commands)
+- On a new machine where you want `/verify` and `omc-*` available everywhere
+- When you suspect drift between vault and `~/.claude/`
+- After the Sync Self-Description playbook reports new portable items
+
+**When NOT to run it**:
+
+- If you've heavily customized `~/.claude/CLAUDE.md` — the managed section is safe, but always dry-run first
+- If you want vault-specific hooks or agents at user level — they won't work there
+- If `~/.claude/` is managed by another tool that you don't want to conflict with
 
 ## Hooks
 

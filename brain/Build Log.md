@@ -13,6 +13,98 @@ Append-only record of how the obsidian-mind vault has been expanded. This is the
 
 ---
 
+## 2026-04-15 — Session 5: Profile sync — promote portable items to `~/.claude/`
+
+### Goal
+
+User asked: "how can we get this to be synced up into the roots of parameters for all of my claude code profiles"
+
+Translation: the vault now has a substantial set of capabilities (20 commands, 28 agents, 12 playbooks, 9 bases) but they only work when Claude Code is running **inside this vault**. The user wants the portable subset (omc agents, general commands, general playbooks) available at **user level** (`~/.claude/`) so they work in every Claude Code session regardless of project.
+
+### Classification (the first decision)
+
+Audited each vault item for portability. The rule: does it depend on `brain/`, `work/`, `org/`, `perf/`, `bases/`, or Obsidian wikilinks? If yes → vault-specific, stays at project level. If no → portable, can be promoted.
+
+- **Portable**: 17 omc-* agents (pure software engineering, already generic) + portable versions of `/verify` and `/think` (stripped of vault-specific sections) + `Emergency Token Triage` playbook (general context-pressure handling)
+- **Vault-specific**: 11 vault-native agents, 18 other commands, all 5 hooks, all vault-specific skills, all brain topic notes, all other playbooks — all would fail or produce wrong output outside the vault
+
+### Built (across two commits this session)
+
+**Commit eb387ea — mechanism**
+
+- `profile-sync-manifest.json` — declarative manifest. Lists what's portable, what's vault-specific, backup policy, provenance spec. The install script reads this as source of truth so adding new portable items later is a one-line manifest edit.
+- `scripts/sync-to-profile.sh` — the installer. Reads the manifest, copies files to `~/.claude/`, backs up existing files, writes a managed section in `~/.claude/CLAUDE.md`, writes a provenance marker. Supports `--dry-run`, `--uninstall`, `--help`. Uses Python (no jq dep) to parse the manifest.
+- `scripts/portable/commands/verify.md` — portable version. Strips vault-specific references, keeps the general verification workflow and the five target classes (code, document, factual claim, process, decision).
+- `scripts/portable/commands/think.md` — portable version. Same scaffold but generic frontmatter (no vault-specific fields) and generic `thinking/` folder assumption.
+- `scripts/portable/playbooks/Emergency Token Triage.md` — portable version. No vault references, general principles that apply in any Claude Code session.
+- `scripts/portable/CLAUDE-snippets/user-level-section.md` — the managed section injected into `~/.claude/CLAUDE.md`. Bounded by `<!-- obsidian-mind-profile-sync:start ... end -->` markers. Lists installed items, operating principles, sync instructions. Re-runs replace the section in place; everything outside the markers is untouched.
+
+**This commit — documentation**
+
+- `brain/playbooks/Sync to Profile.md` — the full playbook. Trigger, principle, 6-step workflow (dry-run → install → verify → provenance check → Build Log → audit drift). Uninstall procedure. Anti-patterns (manual `cp -r`, editing managed section, skipping dry-run, forgetting to re-sync).
+- `CLAUDE.md` — new "Profile Sync" section after "Continuous Self-Improvement" explaining the script, what's portable, when to run, when NOT to run. Playbooks table updated with Sync to Profile row. Playbooks folder count 11→12.
+- `README.md` — new "Installing to all Claude Code profiles" section between Playbooks and Upgrading. Shows dry-run → install → uninstall commands with explanation of what gets installed, safety mechanism, verification steps. Playbooks table updated.
+- `brain/playbooks/README.md` — Sync to Profile row added
+- `brain/Memories.md` — Sync to Profile added to playbook index
+- `vault-manifest.json` — bumped to 3.5.0; added `scripts/**`, `profile-sync-manifest.json`, and `brain/playbooks/Sync to Profile.md` to infrastructure; added v3.5 fingerprint keyed on `scripts/sync-to-profile.sh`, `profile-sync-manifest.json`, `brain/playbooks/Sync to Profile.md`, `scripts/portable/commands/verify.md`; v3.4's `missing` array now points at `scripts/sync-to-profile.sh`
+- `CHANGELOG.md` — v3.5 entry with Added / Changed / Tested sections
+
+### Key decisions this session
+
+- **Manifest drives the script.** The alternative was hardcoding paths in the bash script. With a manifest, adding a new portable item is a JSON edit, not a script edit. The script is data-driven. This also makes uninstall deterministic — it removes exactly what the manifest declares.
+- **Managed section with HTML-comment markers.** The alternative was replacing the entire `~/.claude/CLAUDE.md`. That would clobber user customizations. Bounded markers let the script update the section in place without touching anything else. Re-runs are safe.
+- **Per-file backups, timestamped.** The alternative was a single "restore from last backup" slot. Multiple timestamped backups are safer — users can roll back to any prior state if something breaks.
+- **Python over jq for manifest parsing.** The alternative was adding a jq dependency. Python 3 is already required for other hook scripts; reusing it means no new install burden.
+- **Skip `sync-from-profile.sh` for now.** A bidirectional sync would let users push changes from `~/.claude/` back into the vault. That's a future possibility but adds complexity (merge conflicts, whose version wins?). Deferred until there's a real use case.
+- **While-read loops for filename handling.** Caught during smoke test — the original for-loop split on whitespace and broke `Emergency Token Triage.md`. Fixed to `while IFS= read -r`. Now handles any filename.
+- **Shadow semantics**: user-level `/verify` at `~/.claude/commands/verify.md` is the portable version; the vault's `.claude/commands/verify.md` is the richer vault-aware version. Claude Code loads project-level first, so inside the vault you get the richer version, outside you get the portable version. Both exist; they don't conflict.
+
+### Smoke tests passed
+
+With `CLAUDE_HOME=/tmp/fake-claude-home`:
+
+1. **Dry run** — preview of every action, no writes ✓
+2. **First install** — 21 files written (17 agents + 2 commands + 1 playbook + managed CLAUDE.md section), provenance marker written, backup dir created but empty ✓
+3. **Second install** — all 21 files backed up to `.obsidian-mind-backup/<ts>/` before being overwritten ✓
+4. **Uninstall** — installed files removed, managed section stripped from CLAUDE.md, rest of CLAUDE.md intact, provenance marker removed ✓
+
+### Files touched
+
+```
+profile-sync-manifest.json                              created
+scripts/sync-to-profile.sh                              created (chmod +x)
+scripts/portable/commands/verify.md                     created
+scripts/portable/commands/think.md                      created
+scripts/portable/playbooks/Emergency Token Triage.md    created
+scripts/portable/CLAUDE-snippets/user-level-section.md  created
+brain/playbooks/Sync to Profile.md                      created
+brain/playbooks/README.md                               updated (Sync to Profile row)
+brain/Memories.md                                       updated (playbook index)
+CLAUDE.md                                               updated (Profile Sync section, playbooks table, folder count)
+README.md                                               updated (Installing section, playbooks table)
+CHANGELOG.md                                            appended (v3.5 entry)
+vault-manifest.json                                     updated (3.5.0 bump, scripts/**, v3.5 fingerprint)
+brain/Build Log.md                                      appended (this entry)
+```
+
+### Next suggested steps (for session 6)
+
+1. **Actually run the sync on the user's machine.** This session built and tested the mechanism but cannot reach the user's real `~/.claude/` from this sandboxed environment. User should run `bash scripts/sync-to-profile.sh --dry-run` first, then the real install.
+2. **Verify in a fresh session.** After install, open a Claude Code session in a non-vault project and try `/verify` and `omc-critic`. Validates the install end-to-end.
+3. **Consider `/sync` slash command** that wraps the shell script for users who prefer a slash-command UX over `bash scripts/...`.
+4. **Consider `sync-from-profile.sh`** if users start customizing `~/.claude/` and want those changes back in the vault. Deferred until a real use case exists.
+5. **Add a drift-detection check** to `stop-checklist.sh` or a new hook: if `~/.claude/.obsidian-mind-provenance.json` shows an older version than the vault's current version, warn the user to re-sync. This closes the loop on "continuous self-improvement."
+6. **Multi-machine workflow**: document how to keep multiple machines in sync (e.g., git-pull the vault on each machine, run sync on each). Belongs in a new playbook or in the Sync to Profile playbook's "Advanced" section.
+7. **Consider symlink mode** as an opt-in (`--symlink` flag). Symlinks would keep user-level in live sync with the vault instead of requiring re-runs, but they break if the vault moves. Default stays as copy-based.
+
+### Open questions for session 6
+
+- Does the user want a `/sync` slash command wrapper, or is `bash scripts/sync-to-profile.sh` fine?
+- Should re-running the sync be wired into `/wrap-up`? It would catch drift automatically but might run too often.
+- How should multi-machine sync work — via the vault's git repo pushed/pulled on each machine, or via a separate config-sync mechanism?
+
+---
+
 ## 2026-04-15 — Session 4: Self-description sync + continuous improvement mechanism
 
 ### Goal

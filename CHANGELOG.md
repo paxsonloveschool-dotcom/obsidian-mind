@@ -1,5 +1,54 @@
 # Changelog
 
+## v3.5 — 2026-04-15
+
+Profile sync: promote the portable subset of this vault to user-level `~/.claude/` so the omc agents, `/verify`, `/think`, and `Emergency Token Triage` work in every Claude Code session, not just inside this vault.
+
+### Added
+
+**Profile sync mechanism**
+- `profile-sync-manifest.json` — declarative manifest of what's portable vs vault-specific, with rationale, backup policy, and provenance spec. Source of truth for the install script.
+- `scripts/sync-to-profile.sh` — installer that promotes portable items to `~/.claude/`. Supports `--dry-run`, `--uninstall`, per-file backups to `~/.claude/.obsidian-mind-backup/<timestamp>/`, and a managed CLAUDE.md section bounded by HTML-comment markers. Reads the manifest; no hardcoded paths.
+- `scripts/portable/commands/verify.md` — portable version of `/verify` (strips vault-specific sections, keeps generic verification workflow)
+- `scripts/portable/commands/think.md` — portable version of `/think` (generic thinking-note scaffold)
+- `scripts/portable/playbooks/Emergency Token Triage.md` — portable version (general context-pressure handling, no vault references)
+- `scripts/portable/CLAUDE-snippets/user-level-section.md` — the managed section injected into `~/.claude/CLAUDE.md` listing installed items, operating principles, and sync instructions
+
+**Playbook**
+- `brain/playbooks/Sync to Profile.md` — playbook for running the sync. Covers dry-run → install → verify → update Build Log → uninstall fallback. Anti-patterns include manual `cp -r`, editing the managed section, skipping `--dry-run`, and forgetting to re-sync after vault upgrades.
+
+### What the sync installs
+
+| Target | Items |
+|--------|-------|
+| `~/.claude/agents/` | 17 `omc-*` agents (direct copies — already generic) |
+| `~/.claude/commands/` | `verify.md`, `think.md` (portable versions) |
+| `~/.claude/playbooks/` | `Emergency Token Triage.md` |
+| `~/.claude/CLAUDE.md` (bounded section) | Managed listing of installed items + operating principles |
+| `~/.claude/.obsidian-mind-provenance.json` | Install record — vault version, source path, timestamp |
+
+### Changed
+
+- `CLAUDE.md` — added "Profile Sync" section after "Continuous Self-Improvement"; updated Playbooks table to include Sync to Profile; bumped playbooks folder count (11 → 12)
+- `README.md` — added "Installing to all Claude Code profiles" section between Playbooks and Upgrading; added Sync to Profile row to Playbooks table
+- `brain/playbooks/README.md` — added Sync to Profile row
+- `brain/Memories.md` — added Sync to Profile to playbook index table
+- `vault-manifest.json` — bumped to 3.5.0; added `scripts/**` and `profile-sync-manifest.json` to infrastructure; added `brain/playbooks/Sync to Profile.md` to infrastructure; added v3.5 fingerprint; v3.4 `missing` now points at `scripts/sync-to-profile.sh`
+
+### Tested
+
+End-to-end with `CLAUDE_HOME=/tmp/fake-claude-home`:
+
+- Dry run — preview every action ✓
+- First install — 21 files written, managed CLAUDE.md section injected, provenance marker written ✓
+- Second install — all 21 files backed up to `<timestamp>/` before overwriting ✓
+- Uninstall — installed files removed, managed section stripped, rest of CLAUDE.md untouched ✓
+- Filenames with spaces (`Emergency Token Triage.md`) — handled via while-read loop (initial for-loop had a bug, caught by smoke test) ✓
+
+### Continuity
+
+Session 5 entry in `brain/Build Log.md` documents the full approach, design decisions (line-read loop fix, managed-section marker strategy, why we skipped `sync-from-profile.sh` for now), and next suggested steps.
+
 ## v3.4 — 2026-04-15
 
 A large expansion session landing the operational-memory layer, a set of curated sub-systems, an import from oh-my-claudecode, and the sync machinery that keeps this layer from drifting from reality. Commits: `eb0c945`, `773df6c`, `c7e22ca`, `4bd270f`, plus v3.4 self-description sync.

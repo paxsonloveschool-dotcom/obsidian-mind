@@ -39,6 +39,7 @@ Concrete step-by-step procedures. See [[playbooks/README]] for the index.
 | [[playbooks/Run Vault Audit]] | Vault hygiene check |
 | [[playbooks/Emergency Token Triage]] | Context window pressure |
 | [[playbooks/Sync Self-Description]] | CLAUDE.md / README / CHANGELOG / vault-manifest lag behind the operational layer |
+| [[playbooks/Sync to Profile]] | Promote portable vault items (omc agents, /verify, /think) to user-level `~/.claude/` |
 
 ## Structural Reference (reference/)
 

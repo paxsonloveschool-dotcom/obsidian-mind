@@ -252,8 +252,59 @@ Repeatable procedures in `brain/playbooks/`. When a task matches a playbook shap
 | Run Vault Audit | Vault feels messy or before a substantive session |
 | Emergency Token Triage | Context is filling up faster than expected |
 | Sync Self-Description | CLAUDE.md / README / CHANGELOG / vault-manifest lag behind reality |
+| Sync to Profile | Promote portable items (omc agents, /verify, /think) to `~/.claude/` user level |
 
 The `playbook-generator` subagent turns any recurring pattern into a new playbook automatically.
+
+---
+
+## 🌐 Installing to all Claude Code profiles
+
+Most of what's in this vault is vault-specific — the 11 vault-native agents, the capture commands, the hooks — they depend on `brain/`, `work/`, `org/`, `perf/`, and Obsidian wikilinks. But a meaningful **portable** subset works anywhere: 17 pure software-engineering agents (from [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)), generic versions of `/verify` and `/think`, and the `Emergency Token Triage` playbook.
+
+Promote the portable subset to your user-level Claude Code config (`~/.claude/`) so it's available in **every** Claude Code session regardless of project:
+
+```bash
+# 1. Preview — see exactly what will be installed, backed up, and updated
+bash scripts/sync-to-profile.sh --dry-run
+
+# 2. Install
+bash scripts/sync-to-profile.sh
+
+# 3. (anytime) Uninstall — removes installed items and strips the managed section
+bash scripts/sync-to-profile.sh --uninstall
+```
+
+**What gets installed:**
+
+| Target | Items |
+|--------|-------|
+| `~/.claude/agents/` | 17 `omc-*` agents (analyst, architect, critic, code-reviewer, debugger, designer, document-specialist, executor, git-master, planner, qa-tester, scientist, security-reviewer, test-engineer, tracer, verifier, writer) |
+| `~/.claude/commands/` | Portable versions of `/verify` and `/think` |
+| `~/.claude/playbooks/` | `Emergency Token Triage` (context-pressure handling) |
+| `~/.claude/CLAUDE.md` | A managed section listing everything installed (bounded by `<!-- obsidian-mind-profile-sync:start/end -->` markers) |
+| `~/.claude/.obsidian-mind-provenance.json` | Install record — version, source path, timestamp |
+
+**Safety:**
+
+- Every existing file at a target path is backed up to `~/.claude/.obsidian-mind-backup/<timestamp>/` before being overwritten.
+- The managed CLAUDE.md section is bounded by HTML comment markers — content outside the markers is never touched.
+- `--dry-run` previews every action before any write.
+- `--uninstall` removes the managed section and the installed files but leaves user-authored content intact.
+
+**How to verify the install:**
+
+1. Start a fresh Claude Code session in any non-vault project
+2. Try `/verify hello world` — the command should be available
+3. Try invoking an agent via the Task tool with `subagent_type: "omc-critic"` — it should resolve
+
+**When to re-run:**
+
+- After upgrading this vault (new omc agents or portable commands become available)
+- On a new machine where you want the portable set available
+- When you suspect drift between the vault and your `~/.claude/`
+
+What's portable vs vault-specific is declared in `profile-sync-manifest.json`. The full procedure is in [[brain/playbooks/Sync to Profile]]. Your vault remains the single source of truth; the sync script re-reads it every run.
 
 ---
 
