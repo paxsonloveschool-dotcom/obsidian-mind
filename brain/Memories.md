@@ -17,6 +17,8 @@ type: index
 - **3-year vision**: Buy and sell companies. Retired. See [[North Star]].
 - **Q2 2026 focus**: [[Agent Orchestration Buildout]] — automate 80% of operator work
 - **Works**: Solo builder — when Claude talks about "the team" it means the user + agents
+- **Restore Marketing Co services**: Full-service local marketing agency — websites (project), + retainers for paid ads (Google + Meta), SEO, Google Business Profile, and full-service bundles. ICP: local service businesses, owner-operated, "near me" search driven (HVAC, plumbing, dental, legal, restaurants, salons, etc.)
+- **Primary tech stack**: **GoHighLevel (GHL) is used heavily** — source of truth for contacts, pipelines, opportunities, email, SMS, scheduling, invoicing, workflows, reputation. The Restore automation uses GHL as the primary integration via `work/active/Restore Marketing Automation/scripts/adapters/ghl.py`. When capturing anything about Restore's operations, assume GHL is involved. When suggesting workflows, consider whether GHL's native automation engine can handle it before writing custom code.
 
 **Behavioral implication**: Vault workflows inherited from the corporate-employee template (1:1 meetings with a manager, peer reviews, performance cycles, brag doc for promotion) don't directly apply. Repurpose them for founder context — "1:1" becomes "check-in with self or key contractor," "peer review" becomes "client post-mortem," "brag doc" becomes "win log for sales / M&A storytelling." Don't offer `/capture-1on1` or `/review-brief` in their original context. Offer the repurposed versions.
 

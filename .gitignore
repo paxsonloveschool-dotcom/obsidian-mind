@@ -21,3 +21,16 @@ thinking/session-logs/
 __pycache__/
 *.pyc
 .coverage
+
+# Credentials — NEVER commit these
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+service-account-*.json
+
+# Adapter logs (local observability, regenerated)
+work/active/*/runs/*.log
+work/active/*/runs/*ghl-adapter*

@@ -361,3 +361,95 @@ features:
   auto_generate_reports: true       # Low risk
   auto_disqualify_leads: true       # Low risk, high volume
   auto_onboarding_email: false      # Promote after first successful manual run
+
+# ============================================================================
+# GoHighLevel (GHL) — primary integration platform
+# ============================================================================
+# Restore Marketing Co uses GHL heavily. It's the source of truth for contacts,
+# opportunities, pipelines, calendars, invoices, workflows, and SMS/email.
+#
+# Credentials live in .env (GHL_ACCESS_TOKEN, GHL_LOCATION_ID). See .env.example
+# at the repo root for the template. NEVER commit credentials.
+#
+# This section maps GHL's internal IDs to semantic names the automation uses.
+# You'll need to pull these from your GHL account once and paste them here.
+# ============================================================================
+
+ghl:
+  # Base config — usually no need to change
+  base_url: "https://services.leadconnectorhq.com"
+  api_version: "2021-07-28"
+
+  # Sub-account / location
+  # ----------------------------------------------------------------------
+  # GHL uses "locations" (a.k.a. sub-accounts) to separate data per client.
+  # For Restore Marketing Co's internal automation, use the AGENCY's own
+  # location ID (not a client sub-account). Each client that Restore serves
+  # will eventually get their own location_id managed separately.
+  location_id_source: "env"         # "env" (from GHL_LOCATION_ID) or "config"
+  location_id: ""                   # Only used if location_id_source = "config"
+
+  # Sales pipeline — where new leads land and move toward won/lost
+  # ----------------------------------------------------------------------
+  # Pull these via: python3 scripts/adapters/ghl.py --action pipelines
+  pipeline_id_sales: "TODO"         # The main sales pipeline ID
+  stage_id_new_lead: "TODO"         # First stage — where inbound leads land
+  stage_id_qualified: "TODO"        # After auto-qualification
+  stage_id_gray_zone: "TODO"        # Leads needing owner review
+  stage_id_discovery_booked: "TODO" # After discovery call booked
+  stage_id_discovery_done: "TODO"   # After discovery call held
+  stage_id_proposal_sent: "TODO"    # After proposal sent
+  stage_id_contract_sent: "TODO"    # After contract sent
+  stage_id_won: "TODO"              # Closed won (handoff to onboarding)
+  stage_id_lost: "TODO"             # Closed lost (pass reason captured)
+
+  # Tag names — used for filtering, routing, and reporting
+  # ----------------------------------------------------------------------
+  tags:
+    qualified: "restore:qualified"
+    gray_zone: "restore:gray-zone"
+    disqualified: "restore:disqualified"
+    hot_lead: "restore:hot-lead"
+    competitor_match: "restore:competitor-match"
+    industry_match: "restore:industry-fit"
+    onboarding: "restore:onboarding"
+    active_client: "restore:active-client"
+    at_risk: "restore:at-risk"
+    churned: "restore:churned"
+    renewal_due: "restore:renewal-due"
+
+  # Native GHL workflows to trigger from automation
+  # ----------------------------------------------------------------------
+  # Create these workflows in GHL, then paste their IDs here. The automation
+  # triggers them instead of duplicating the logic in Python.
+  workflow_id_discovery_call_booking: "TODO"   # Sends booking link to qualified leads
+  workflow_id_polite_decline: "TODO"           # Sends decline email to disqualified
+  workflow_id_gray_zone_nudge: "TODO"          # Optional owner alert
+  workflow_id_new_client_onboarding: "TODO"    # Kicks off after contract signed
+  workflow_id_payment_chase_1: "TODO"          # First payment reminder
+  workflow_id_payment_chase_2: "TODO"          # Second payment reminder
+  workflow_id_renewal_warm_up: "TODO"          # 30 days before renewal
+  workflow_id_churn_winback: "TODO"            # Post-churn win-back
+
+  # Calendars
+  # ----------------------------------------------------------------------
+  # Pull via: python3 scripts/adapters/ghl.py --action pipelines (then list_calendars)
+  calendar_id_discovery_calls: "TODO"
+  calendar_id_kickoff_calls: "TODO"
+  calendar_id_renewal_calls: "TODO"
+
+  # Custom field IDs (optional — used for structured lead data)
+  # ----------------------------------------------------------------------
+  custom_fields:
+    lead_score: "TODO"             # Stores the automation's ICP score
+    lead_routing: "TODO"           # qualified | gray-zone | disqualified
+    industry: "TODO"
+    budget_hint: "TODO"
+    timeline_hint: "TODO"
+    services_interested_in: "TODO"
+    audit_findings: "TODO"
+    primary_pain_point: "TODO"
+
+  # Rate limiting — GHL API limits
+  # ----------------------------------------------------------------------
+  rate_limit_per_10s: 100           # Per GHL docs; adapter retries on 429

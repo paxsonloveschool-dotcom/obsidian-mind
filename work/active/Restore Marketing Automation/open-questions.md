@@ -30,19 +30,45 @@ Deliverables, timelines, and ideal clients all filled in. **Only pricing amounts
 - Which ad platforms beyond Google Ads and Meta Ads (LinkedIn? TikTok? YouTube?)?
 - Do you offer one-off audits (website, marketing, SEO) as a paid discovery/qualifier, or only as free prospecting?
 
-### Q2. What tech stack are you currently using?
-One pick per category, or "nothing yet, pick for me." Per [[integrations]]:
-- CRM: ?
-- Email (outbound): ?
-- Invoicing: ?
-- Scheduling: ?
-- E-sign: ?
-- Project management: ?
-- Analytics: ?
-- Messaging: ?
-- File storage: ?
+### Q2. What tech stack are you currently using? — **✅ LARGELY ANSWERED 2026-04-15**
 
-If you don't have answers for all 9, that's fine — the "Quick Start — Minimum Viable Stack" in [[integrations]] is the zero-budget default. Pick which of your current tools you already own, leave the rest at the defaults.
+Owner confirmed: **GoHighLevel (GHL) is used heavily**. GHL covers ~8 of 9 integration categories natively:
+
+| Category | Covered by GHL? |
+|---|---|
+| CRM (contacts, pipelines, opportunities) | ✅ primary |
+| Email (outbound, transactional) | ✅ primary |
+| SMS | ✅ primary |
+| Scheduling (calendars, booking) | ✅ primary |
+| Invoicing + payments | ✅ primary (Stripe-connected) |
+| Workflows / automations | ✅ primary |
+| Reputation (GBP reviews) | ✅ primary |
+| Websites / funnels / blogs | ✅ primary |
+| Phone / call tracking | ✅ primary |
+| Memberships / courses | ✅ primary |
+| Analytics (deep) | ⚠️ basic — GA4/Plausible fallback optional |
+| File storage (large) | ⚠️ limited — Drive/Dropbox fallback optional |
+
+**Architecture updated**: `scripts/adapters/ghl.py` implemented, `integrations.md` rewritten to GHL-first. End-to-end new-lead workflow tested successfully in mock mode (HVAC lead → qualify → create GHL contact → opportunity → tag + stage move + workflow trigger).
+
+**Still needs owner input (GHL-specific, blocks live mode)**:
+
+1. **Credentials**: Create `.env` at repo root with `GHL_ACCESS_TOKEN` and `GHL_LOCATION_ID`. See `.env.example` template.
+2. **Pipeline + stage IDs**: Run `python3 scripts/adapters/ghl.py --action pipelines` against live GHL and paste IDs into `config.yaml` `ghl:` section. Needed: sales pipeline ID + stage IDs for new_lead / qualified / gray_zone / discovery_booked / discovery_done / proposal_sent / contract_sent / won / lost.
+3. **Native workflow IDs**: Create these workflows in GHL's workflow builder, then paste IDs into config:
+   - `workflow_id_discovery_call_booking` — fires when a lead is auto-qualified, sends them a booking link
+   - `workflow_id_polite_decline` — fires when a lead is auto-disqualified
+   - `workflow_id_new_client_onboarding` — fires when a contract is signed
+   - `workflow_id_payment_chase_1` / `workflow_id_payment_chase_2` — invoice reminders at 3 and 10 days overdue
+   - `workflow_id_renewal_warm_up` — 30 days before renewal
+   - `workflow_id_churn_winback` — post-churn
+4. **Calendar IDs**: discovery calls, kickoff calls, renewal calls.
+5. **Custom field IDs**: for structured lead data (score, routing, industry, budget, etc.). Optional but recommended.
+
+**Also still open (non-GHL)**:
+- File storage for large deliverables? (Drive / Dropbox / none)
+- Deeper analytics for client reports? (GA4 / Plausible / GHL-only-is-fine)
+- Messaging for alerts beyond vault? (Slack / email / vault-only)
 
 ### Q3. What's your ICP — ideal client profile? — **✅ PARTIALLY ANSWERED (inferred from services)**
 

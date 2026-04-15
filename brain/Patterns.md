@@ -24,3 +24,8 @@ type: brain
 - Two-part execution: Research & Plan -> Execute & Verify
 - Parallel quality gates: validator + tester simultaneously (40% faster)
 - Version-first: determine version before work starts
+
+## Integration Architecture
+- **Adapter pattern with mock mode by default** — every external system wrapper should degrade gracefully to a mock response when credentials are absent. Lets agents run in dry-run mode without any credentials, and makes smoke tests trivial. Pattern: check `is_live` at adapter init, branch to `_mock_response()` otherwise. Used in [[Restore Marketing Automation/scripts/adapters/ghl|GHL adapter]] — every method returns plausible fake data in mock mode so the full pipeline can be tested end-to-end without hitting an API.
+- **GHL-first for marketing agencies** — if a marketing agency uses GoHighLevel, it almost certainly covers 8 of 9 integration categories (CRM, email, SMS, scheduling, invoicing, workflows, reputation, websites). Do NOT build separate adapters for each — consolidate into one GHL adapter and only add secondary adapters for specific gaps (deep analytics, large-file storage, non-GHL messaging). See [[Restore Marketing Automation/integrations]] for the pattern.
+- **Offload logic to native platform automation where possible** — GHL has its own workflow engine. When the automation needs "when lead is qualified, send a booking link," prefer triggering a native GHL workflow via `add_contact_to_workflow()` over writing the email/SMS/timing logic in Python. The orchestration layer handles the *decision* (should this lead be qualified?); the platform handles the *execution* (send the email, track opens, retry).

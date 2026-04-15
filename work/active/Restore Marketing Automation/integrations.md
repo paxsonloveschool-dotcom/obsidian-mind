@@ -1,7 +1,7 @@
 ---
 date: 2026-04-15
-description: External system adapter spec — CRM, email, invoicing, scheduling, e-sign, project mgmt, analytics. Owner fills in which to use, automation composes around it.
-tags: [work-note, integrations, automation]
+description: Integration architecture — GHL is the primary platform, secondary adapters fill gaps GHL doesn't cover
+tags: [work-note, integrations, automation, ghl]
 type: work-note
 status: active
 quarter: Q2-2026
@@ -10,194 +10,190 @@ project: restore-marketing-automation
 
 # Integrations
 
-> The orchestration is adapter-agnostic. Workflows describe *what* needs to happen; adapters translate to *how* it happens in your specific stack. Pick one provider per category, drop credentials in `.env`, and the automation runs.
+> **Restore Marketing Co uses GoHighLevel (GHL) heavily**, so the integration architecture is **GHL-first**. GHL covers CRM, email, SMS, scheduling, invoicing, workflows, reputation management, and basic websites — roughly 8 of the 9 integration categories in one platform. Secondary adapters only fill specific gaps (fallback transactional email, external analytics, large-file storage, non-GHL messaging).
+
+## Architecture
+
+```
+                     ┌──────────────────────┐
+                     │  Claude Orchestration│   ← decisions, narrative, reasoning
+                     │  (vault-native)      │
+                     └──────────┬───────────┘
+                                │
+                    ┌───────────┴──────────────┐
+                    │                          │
+              ┌─────▼──────┐           ┌──────▼──────┐
+              │ GHL        │           │ Secondary   │
+              │ (primary)  │           │ adapters    │
+              └─────┬──────┘           └──────┬──────┘
+                    │                          │
+   ┌────────────────┼──────────────┐           │
+   │                │              │           │
+   ▼                ▼              ▼           ▼
+ Contacts      Opportunities    Invoices    GA4 / Plausible
+ Email/SMS     Pipelines        Payments    Drive / Dropbox
+ Calendars     Workflows        Reports     Slack / Discord
+ Reputation    Websites         Memberships (fallback only)
+```
+
+**Key insight**: Most agents never touch a secondary adapter. GHL is enough.
 
 ## Credentials Pattern — NEVER commit secrets
 
-Credentials live in `.env` at the repo root (already in `.gitignore`). Each adapter reads from `.env`. Example:
+Credentials live in `.env` at the repo root. `.env` is in `.gitignore`. See `.env.example` at the repo root for the template.
 
-```bash
-# .env — NEVER commit this file
-GMAIL_CLIENT_ID=...
-GMAIL_CLIENT_SECRET=...
-GMAIL_REFRESH_TOKEN=...
-STRIPE_SECRET_KEY=sk_live_...
-CALENDLY_PERSONAL_TOKEN=...
-CRM_API_KEY=...
+**Minimum viable `.env` for GHL-first operation**:
 ```
+GHL_ACCESS_TOKEN=your-bearer-token-here
+GHL_LOCATION_ID=your-location-id-here
+```
+
+Everything else is optional. The adapters degrade gracefully — missing credentials = mock mode, not broken.
 
 Verify `.env` is ignored:
 ```bash
-grep -q "^\.env$" .gitignore || echo ".env" >> .gitignore
+git check-ignore -v .env  # should print: .gitignore:XX:.env .env
 ```
 
-## Required Adapters (pick one per category)
+## Primary: GoHighLevel (GHL)
 
-Every adapter has a **stub implementation** in `scripts/adapters/` that just logs what it would do. Swap the stub for a real implementation when you pick your tool.
+### Why GHL covers most of what we need
 
-### 1. CRM — source of truth for leads, contacts, deals, clients
-
-| Option | Best for | Cost | API maturity |
-|---|---|---|---|
-| **Airtable** | Starting solo, flexible schema | Free → $10/mo | Excellent |
-| **Notion** | Already-using-Notion | Free → $8/mo | Good (via Notion API) |
-| **HubSpot Free** | Proper CRM, room to grow | Free → $15+/mo | Excellent |
-| **Pipedrive** | Sales-pipeline-first | $14+/mo | Good |
-| **Close** | Sales-calls-heavy | $49+/mo | Good |
-| **Monday.com** | Visual boards, many uses | $8+/mo | Good |
-| **Custom (Google Sheets)** | Zero-budget, messy | Free | Minimal |
-
-**Default recommendation for solo founder**: **Airtable** — flexible, free tier handles the first 100 leads, API is first-class, templates exist for marketing agency CRMs. Migration path to HubSpot or Close is clean when the business scales.
-
-**Adapter stub**: `scripts/adapters/crm_stub.py` — replace with `scripts/adapters/crm_airtable.py` when you pick Airtable (or `crm_hubspot.py`, etc.).
-
-### 2. Email — outbound (to prospects, clients), inbound (lead capture)
-
-| Option | Best for | Cost |
+| Integration category | GHL has it? | Notes |
 |---|---|---|
-| **Gmail (Google Workspace)** | You already use Gmail | $6/mo/user |
-| **Outlook 365** | You already use Outlook | $6/mo/user |
-| **Resend** | Developer-friendly, transactional | Free → $20/mo |
-| **SendGrid** | High volume | Free → $19.95/mo |
-| **Postmark** | Transactional, great deliverability | $15/mo |
-| **Mailgun** | API-first, many regions | $15/mo |
+| **CRM** (contacts, pipelines, opportunities) | ✅ Yes | Full CRM with custom fields, tags, timeline |
+| **Email** (outbound, transactional) | ✅ Yes | Native email with templates, sequences, broadcasts |
+| **SMS** | ✅ Yes | SMS campaigns, conversational messaging |
+| **Scheduling** (calendars, booking) | ✅ Yes | Calendar app with booking pages, round-robin |
+| **Invoicing + payments** | ✅ Yes | Stripe-connected invoicing + subscriptions |
+| **Workflows / automations** | ✅ Yes | Native trigger-action engine — offload logic here when possible |
+| **Reputation** (GBP reviews, responses) | ✅ Yes | Review request + response management |
+| **Websites / funnels** | ✅ Yes | Builder with hosting; fine for simple client sites |
+| **Phone / call tracking** | ✅ Yes | Twilio-backed; tracking numbers, recording |
+| **Memberships / courses** | ✅ Yes | If a client needs it |
+| **Social posting** | ✅ Yes | Multi-platform scheduling |
+| **Blogging** | ✅ Yes | Native blog |
+| **Analytics (depth)** | ⚠️ Basic | For deep client reports, supplement with GA4 / Plausible |
+| **File storage (large)** | ⚠️ Limited | For multi-GB deliverables, supplement with Drive / Dropbox |
 
-**Default**: Whatever mailbox you already use for day-to-day business (Gmail or Outlook). Use Resend or Postmark as a secondary for *transactional* email (invoices, confirmations) where deliverability matters.
+### The GHL adapter (`scripts/adapters/ghl.py`)
 
-**Adapter stub**: `scripts/adapters/email_stub.py`
+Implemented. Stdlib-only (urllib). Supports:
 
-### 3. Invoicing + payments
+**Contacts**
+- `get_contact(id)` / `search_contacts(query)`
+- `create_contact(first_name, email, phone, tags, custom_fields, ...)`
+- `update_contact(id, **fields)`
+- `add_contact_tag(id, tags)` / `add_contact_note(id, body)`
 
-| Option | Best for | Cost |
-|---|---|---|
-| **Stripe** | Online payments, invoicing, subscriptions | 2.9% + $0.30/txn |
-| **QuickBooks Online** | Full accounting integration | $30+/mo |
-| **FreshBooks** | Solo/small biz, time tracking included | $17+/mo |
-| **Wave** | Free, great for solos | Free |
-| **Xero** | Accounting-first | $15+/mo |
-| **Invoice Ninja** | Self-hosted, free | Free |
+**Pipelines + Opportunities**
+- `list_pipelines()` — returns all pipelines with their stages
+- `list_opportunities(pipeline_id, stage_id, limit)`
+- `create_opportunity(pipeline_id, stage_id, name, contact_id, monetary_value, ...)`
+- `move_opportunity_stage(opp_id, stage_id)`
+- `update_opportunity_value(opp_id, monetary_value)`
 
-**Default for solo founder with mixed fixed + retainer clients**: **Stripe Invoicing + Wave for bookkeeping**, or **Stripe + QuickBooks** if you want proper accounting and tax help.
+**Invoices**
+- `create_invoice(contact_id, line_items, currency, due_date, notes)`
+- `get_invoice(id)`
+- `send_invoice(id)`
 
-**Adapter stub**: `scripts/adapters/invoicing_stub.py`
+**Calendars**
+- `list_calendars()`
+- `get_calendar_slots(calendar_id, start_ms, end_ms)`
+- `create_calendar_event(calendar_id, contact_id, start, end, title)`
 
-### 4. Scheduling — discovery calls, kick-offs, check-ins
+**Workflows (native GHL automations)**
+- `add_contact_to_workflow(contact_id, workflow_id)` — triggers the GHL workflow
+- `remove_contact_from_workflow(contact_id, workflow_id)`
 
-| Option | Best for | Cost |
-|---|---|---|
-| **Cal.com** | Open-source, self-hostable | Free → $12/mo |
-| **Calendly** | Industry standard | Free → $10+/mo |
-| **SavvyCal** | Better group scheduling | $12+/mo |
-| **Google Calendar direct** | Low-friction, already paid for | Included with Google Workspace |
+### Mock mode
 
-**Default**: **Cal.com** (free tier is generous, open API) or **Calendly** (if you want zero setup friction).
+If `GHL_ACCESS_TOKEN` or `GHL_LOCATION_ID` is missing, the adapter runs in **mock mode** — all methods return plausible fake responses so agents can be tested without credentials. Set `GHL_MOCK=1` to force mock mode even with credentials.
 
-**Adapter stub**: `scripts/adapters/scheduling_stub.py`
+### Smoke test
 
-### 5. E-sign — contracts, MSAs, SOWs
+```bash
+# Mock mode (no credentials needed)
+python3 scripts/adapters/ghl.py --action pipelines
+python3 scripts/adapters/ghl.py --action create-contact
+python3 scripts/adapters/ghl.py --action create-invoice
 
-| Option | Best for | Cost |
-|---|---|---|
-| **DocuSign** | Industry standard | $10+/mo |
-| **HelloSign / Dropbox Sign** | Simpler UX | $15+/mo |
-| **PandaDoc** | Proposals + contracts in one | $19+/mo |
-| **SignNow** | Lower cost | $8+/mo |
-| **DocSeal (self-hosted)** | Free, open-source | Free |
+# End-to-end new-lead pipeline (qualifier → GHL contact → opportunity → route)
+python3 scripts/new_lead_e2e.py test-lead.json
+```
 
-**Default for solo founder**: **PandaDoc** — combines proposals and contracts with e-sign, cuts the toolchain by one. If budget is tight, **DocSeal self-hosted** or **SignNow**.
+Verified working as of 2026-04-15. See [[Brag Doc]] for the results on three test leads.
 
-**Adapter stub**: `scripts/adapters/esign_stub.py`
+### What the owner needs to fill in
 
-### 6. Project management — active engagement tracking
+Per `config.yaml` `ghl:` section — all TODO fields:
 
-| Option | Best for | Cost |
-|---|---|---|
-| **Notion** | Already using for docs, flexible | Free → $8/mo |
-| **ClickUp** | Agency ops, dense feature set | Free → $7/mo |
-| **Asana** | Clean, task-first | Free → $10.99/mo |
-| **Linear** | If client work overlaps with dev | $8/mo |
-| **Monday.com** | Visual, team-heavy | $8+/mo |
-| **Basecamp** | Simple, flat-rate | $99/mo flat |
+1. **Pipeline + stage IDs** — pull via `python3 scripts/adapters/ghl.py --action pipelines` (in live mode) and paste into config. Needed: sales pipeline ID, then stage IDs for new_lead / qualified / gray_zone / discovery_booked / discovery_done / proposal_sent / contract_sent / won / lost.
 
-**Default**: **Notion** if already using it for docs (one tool = one mental model). **ClickUp** if you want purpose-built agency ops.
+2. **Tag names** — defaults are `restore:qualified`, `restore:gray-zone`, etc. Keep defaults or change to match your existing tag conventions.
 
-**Adapter stub**: `scripts/adapters/pm_stub.py`
+3. **Native workflow IDs** — create these workflows in GHL's workflow builder, then paste their IDs into config. Common ones: discovery-call-booking, polite-decline, new-client-onboarding, payment-chase-1, payment-chase-2, renewal-warm-up, churn-winback.
 
-### 7. Analytics — client performance data
+4. **Calendar IDs** — discovery calls, kickoff calls, renewal calls.
 
-| Option | Best for | Cost |
-|---|---|---|
-| **Google Analytics 4** | Standard, free | Free |
-| **Plausible** | Privacy-first, simple | $9+/mo |
-| **Fathom** | Privacy-first | $14+/mo |
-| **Mixpanel** | Product/SaaS analytics | Free → $24/mo |
-| **Matomo** | Self-hosted, full ownership | Free (self-hosted) |
+5. **Custom field IDs** — for structured lead data (score, routing, industry, budget, etc.).
 
-**Default**: **Google Analytics 4** for clients who already use it, **Plausible** for clients who want privacy-first tracking.
+Once those are filled in, flip `GHL_MOCK` off and the automation runs against live GHL.
 
-**Adapter stub**: `scripts/adapters/analytics_stub.py`
+## Secondary: Fallback adapters (only when GHL doesn't cover)
 
-### 8. Messaging / notifications — where agents post alerts
+These are OPTIONAL. Add them when GHL's native capabilities aren't enough — not before. Each is a stub in `scripts/adapters/` until needed.
 
-| Option | Best for | Cost |
-|---|---|---|
-| **Slack** | You use Slack already | Free → $8.75+/mo |
-| **Discord** | Informal, you use Discord | Free |
-| **Telegram** | Personal mobile alerts | Free |
-| **Email only** | Simplest, no new tool | Free |
-| **Vault-only** | Alerts as vault notes, you read when ready | Free |
+## Optional Secondary Adapters
 
-**Default for solo founder**: **Vault-only** + **email** for urgent. Slack is overkill for one person. Upgrade when you hire first employee.
+Skip any of these unless you have a specific reason. Default posture: GHL handles it.
 
-**Adapter stub**: `scripts/adapters/notify_stub.py`
+### Analytics — for deeper client reports
 
-### 9. File storage — deliverables, assets, client files
+GHL's built-in analytics cover campaign performance + ad spend. For *client-facing* reports that need GA4 or Plausible data on the client's website, add a secondary adapter.
 
-| Option | Best for | Cost |
-|---|---|---|
-| **Google Drive** | Already using Google Workspace | Included |
-| **Dropbox** | Dropbox-first workflow | $11.99+/mo |
-| **Notion** | Docs-as-files | Included |
-| **Local + git** | Technical, free | Free |
+- **Google Analytics 4** — free, industry standard. Needs `GA4_SERVICE_ACCOUNT_JSON_PATH` in `.env`.
+- **Plausible** — privacy-first. Needs `PLAUSIBLE_API_KEY` in `.env`.
 
-**Default**: **Google Drive** (if Google Workspace) — everyone can access, clients can too.
+Stub at `scripts/adapters/analytics_stub.py` (not yet implemented).
 
-**Adapter stub**: `scripts/adapters/storage_stub.py`
+### Fallback transactional email
 
----
+GHL handles transactional email natively. Only add a secondary provider if deliverability becomes a problem (e.g., invoice emails landing in spam).
 
-## Quick Start — Minimum Viable Stack
+- **Resend** — developer-friendly, great deliverability. `RESEND_API_KEY`.
+- **Postmark** — transactional-focused. `POSTMARK_SERVER_TOKEN`.
 
-**If you're starting from zero and want the cheapest working stack to get the first automation live**:
+### File storage — only for large files outside GHL
 
-| Need | Pick |
-|---|---|
-| CRM | Airtable (free) |
-| Email | Gmail (Google Workspace, ~$6/mo) |
-| Invoicing | Stripe Invoicing (pay-per-use) + Wave (free) |
-| Scheduling | Cal.com (free tier) |
-| E-sign | DocSeal self-hosted (free) or PandaDoc trial |
-| PM | Notion (free tier) |
-| Analytics | Google Analytics 4 (free) |
-| Messaging | Vault-only + email |
-| Storage | Google Drive |
+GHL handles small attachments fine. Add Google Drive or Dropbox only if deliverables exceed a few MB (large videos, full brand asset packages).
 
-**Total monthly cost**: ~$6 (Google Workspace) + Stripe txn fees. Everything else free.
+- **Google Drive** — if already on Google Workspace
+- **Dropbox** — if preferred
 
-**If you already have tools, use those first** — swap the adapters. Don't add new tools just because this doc lists them.
+### Messaging / alerts
 
----
+Default: **vault-only + email**. Escalations land as notes in `runs/` and optionally ping your email. No new tool needed.
 
-## What You Give Me to Flip the Switch
+Optional: **Slack** — if you want escalations in a channel. `SLACK_WEBHOOK_URL` in `.env`.
 
-For each of the 9 categories, I need:
+## What you need to provide to flip GHL live
 
-1. **Provider choice** (e.g., "Airtable for CRM, Gmail for email, Stripe for invoicing")
-2. **API credentials** — go in `.env` only, never committed
-3. **Workspace/account identifiers** — Airtable base ID, Google Workspace domain, Stripe account ID, etc.
-4. **Any existing data** — if you have existing clients in whatever CRM you use, export and I'll migrate into Airtable (or skip if new)
+Just two things for v0.1:
 
-Once those are in, the automation goes from "on disk" to "running."
+1. **`.env` file** at repo root with:
+   ```
+   GHL_ACCESS_TOKEN=your-token-here
+   GHL_LOCATION_ID=your-location-id
+   ```
+2. **Config values** in `config.yaml` `ghl:` section:
+   - Pipeline IDs + stage IDs (pull via `--action pipelines`)
+   - Workflow IDs (after creating the workflows in GHL)
+   - Calendar IDs
+   - Custom field IDs
+
+Everything else stays in mock mode until needed.
 
 ## Related
 
