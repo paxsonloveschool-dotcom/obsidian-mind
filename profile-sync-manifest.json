@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Declares which vault items are portable to user-level Claude Code config (~/.claude/) and which are vault-specific. Read by scripts/sync-to-profile.sh.",
+  "vault_version": "3.4.0",
+  "sync_target": "~/.claude",
+  "portable": {
+    "agents": {
+      "source": ".claude/agents/",
+      "pattern": "omc-*.md",
+      "target": "~/.claude/agents/",
+      "count": 17,
+      "rationale": "omc-adapted agents are pure software engineering — no vault dependencies. Safe to install at user level so they work in every project.",
+      "files": [
+        "omc-analyst.md",
+        "omc-architect.md",
+        "omc-code-reviewer.md",
+        "omc-critic.md",
+        "omc-debugger.md",
+        "omc-designer.md",
+        "omc-document-specialist.md",
+        "omc-executor.md",
+        "omc-git-master.md",
+        "omc-planner.md",
+        "omc-qa-tester.md",
+        "omc-scientist.md",
+        "omc-security-reviewer.md",
+        "omc-test-engineer.md",
+        "omc-tracer.md",
+        "omc-verifier.md",
+        "omc-writer.md"
+      ]
+    },
+    "commands": {
+      "source": "scripts/portable/commands/",
+      "target": "~/.claude/commands/",
+      "count": 2,
+      "rationale": "Portable versions live in scripts/portable/commands/ so the vault keeps its richer vault-aware versions at .claude/commands/. Vault versions shadow user-level versions when working inside the vault.",
+      "files": [
+        "verify.md",
+        "think.md"
+      ]
+    },
+    "playbooks": {
+      "source": "scripts/portable/playbooks/",
+      "target": "~/.claude/playbooks/",
+      "count": 1,
+      "rationale": "Playbooks are not a standard Claude Code folder, but creating ~/.claude/playbooks/ is harmless and makes them discoverable. Referenced by the user-level CLAUDE.md snippet.",
+      "files": [
+        "Emergency Token Triage.md"
+      ]
+    },
+    "claude_md_section": {
+      "source": "scripts/portable/CLAUDE-snippets/user-level-section.md",
+      "target": "~/.claude/CLAUDE.md",
+      "mode": "managed_section",
+      "start_marker": "<!-- obsidian-mind-profile-sync:start",
+      "end_marker": "<!-- obsidian-mind-profile-sync:end -->",
+      "rationale": "A single managed section is appended or replaced in ~/.claude/CLAUDE.md. Everything between the start and end markers is owned by the sync script; the rest of the user's CLAUDE.md is untouched."
+    }
+  },
+  "vault_specific": {
+    "agents": {
+      "count": 11,
+      "rationale": "Vault-native agents depend on brain/, work/, org/, perf/, bases/. They would fail in non-vault projects.",
+      "files": [
+        "brag-spotter.md",
+        "context-loader.md",
+        "cross-linker.md",
+        "memory-curator.md",
+        "people-profiler.md",
+        "playbook-generator.md",
+        "review-fact-checker.md",
+        "review-prep.md",
+        "slack-archaeologist.md",
+        "vault-librarian.md",
+        "vault-migrator.md"
+      ]
+    },
+    "commands": {
+      "count": 18,
+      "rationale": "Most commands assume vault folders, Obsidian wikilinks, or vault-specific workflows.",
+      "files": [
+        "capture-1on1.md",
+        "connect.md",
+        "dump.md",
+        "humanize.md",
+        "incident-capture.md",
+        "peer-scan.md",
+        "project-archive.md",
+        "promote.md",
+        "remember.md",
+        "review-brief.md",
+        "review-peer.md",
+        "self-review.md",
+        "slack-scan.md",
+        "standup.md",
+        "vault-audit.md",
+        "vault-upgrade.md",
+        "weekly.md",
+        "wrap-up.md"
+      ]
+    },
+    "hooks": {
+      "rationale": "All hooks (session-start, classify-message, validate-write, pre-compact, stop-checklist) are vault-aware and would fail or produce wrong output in non-vault projects. They stay project-level.",
+      "files": [
+        ".claude/scripts/session-start.sh",
+        ".claude/scripts/classify-message.py",
+        ".claude/scripts/validate-write.py",
+        ".claude/scripts/pre-compact.sh",
+        ".claude/scripts/stop-checklist.sh"
+      ]
+    },
+    "skills": {
+      "rationale": "Obsidian-specific skills (obsidian-markdown, obsidian-cli, obsidian-bases, json-canvas) only make sense inside an Obsidian vault. defuddle and qmd are general but have their own install flows.",
+      "files": [
+        ".claude/skills/obsidian-markdown",
+        ".claude/skills/obsidian-cli",
+        ".claude/skills/obsidian-bases",
+        ".claude/skills/json-canvas",
+        ".claude/skills/defuddle",
+        ".claude/skills/qmd"
+      ]
+    },
+    "brain_topic_notes": {
+      "rationale": "All brain/ topic notes depend on the vault structure and conventions. They stay in the vault as the single source of truth — the user-level CLAUDE.md snippet references them as concepts but doesn't copy them.",
+      "files": [
+        "brain/North Star.md",
+        "brain/Build Log.md",
+        "brain/Memories.md",
+        "brain/Capabilities.md",
+        "brain/Workflows.md",
+        "brain/Patterns.md",
+        "brain/Gotchas.md",
+        "brain/Key Decisions.md",
+        "brain/Skills.md"
+      ]
+    }
+  },
+  "backup_policy": {
+    "location": "~/.claude/.obsidian-mind-backup/",
+    "format": "timestamped",
+    "description": "Before overwriting any existing user-level file, sync-to-profile.sh copies it to a timestamped backup so the previous state is recoverable."
+  },
+  "provenance": {
+    "marker_file": "~/.claude/.obsidian-mind-provenance.json",
+    "description": "After a successful sync, a provenance file is written recording which version of the vault installed these items, when, and from where. Future syncs read this to know what to update vs leave alone."
+  }
+}
