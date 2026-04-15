@@ -67,20 +67,62 @@ def slugify(text: str) -> str:
     return "".join(c if c.isalnum() else "-" for c in text.lower()).strip("-")
 
 
+STOPWORDS = {
+    "and", "or", "the", "of", "in", "on", "at", "to", "for", "with", "a", "an",
+    "&", "plus", "/", "etc", "services", "service", "company", "companies",
+}
+
+
+def _tokenize(text: str) -> set[str]:
+    """Lowercase, strip punctuation, split on whitespace, remove stopwords + short tokens."""
+    import re
+
+    cleaned = re.sub(r"[^\w\s]", " ", (text or "").lower())
+    tokens = cleaned.split()
+    return {t for t in tokens if len(t) >= 3 and t not in STOPWORDS}
+
+
 def score_industry_match(lead: dict, icp: dict) -> tuple[int, str]:
-    """Return (score_pct, reason)."""
+    """Token-overlap scoring so 'home services hvac' matches 'Home services (HVAC, plumbing...)'."""
     weight = icp["scoring"]["weights"]["industry_match"]
-    good = [i.lower() for i in icp.get("industries_good_fit", []) if i and i != "TODO"]
-    avoid = [i.lower() for i in icp.get("industries_avoid", []) if i and i != "TODO"]
-    lead_industry = (lead.get("industry") or "").lower()
+    good = [i for i in icp.get("industries_good_fit", []) if i and "TODO" not in i]
+    avoid = [i for i in icp.get("industries_avoid", []) if i and "TODO" not in i]
+    lead_industry = lead.get("industry") or ""
 
     if not good:
         return (weight // 2, "industry_match: no ICP defined (partial credit)")
-    if lead_industry in avoid:
-        return (0, f"industry_match: {lead_industry} is on the avoid list")
-    if any(g in lead_industry or lead_industry in g for g in good):
-        return (weight, f"industry_match: {lead_industry} is a good fit")
-    return (weight // 3, f"industry_match: {lead_industry} is neither good nor avoid")
+
+    lead_tokens = _tokenize(lead_industry)
+    if not lead_tokens:
+        return (weight // 3, "industry_match: no lead industry provided")
+
+    # Check avoid list first (hard zero)
+    for av in avoid:
+        av_tokens = _tokenize(av)
+        if lead_tokens & av_tokens:
+            return (0, f"industry_match: '{lead_industry}' matches avoid list ({av})")
+
+    # Score against good-fit list
+    best_overlap = 0
+    best_entry = ""
+    for g in good:
+        g_tokens = _tokenize(g)
+        overlap = len(lead_tokens & g_tokens)
+        if overlap > best_overlap:
+            best_overlap = overlap
+            best_entry = g
+
+    if best_overlap >= 2:
+        return (weight, f"industry_match: strong fit with '{best_entry}' ({best_overlap} token overlap)")
+    if best_overlap == 1:
+        return (
+            weight * 2 // 3,
+            f"industry_match: partial fit with '{best_entry}' (1 token overlap)",
+        )
+    return (
+        weight // 3,
+        f"industry_match: '{lead_industry}' doesn't match good-fit or avoid list",
+    )
 
 
 def score_budget_fit(lead: dict, icp: dict, pricing_rules: dict) -> tuple[int, str]:

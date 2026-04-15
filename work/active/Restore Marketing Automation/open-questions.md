@@ -14,12 +14,21 @@ project: restore-marketing-automation
 
 ## Critical (blocks first automation ship)
 
-### Q1. What does Restore Marketing Co actually sell?
-Services list + deliverables per service + pricing model (fixed / retainer / hourly / project). This directly populates `config.services` and drives the proposal agent.
+### Q1. What does Restore Marketing Co actually sell? — **✅ ANSWERED 2026-04-15**
 
-**Minimum answer**: 2-3 services with a one-line description, a rough price range, and "who buys this."
+Full-service local marketing agency. Services populated in `config.yaml`:
+1. **Website Design & Build** — one-off fixed-fee project work
+2. **Full-Service Marketing Retainer** — primary offer, combines everything below
+3. **Paid Ads Management** — Google Ads, Meta Ads (standalone retainer)
+4. **SEO Build-out & Optimization** — technical + on-page + content + local (standalone retainer)
+5. **Google Business Profile Management** — standalone or bolt-on to SEO/retainer
 
-**Best answer**: Full service catalog with deliverables, typical timeline, ideal client, fixed vs retainer, starting price.
+Deliverables, timelines, and ideal clients all filled in. **Only pricing amounts remain as TODOs** — rolled into Q4 below.
+
+**Sub-questions still open on services**:
+- CMS default for website builds (WordPress / Webflow / Shopify / other)?
+- Which ad platforms beyond Google Ads and Meta Ads (LinkedIn? TikTok? YouTube?)?
+- Do you offer one-off audits (website, marketing, SEO) as a paid discovery/qualifier, or only as free prospecting?
 
 ### Q2. What tech stack are you currently using?
 One pick per category, or "nothing yet, pick for me." Per [[integrations]]:
@@ -35,12 +44,20 @@ One pick per category, or "nothing yet, pick for me." Per [[integrations]]:
 
 If you don't have answers for all 9, that's fine — the "Quick Start — Minimum Viable Stack" in [[integrations]] is the zero-budget default. Pick which of your current tools you already own, leave the rest at the defaults.
 
-### Q3. What's your ICP — ideal client profile?
-Populates `config.icp`. The lead qualification agent cannot run without this.
+### Q3. What's your ICP — ideal client profile? — **✅ PARTIALLY ANSWERED (inferred from services)**
 
-**Minimum answer**: "Local service businesses doing $500K-$5M, owner-operated, marketing budget of at least $2k/month."
+From the service mix (GBP, local SEO, paid ads, websites for local service businesses), Claude inferred and populated `config.icp` with:
+- Company type: local service businesses, owner-operated, "near-me" search driven
+- Size: 2-150 employees, $500K-$15M revenue
+- Industries good fit: home services, medical/dental, legal, restaurants, fitness, salons, auto, real estate, pet services, local retail
+- Industries avoid: pure e-commerce, national B2B SaaS, MLM, adult/gambling, crypto
+- Decision makers: Owner, Founder, CEO, VP/Director Marketing
+- Disqualifiers: no budget, equity-only, performance-only, competing clients, unethical asks
 
-**Best answer**: Full ICP with industry, size (employees + revenue), geography, budget minimum, decision maker, and disqualifiers (who you don't work with and why).
+**Still needs owner input**:
+- Geographic focus — local to your base, state-wide, regional, national?
+- Confirm the good-fit and avoid lists match your actual wins and passes
+- Any niche specialization or counterintuitive fits not on the list?
 
 ### Q4. What's your pricing floor and auto-approved ceiling?
 - Minimum deal size you'll take (below this → escalate instead of draft)

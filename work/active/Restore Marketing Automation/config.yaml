@@ -41,31 +41,113 @@ company:
 # ============================================================================
 
 services:
-  # Example structure — REPLACE with your real services
-  - id: "website-audit"
-    name: "TODO: Website & Marketing Audit"
-    short_description: "TODO: one-line description"
+  # -----------------------------------------------------------------------
+  # WEBSITES — project work, fixed fee
+  # -----------------------------------------------------------------------
+  - id: "website-build"
+    name: "Website Design & Build"
+    short_description: "Brand-aligned, conversion-focused website designed, built, and launched — mobile-first, accessible, fast, and search-engine ready from day one."
     deliverables:
-      - "TODO: what does the client actually receive?"
+      - "Discovery and brand audit"
+      - "Sitemap and page-by-page content plan"
+      - "Visual design (desktop + mobile)"
+      - "Built site on chosen CMS (WordPress / Webflow / Shopify — TODO: confirm default)"
+      - "Core Web Vitals optimization (LCP, CLS, INP targets met)"
+      - "On-page SEO baseline (meta, schema, internal linking)"
+      - "Google Analytics 4 + conversion tracking setup"
+      - "Launch checklist + 14-day post-launch support"
     pricing:
-      model: "fixed"          # fixed | hourly | retainer | project
-      amount: 0               # TODO: your price
+      model: "fixed"
+      amount: 0                 # TODO: base website project price — see Q4 ask
       currency: "USD"
-    typical_timeline_days: 7
-    ideal_for: "TODO: what kind of client buys this?"
+    typical_timeline_days: 45
+    ideal_for: "Local service businesses launching new, relaunching, or rebuilding their site to drive more leads"
 
-  - id: "monthly-retainer"
-    name: "TODO: Full-Service Marketing Retainer"
-    short_description: "TODO"
+  # -----------------------------------------------------------------------
+  # FULL-SERVICE RETAINER — the primary monthly offer
+  # -----------------------------------------------------------------------
+  - id: "full-service-retainer"
+    name: "Full-Service Marketing Retainer"
+    short_description: "Monthly retainer combining paid ads management, SEO, Google Business Profile, content, and reporting. One partner, one bill, one accountable team."
     deliverables:
-      - "TODO"
+      - "Paid ads management (Google Ads, Meta Ads — platforms per engagement)"
+      - "SEO build-out and ongoing optimization (technical, on-page, content)"
+      - "Google Business Profile management (posts, photos, reviews, Q&A, local pack work)"
+      - "Content production aligned to keyword strategy"
+      - "Weekly progress update + monthly performance report"
+      - "Quarterly strategy review + roadmap adjustment"
     pricing:
       model: "retainer"
-      amount: 0               # TODO: monthly retainer amount
+      amount: 0                 # TODO: monthly retainer floor — see Q4 ask
       currency: "USD"
       billing_frequency: "monthly"
     typical_timeline_days: 30
-    ideal_for: "TODO"
+    ideal_for: "Local service businesses doing $500k–$10M annual revenue, ready to commit to 3+ months of compounding marketing investment"
+
+  # -----------------------------------------------------------------------
+  # PAID ADS MANAGEMENT — standalone retainer
+  # -----------------------------------------------------------------------
+  - id: "ads-management"
+    name: "Paid Ads Management"
+    short_description: "Google Ads and Meta Ads managed monthly — creative, targeting, bid strategy, conversion tracking, and optimization."
+    deliverables:
+      - "Account audit + restructure (month 1)"
+      - "Campaign creation / migration"
+      - "Ad creative (copy + images) — 3-5 variants per campaign"
+      - "Weekly bid + budget + targeting optimization"
+      - "Conversion tracking setup + reporting"
+      - "Monthly performance report with recommendations"
+    pricing:
+      model: "retainer"
+      amount: 0                 # TODO: monthly ads management fee — see Q4 ask
+      currency: "USD"
+      billing_frequency: "monthly"
+      notes: "Ad spend billed separately / passed through to client — management fee is for the management work only"
+    typical_timeline_days: 30
+    ideal_for: "Businesses with $2k+/month ad budget looking for hands-off management"
+
+  # -----------------------------------------------------------------------
+  # SEO SERVICES — standalone retainer
+  # -----------------------------------------------------------------------
+  - id: "seo-services"
+    name: "SEO Build-out & Optimization"
+    short_description: "Monthly SEO work: technical, on-page, content, local, and authority building. Track rankings, traffic, and leads."
+    deliverables:
+      - "Technical SEO audit + fixes (ongoing)"
+      - "On-page optimization (titles, meta, schema, internal links)"
+      - "Keyword strategy + content briefs"
+      - "Content production (1-4 pieces/month depending on tier)"
+      - "Local SEO (NAP consistency, citations, local schema)"
+      - "Rankings + traffic + lead monitoring"
+      - "Monthly performance report"
+    pricing:
+      model: "retainer"
+      amount: 0                 # TODO: monthly SEO retainer — see Q4 ask
+      currency: "USD"
+      billing_frequency: "monthly"
+    typical_timeline_days: 30
+    ideal_for: "Businesses that want to compound organic traffic over 6-12+ months"
+
+  # -----------------------------------------------------------------------
+  # GOOGLE BUSINESS PROFILE MANAGEMENT — standalone or bolt-on
+  # -----------------------------------------------------------------------
+  - id: "gbp-management"
+    name: "Google Business Profile Management"
+    short_description: "GBP optimization, weekly posts, photo updates, review response, Q&A, and local pack ranking work."
+    deliverables:
+      - "GBP audit + optimization"
+      - "Weekly posts (4-5/month)"
+      - "Photo additions monthly"
+      - "Review response within 24 hours"
+      - "Q&A management"
+      - "Local pack ranking tracking + monthly report"
+    pricing:
+      model: "retainer"
+      amount: 0                 # TODO: monthly GBP management fee — see Q4 ask
+      currency: "USD"
+      billing_frequency: "monthly"
+    typical_timeline_days: 30
+    ideal_for: "Local service businesses where customers search 'near me' / 'in [city]' — often bundled with SEO or full-service retainer"
 
   # Add more services as needed — the automation handles any number
 
@@ -91,25 +173,55 @@ pricing_rules:
 # ============================================================================
 
 icp:
-  # Define your ideal client. Used by `icp-builder` and `lead-qualification` skills.
-  company_type: "TODO: e.g. local service businesses, B2B SaaS, DTC e-commerce, professional services"
+  # Inferred from services (websites + full-service retainer heavy on GBP + local SEO).
+  # Confirm or revise when convenient — see open-questions Q3.
+  company_type: "Local service businesses — owner-operated, customers come from 'near me' searches"
   company_size_employees:
-    min: 0                      # TODO
-    max: 0                      # TODO
+    min: 2                      # Very small shops still qualify
+    max: 150                    # Beyond this, they usually have in-house marketing
   company_revenue_annual:
-    min: 0                      # TODO: USD
-    max: 0                      # TODO: USD
+    min: 500000                 # TODO: confirm — below $500k annual, retainer math usually doesn't work
+    max: 15000000               # TODO: confirm — above this, usually has or wants in-house team
   industries_good_fit:
-    - "TODO: list industries where you win"
+    # Classic GBP-driven verticals where local-pack ranking = revenue
+    - "Home services (HVAC, plumbing, electrical, roofing, flooring, windows)"
+    - "Landscaping and outdoor services"
+    - "Cleaning and janitorial"
+    - "Auto repair and detail"
+    - "Medical, dental, chiropractic, physical therapy"
+    - "Legal (personal injury, family law, estate)"
+    - "Restaurants and food service"
+    - "Fitness studios and gyms"
+    - "Salons, spas, and barbershops"
+    - "Pet services (grooming, boarding, training)"
+    - "Real estate brokerages and teams"
+    - "Retail with local footprint"
   industries_avoid:
-    - "TODO: industries you don't serve (or do badly)"
+    # TODO: confirm — these are reasonable defaults for a local-SEO agency
+    - "Pure e-commerce with no local component"
+    - "National-only SaaS / B2B tech"
+    - "Multi-level marketing / MLM"
+    - "Adult / gambling / firearms (brand risk)"
+    - "Crypto / NFT projects"
   geographic_focus:
-    - "TODO: regions you serve"
-  budget_minimum_monthly: 0     # TODO: smallest monthly spend you'll take
+    - "TODO: which regions do you actually serve? (local to your base, state-wide, national?)"
+  budget_minimum_monthly: 0     # TODO: smallest monthly retainer you'll take — see Q4 ask
   decision_maker_roles:
-    - "TODO: CEO, Founder, VP Marketing, etc."
+    - "Owner"
+    - "Founder"
+    - "CEO"
+    - "President"
+    - "VP Marketing"
+    - "Director of Marketing"
+    - "Marketing Manager (only if reporting to owner directly)"
   disqualifiers:
-    - "TODO: automatic reasons to pass (e.g. 'requires equity compensation', 'competing with existing client', 'no marketing budget')"
+    - "No marketing budget / looking for 'free work to prove yourself'"
+    - "Equity-only compensation"
+    - "Performance-only compensation with no base retainer"
+    - "Competing directly with an existing client"
+    - "Needs service we don't offer (app dev, TV ads, radio, print)"
+    - "Requires industries on the avoid list"
+    - "Requests unethical work (fake reviews, link schemes, black-hat SEO)"
 
   scoring:
     # The qualifier assigns points based on fit. Tune these weights.
