@@ -8,11 +8,13 @@ type: index
 # Work Index
 
 ## Active Projects
-- [[Agent Deployment - Specialized Defensive Notes]] — specialized threat model and detection for agentic deployments (tool-call gating, agent-specific signals)
-- [[Deployment Threat Model - Post-hoc Refusal Removal]] — general-purpose threat model parent
-- [[Detection and Monitoring - Modified Open-Weight Models]] — general-purpose detection parent
+- [[Agent Deployment - MCP Narrowed Defensive Plan]] — MCP + fine-tuned specialization: threat model, monitoring signals, prioritized backlog
+- [[Agent Deployment - Specialized Defensive Notes]] — first-round agent specialization
+- [[Deployment Threat Model - Post-hoc Refusal Removal]] — general threat model parent
+- [[Detection and Monitoring - Modified Open-Weight Models]] — general detection parent
 
 ## Recent Notes
+- 2026-04-15: [[Agent Deployment - MCP Narrowed Defensive Plan]]
 - 2026-04-15: [[Agent Deployment - Specialized Defensive Notes]]
 - 2026-04-15: [[Detection and Monitoring - Modified Open-Weight Models]]
 - 2026-04-15: [[Deployment Threat Model - Post-hoc Refusal Removal]]
