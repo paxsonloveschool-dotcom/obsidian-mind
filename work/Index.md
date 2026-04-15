@@ -8,10 +8,12 @@ type: index
 # Work Index
 
 ## Active Projects
-- [[Deployment Threat Model - Post-hoc Refusal Removal]] — threat model for adversary-modifies-weights attacks against open-weight LLM deployments
-- [[Detection and Monitoring - Modified Open-Weight Models]] — detection-side sibling: eval gaps and monitoring signals
+- [[Agent Deployment - Specialized Defensive Notes]] — specialized threat model and detection for agentic deployments (tool-call gating, agent-specific signals)
+- [[Deployment Threat Model - Post-hoc Refusal Removal]] — general-purpose threat model parent
+- [[Detection and Monitoring - Modified Open-Weight Models]] — general-purpose detection parent
 
 ## Recent Notes
+- 2026-04-15: [[Agent Deployment - Specialized Defensive Notes]]
 - 2026-04-15: [[Detection and Monitoring - Modified Open-Weight Models]]
 - 2026-04-15: [[Deployment Threat Model - Post-hoc Refusal Removal]]
 - 2026-04-15: [[Abliteration Research Landscape]] (in `reference/`)
