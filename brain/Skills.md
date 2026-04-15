@@ -24,7 +24,7 @@ See [[Capabilities#Skills (load via `Skill` tool)]] for triggers.
 
 ## Slash Commands
 
-15 total. Quick reference (full reference at [[../reference/command-reference]]):
+18 total. Quick reference (full reference at [[../reference/command-reference]]):
 
 **Daily**
 - `/standup` — morning kickoff
@@ -49,16 +49,23 @@ See [[Capabilities#Skills (load via `Skill` tool)]] for triggers.
 - `/project-archive` — archive completed project
 - `/weekly` — cross-session synthesis
 
+**Thinking & Promotion**
+- `/think` — scaffold a properly-structured thinking note
+- `/promote` — promote thinking note findings to durable atomic notes
+- `/connect` — find missing wikilinks (wraps cross-linker)
+
 ## Subagents
 
-9 total. Quick reference (full reference at [[../reference/agent-reference]]):
+11 total. Quick reference (full reference at [[../reference/agent-reference]]):
 
 | Agent | Best for |
 |-------|----------|
 | `brag-spotter` | Uncaptured wins |
 | `context-loader` | All vault context for a topic |
 | `cross-linker` | Missing wikilinks |
+| `memory-curator` | Curate brain/ — stale claims, duplication, overgrowth |
 | `people-profiler` | Bulk person notes from Slack |
+| `playbook-generator` | Turn pattern into new playbook |
 | `review-prep` | Aggregate review evidence |
 | `slack-archaeologist` | Full Slack reconstruction |
 | `vault-librarian` | Vault hygiene audit |

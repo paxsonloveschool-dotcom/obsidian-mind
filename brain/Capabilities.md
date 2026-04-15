@@ -36,7 +36,7 @@ Inventory of everything available to Claude when operating in this vault. This i
 
 ## Slash Commands
 
-15 commands in `.claude/commands/`. Full reference: [[../reference/command-reference]].
+18 commands in `.claude/commands/`. Full reference: [[../reference/command-reference]].
 
 | Command | Purpose |
 |---------|---------|
@@ -55,17 +55,22 @@ Inventory of everything available to Claude when operating in this vault. This i
 | `/vault-audit` | Audit indexes, links, orphans |
 | `/vault-upgrade` | Import from another vault |
 | `/project-archive` | Archive completed project |
+| `/promote` | Promote thinking note findings to durable atomic notes |
+| `/connect` | Find missing wikilinks (wraps cross-linker) |
+| `/think` | Scaffold a properly-structured thinking note |
 
 ## Subagents
 
-9 agents in `.claude/agents/`. Full reference: [[../reference/agent-reference]].
+11 agents in `.claude/agents/`. Full reference: [[../reference/agent-reference]].
 
 | Agent | Best for |
 |-------|----------|
 | `brag-spotter` | Find uncaptured wins and competency gaps |
 | `context-loader` | Load all vault context about a person/project/concept |
 | `cross-linker` | Find missing wikilinks, orphans, broken backlinks |
+| `memory-curator` | Curate brain/ — stale claims, duplication, overgrowth, promotion candidates |
 | `people-profiler` | Bulk create/update person notes from Slack |
+| `playbook-generator` | Turn an observed pattern into a new playbook in brain/playbooks/ |
 | `review-prep` | Aggregate all evidence for a review period |
 | `slack-archaeologist` | Full Slack reconstruction — every message and thread |
 | `vault-librarian` | Deep vault maintenance — orphans, broken links, stale notes |
@@ -108,7 +113,7 @@ These appear as deferred tools — load schemas via `ToolSearch` before calling.
 
 ## Bases (dynamic vault views)
 
-7 bases in `bases/`. Each is a `.base` file driving a queryable view.
+9 bases in `bases/`. Each is a `.base` file driving a queryable view.
 
 | Base | Surface |
 |------|---------|
@@ -119,6 +124,8 @@ These appear as deferred tools — load schemas via `ToolSearch` before calling.
 | `Review Evidence` | Evidence by cycle, person |
 | `Competency Map` | Competencies and their backlink-count evidence |
 | `Templates` | All templates in one view |
+| `Playbooks` | All playbooks by reference count and recency |
+| `Brain Topics` | All brain topic notes with stale-flag view |
 
 ## Templates
 
@@ -137,6 +144,7 @@ These appear as deferred tools — load schemas via `ToolSearch` before calling.
 | Note | Contents |
 |------|----------|
 | `[[North Star]]` | Living goals — read at session start |
+| `[[Build Log]]` | Append-only log of vault expansion — session continuity |
 | `[[Memories]]` | Memory index — pointers to topic notes |
 | `[[Key Decisions]]` | Strategic technical decisions |
 | `[[Patterns]]` | Reusable patterns — graph thinking, atomicity, token discipline |

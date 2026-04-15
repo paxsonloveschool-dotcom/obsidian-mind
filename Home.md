@@ -1,5 +1,5 @@
 ---
-date: 2026-04-13
+date: 2026-04-15
 description: Vault entry point — quick links, dashboards, and navigation across brain, work, performance, and reference
 tags: [index, moc]
 type: index
@@ -10,6 +10,7 @@ type: index
 ## Quick Links
 
 - [[brain/North Star|North Star]] — Goals & priorities
+- [[brain/Build Log|Build Log]] — Session history & vault expansion continuity
 - [[work/Index|Work Index]] — Active projects
 - [[brain/Memories|Memories]] — Memory index → topic notes
 - [[perf/Brag Doc|Brag Doc]] — Wins & achievements
@@ -27,9 +28,11 @@ type: index
 
 ## Reference (structural knowledge)
 
+- [[reference/README|Reference index]]
 - [[reference/vault-architecture]] — How the vault is wired
 - [[reference/command-reference]] — All slash commands
 - [[reference/agent-reference]] — All subagents
+- [[reference/codebase-doc-template]] — Template for project reference docs
 
 ## Daily Commands
 
@@ -38,8 +41,9 @@ type: index
 | `/standup` | Morning kickoff |
 | `/dump` | Freeform capture |
 | `/wrap-up` | End of session review |
-| `/connect` | Find missing wikilinks |
+| `/think` | Scaffold a thinking note |
 | `/promote` | Promote thinking note → durable notes |
+| `/connect` | Find missing wikilinks |
 
 ## Capture Commands
 

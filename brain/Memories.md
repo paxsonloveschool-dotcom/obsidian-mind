@@ -14,6 +14,7 @@ This is the index for Claude's operational memory. The actual knowledge lives in
 | Topic | Read when |
 |-------|-----------|
 | [[North Star]] | Every session start — current goals and priorities |
+| [[Build Log]] | Session start — chronological history of vault expansion, what's been built, next steps |
 | [[Capabilities]] | Whenever picking a tool, command, or agent for a task |
 | [[Workflows]] | When a task needs multi-step orchestration |
 | [[Patterns]] | When designing a note, link, or process — encodes the "why" |
@@ -51,6 +52,7 @@ Concrete step-by-step procedures. See [[playbooks/README]] for the index.
 | Question | Answer location |
 |----------|-----------------|
 | What are my goals? | [[North Star]] |
+| What's been built recently? | [[Build Log]] |
 | How do I do X in this vault? | [[Workflows]] or [[playbooks/README]] |
 | What tools are available? | [[Capabilities]] |
 | What's the design rationale? | [[Patterns]] |

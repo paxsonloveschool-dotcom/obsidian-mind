@@ -1,0 +1,39 @@
+filters:
+  and:
+    - file.inFolder("brain/playbooks")
+    - file.ext == "md"
+    - file.name != "README"
+formulas:
+  inbound_count: file.backlinks.length
+  size_chars: file.size
+properties:
+  file.name:
+    displayName: Playbook
+  description:
+    displayName: When to use
+  formula.inbound_count:
+    displayName: References
+  file.mtime:
+    displayName: Updated
+  formula.size_chars:
+    displayName: Size
+views:
+  - type: table
+    name: All Playbooks
+    order:
+      - file.name
+      - description
+      - formula.inbound_count
+      - file.mtime
+  - type: table
+    name: By Reference Count
+    order:
+      - file.name
+      - formula.inbound_count
+      - description
+  - type: table
+    name: Recently Updated
+    order:
+      - file.mtime
+      - file.name
+      - description
