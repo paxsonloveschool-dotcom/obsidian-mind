@@ -34,6 +34,7 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 | `/vault-audit` | Audit indexes, links, orphans, stale context |
 | `/vault-upgrade` | Import content from an existing vault into this obsidian-mind instance |
 | `/project-archive` | Move completed project from active/ to archive/, update indexes |
+| `/thinking` | Thinking scratchpad workflow -- create, reason, promote findings to atomic notes, delete |
 
 ## Vault Structure
 
@@ -60,7 +61,7 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 | `reference/` | Codebase knowledge, architecture maps | Flow docs, architecture docs |
 | `thinking/` | Scratchpad for drafts and reasoning | Named `YYYY-MM-DD-topic.md` |
 | `templates/` | Obsidian templates | `Work Note.md`, `Decision Record.md`, etc. |
-| `.claude/commands/` | 15 slash commands | See command table above |
+| `.claude/commands/` | 16 slash commands | See command table above |
 | `.claude/agents/` | 9 subagents | See subagents table below |
 | `.claude/scripts/` | Hook scripts | `session-start.sh`, `classify-message.py`, `validate-write.py`, `pre-compact.sh` |
 | `.claude/skills/` | Obsidian + QMD skills | Loaded automatically via Skill tool |
@@ -250,6 +251,8 @@ Beyond tags, use these frontmatter properties to enable search and Bases views:
 - `ticket: TICKET-123` -- find incident by ticket number
 - `severity: high` -- incident severity
 - `role: incident-lead` -- your role in an incident
+
+> **Quarter vs cycle — these are NOT interchangeable.** `quarter` (`Q1-2026`, `Q2-2026`, ...) tracks three-month **work periods** and indexes the quarterly brag files at `perf/brag/QN YYYY.md`. `cycle` (`h1-2026`, `h2-2026`) tracks six-month **review periods** and indexes review folders at `perf/<cycle>/`. Work notes and incidents use `quarter`; review briefs and review-prep artifacts use `cycle`. Agents and commands must never conflate them.
 
 ## Memory System
 

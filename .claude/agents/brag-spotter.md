@@ -63,15 +63,51 @@ For each uncaptured item, assess:
 
 ## Output
 
-Summarize to the parent conversation:
+Present findings to the parent conversation in this exact structure. **Do NOT modify the brag doc directly** — the user will paste approved entries.
 
-**Uncaptured wins (should add to brag doc):**
-- List each with: what happened, impact level, suggested competency link, evidence source
+### 1. Run Summary
 
-**Competency gaps (thin evidence this quarter):**
-- List competencies with fewer than 2 evidence links
+One sentence: quarter scanned, N wins found, M competency gaps, date range of sources checked.
 
-**Suggested brag entries:**
-- Draft 2-3 brag doc entries ready to paste, with wikilinks to evidence
+### 2. Uncaptured Wins
 
-Do NOT modify the brag doc directly — present findings for user approval.
+Markdown table. One row per win. Columns:
+
+| What | Impact | Competency | Evidence | Source |
+|------|--------|------------|----------|--------|
+
+- **What**: one-line description of the win (past tense verb)
+- **Impact**: `High` / `Medium` / `Low` (High = shipped to prod, incident resolved, cross-team outcome; Medium = significant contribution; Low = routine)
+- **Competency**: `[[Competency Name]]` wikilink, or `—` if none clearly applies
+- **Evidence**: PR URL, Slack permalink, or vault note path
+- **Source**: which scan found it — `work-note` / `incident` / `1-1` / `git` / `brain`
+
+If no uncaptured wins, write `_None — brag doc is current for this quarter._`
+
+### 3. Competency Gaps
+
+Bulleted list. One line per competency with fewer than 2 evidence links this quarter:
+
+- `[[Competency Name]]` — N evidence links (target: 2+)
+
+If all competencies have adequate coverage, write `_None — all competencies have 2+ evidence links this quarter._`
+
+### 4. Ready-to-Paste Brag Entries
+
+2-3 markdown blocks, each formatted to drop directly into `perf/brag/QN YYYY.md`. Each block MUST follow this shape:
+
+```markdown
+- **YYYY-MM-DD** — <one-line win>
+  - Impact: <who benefited, what shipped, what was measured>
+  - Competency: [[Competency Name]]
+  - Evidence: [[Work Note]] · <PR or Slack URL>
+```
+
+No prose outside this structure. The user should be able to copy-paste without editing.
+
+### Rules
+
+- Do NOT write to `perf/Brag Doc.md` or any brag quarterly file.
+- Do NOT create new notes.
+- If a finding is ambiguous (unclear impact, no obvious competency), include it in the table with `—` and let the user decide.
+- If the same win appears in multiple sources (e.g., work note + incident + Slack), list it once and cite all sources in the Evidence column.

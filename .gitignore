@@ -16,3 +16,7 @@
 
 # Session logs (local transcripts)
 thinking/session-logs/
+
+# Python bytecode (from check-vault.py syntax checks)
+__pycache__/
+*.pyc
