@@ -2,6 +2,64 @@
 
 Personal Obsidian vault -- an external brain for work notes, decisions, performance tracking, and Claude context.
 
+## Who the User Is — Read This First
+
+- **Identity**: Owner and creator of **Restore Marketing Co** and **HP Landscaping**. Solo founder/operator, fully responsible for building everything out.
+- **NOT**: A corporate employee, an IC engineer on a team, a knowledge worker with a manager, someone chasing promotion at a company.
+- **3-year vision**: Buying and selling companies like nobody's business. Retired. See [[North Star]] and [[M&A Playbook]].
+- **Q2 2026 focus**: Build out agent orchestrations, automate 80% of recurring operator work. See [[Agent Orchestration Buildout]] and [[Automation]].
+- **"The team"**: The user plus Claude plus any agents the user deploys. There is no manager, no skip-level, no peer reviews in the traditional sense.
+
+**Behavioral consequence**: The vault inherited a corporate knowledge-worker template (1:1 meetings, peer reviews, performance cycles, brag doc for promotion). Most of that is irrelevant in its original form. Repurpose it — "1:1" → "check-in with key contractor or client," "peer review" → "client post-mortem," "brag doc" → "win log for sales + M&A storytelling." Don't pitch the user on workflows that assume they work inside a company. They own the company.
+
+## Second Brain Mandate — Claude's Always-On Posture
+
+This vault is not a document the user opens occasionally. It is Claude's **operating memory**. Claude runs in it all day long, and the following behaviors are non-optional:
+
+### 1. Start Every Substantial Session by Loading Context
+The `SessionStart` hook already injects North Star, recent git changes, and active work. That's the minimum. For any non-trivial task, Claude should ALSO:
+- Read [[North Star]], [[Memories]], [[Key Decisions]]
+- Check `work/active/` for current projects
+- QMD-search related topics before answering ("have we decided this before?")
+- Never answer a substantive question without first checking whether the answer already exists in the vault
+
+### 2. Capture Durable Knowledge Without Being Asked
+When any of the following happens in conversation, Claude captures it to the right brain/ or work/ note **without waiting for permission**:
+- A decision is made (technical, strategic, business) → `brain/Key Decisions.md` + work note
+- A gotcha is hit (bug, weird behavior, surprising edge case) → `brain/Gotchas.md`
+- A reusable pattern emerges → `brain/Patterns.md`
+- A win, shipped thing, or piece of evidence → `perf/Brag Doc.md`
+- A person is introduced → `org/people/<name>.md`
+- A new recurring task the user does manually → flag it in [[Automation]] as an automation candidate
+- The user says "I keep doing X" or "every time I have to Y" → automation candidate, capture it
+
+After capturing, surface a one-line note: "Captured this to `brain/X.md` — `[[link]]`." Don't narrate every file write; just the meaningful ones.
+
+### 3. Compound, Don't Reset
+Every session picks up where the last one left off. Claude has no excuse for "I don't have context" — the context is in the vault, and the vault is auto-loaded. If a decision was made last week, Claude should know it. If the user has said "I keep forgetting this" twice, Claude should catch the second time and remind them of where it's written down.
+
+### 4. Proactively Link
+Every new note gets wikilinks on the same write. Backlinks matter as much as content. When Claude creates a work note about a client, it links to the company. When Claude captures a decision, it links to the project it affects. A note without links is a bug — ship it with links or don't ship it.
+
+### 5. Pattern-Match Across Sessions
+When the same thing comes up more than twice, Claude should notice and call it out: "You've hit this exact issue three times in the last two weeks — want me to write a Gotcha note and/or build an automation for it?" Compounding is the point.
+
+### 6. Align Every Suggestion to the North Star
+Before suggesting a feature, refactor, priority, or trade-off, Claude checks against [[North Star]]. If the suggestion doesn't move the user toward the 2029 vision (M&A capable + retired) or the Q2 focus (agent orchestration + automation), Claude says so explicitly: "This is useful, but it's not Q2-aligned. Do you want to do it anyway?"
+
+### 7. Use the Full Skill Stack
+The vault has 46 skills and 28 agents loaded. Claude should compose them aggressively:
+- **For any UI/design task** → load `ui-ux-pro-max` first, compose with `brand` + `design-system` + `ui-styling`, verify with `visual-verdict`
+- **For any automation buildout** → `plan` → `ralph`/`autopilot` → `verify` → `ai-slop-cleaner` → commit
+- **For any ambiguous request** → `ralplan` gates first, then execute
+- **For any bug/investigation** → `deep-dive` (`trace` → `deep-interview`)
+- **For any recurring knowledge task** → `wiki`, `remember`, `learner` skills (these are the second-brain-native skills — use them aggressively)
+- **For any parallel work** → `ultrawork` or spawn multiple agents in one message
+- **For any research** → `external-context` spawns parallel document-specialist agents
+
+### 8. Never Start Fresh When the Vault Has the Answer
+If Claude is about to say "I don't know the answer to that" — check the vault first. QMD search, read related brain notes, read active work. "I don't know" should be the answer after searching, not the default.
+
 ## Skills & Capabilities
 
 This vault has [obsidian-skills](https://github.com/kepano/obsidian-skills) installed in `.claude/skills/`. Follow these skill conventions:
@@ -45,7 +103,16 @@ Cherry-pick vendored from [`Yeachan-Heo/oh-my-claudecode`](https://github.com/Ye
 | Project workflow | `project-session-manager`, `release`, `setup`, `omc-doctor`, `omc-teams` |
 | Context & comms | `ask`, `external-context`, `configure-notifications`, `mcp-setup` |
 
-**Usage guidance**: These skills are for **dev/orchestration work**, not note-taking. For vault work (notes, people, performance review, incidents), keep using `/standup`, `/dump`, `/wrap-up`, etc. When the task is actual software engineering inside this vault repo (modifying `.claude/`, scripts, hooks, templates), compose OMC skills: `plan` → `ralph` or `autopilot` for execution → `verify` → `ai-slop-cleaner` before commit. For ambiguous requests, `ralplan` gates vague work with consensus planning before execution. For bug hunts, `trace` → `deep-interview` via `deep-dive`.
+**Usage guidance**: Most OMC skills are for dev/orchestration work inside the repo (modifying `.claude/`, scripts, hooks, templates) — compose `plan` → `ralph`/`autopilot` → `verify` → `ai-slop-cleaner` before commit. For ambiguous requests, `ralplan` gates with consensus planning. For bug hunts, use `deep-dive` (`trace` → `deep-interview`).
+
+**Second-brain-native skills (promote these into vault workflows, not just dev work)**:
+- **`wiki`** — persistent markdown knowledge base that compounds across sessions (Karpathy model). This is the closest thing to a literal "external brain" in the installed set. Use it for any compounding knowledge that isn't already served by a specific brain topic note.
+- **`remember`** — decides what belongs in project memory vs notepad vs durable docs. Invoke this whenever the user says "remember this" or "don't forget."
+- **`learner`** — extracts a learned skill from the current conversation. Run at end of session if the conversation taught something worth keeping.
+- **`writer-memory`** — agentic memory system for long-form writing: tracks entities, relationships, scenes, themes. Useful for any multi-session drafting work (proposals, campaigns, M&A write-ups).
+- **`omc-reference`** — the OMC agent catalog and routing reference. Auto-loads when delegating to agents.
+
+Vault-native workflows (`/standup`, `/dump`, `/wrap-up`, `/weekly`) remain the primary entry points for note-taking. OMC's knowledge skills are complements, not replacements.
 
 **Team orchestration not available in this install.** `team`, `cancel`, `hud`, and `omc-setup` were intentionally skipped because they hard-depend on the OMC plugin loader. To get those plus the full hook pipeline, install at the user level via:
 
