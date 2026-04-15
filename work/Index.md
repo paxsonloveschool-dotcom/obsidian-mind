@@ -8,9 +8,13 @@ type: index
 # Work Index
 
 ## Active Projects
-*None yet — start a project by creating a note in `work/active/`*
+- [[Deployment Threat Model - Post-hoc Refusal Removal]] — threat model for adversary-modifies-weights attacks against open-weight LLM deployments
+- [[Detection and Monitoring - Modified Open-Weight Models]] — detection-side sibling: eval gaps and monitoring signals
 
 ## Recent Notes
+- 2026-04-15: [[Detection and Monitoring - Modified Open-Weight Models]]
+- 2026-04-15: [[Deployment Threat Model - Post-hoc Refusal Removal]]
+- 2026-04-15: [[Abliteration Research Landscape]] (in `reference/`)
 - 2026-04-05: System setup complete (Claude Code + obsidian-mind)
 
 ## Decisions Log
