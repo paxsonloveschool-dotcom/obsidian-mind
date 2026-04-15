@@ -39,7 +39,7 @@ Each agent is a specialist with clear role, I/O, skills used, and escalation rul
 | Reporting | Weekly/monthly client performance reports | [[agents/reporting-agent]] |
 | Retention | Renewal, churn prevention, upsell/cross-sell | [[agents/retention-agent]] |
 
-## Workflow Blueprints (7)
+## Workflow Blueprints (8)
 
 Each workflow is an end-to-end executable playbook that composes agents + skills.
 
@@ -52,6 +52,14 @@ Each workflow is an end-to-end executable playbook that composes agents + skills
 | Weekly client report | Every Monday 08:00 | Reporting | [[workflows/weekly-client-report]] |
 | Monthly invoicing cycle | 1st of month | Invoicing | [[workflows/monthly-invoicing]] |
 | Renewal conversation | 30 days before contract end | Retention | [[workflows/renewal]] |
+| **Social content generation** | Weekly cadence / content gap / manual | Project Coord + Video adapter | [[workflows/social-content]] |
+
+## Integration Adapters
+
+| Adapter | Covers | Status |
+|---|---|---|
+| [[scripts/adapters/ghl\|GHL adapter]] | CRM, email, SMS, scheduling, invoicing, workflows, reputation, websites | Implemented, mock-tested, awaiting credentials |
+| [[scripts/adapters/video\|Video adapter]] (Seedance 2.0 + LTX-2.3 via fal.ai) | AI video generation with use-case routing | Implemented, mock-tested, awaiting FAL_KEY |
 
 ## Scripts (executable)
 

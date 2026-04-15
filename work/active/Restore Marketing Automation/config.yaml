@@ -453,3 +453,60 @@ ghl:
   # Rate limiting — GHL API limits
   # ----------------------------------------------------------------------
   rate_limit_per_10s: 100           # Per GHL docs; adapter retries on 429
+
+# ============================================================================
+# Video generation — Seedance 2.0 + LTX-2.3 via fal.ai
+# ============================================================================
+# Both models are wrapped in scripts/adapters/video.py with a VideoRouter.
+# Credentials live in .env as FAL_KEY. See .env.example for the pattern.
+# ============================================================================
+
+video:
+  # Default provider when use_case routing is ambiguous
+  default_provider: "ltx"           # "ltx" | "seedance" | "auto"
+
+  # Route override — force a provider for specific use cases
+  # Leaving this empty uses the built-in routing table in video.py
+  use_case_overrides: {}
+  # Example:
+  # use_case_overrides:
+  #   instagram_reel: "ltx"
+  #   google_ad: "seedance"
+
+  # Aspect + duration defaults per use case (applied when not in routing rule)
+  defaults:
+    aspect: "9:16"
+    duration_sec: 6
+    resolution: "1080p"
+
+  # Social posting targets — where generated videos get queued for publishing
+  # These map to GHL social planner or native platform schedulers via workflows
+  target_platforms:
+    - "instagram"
+    - "facebook"
+    - "tiktok"
+    - "youtube_shorts"
+    - "linkedin"
+    # - "x"
+    # - "pinterest"
+
+  # Review gate — owner approval before publishing
+  # v0.1: always true. Promote to auto after ~20 approved batches.
+  require_owner_approval_before_publish: true
+
+  # Batch size per campaign — how many concept variants to generate
+  concept_variants_per_batch: 3
+
+  # Prompt engineering defaults — injected into every prompt
+  # Tunes output to match Restore's brand voice
+  prompt_suffix: "Natural light, cinematic, high quality, on-brand for a local service business."
+  negative_prompt: "stock-footage look, generic, over-polished, uncanny, text overlays, watermarks"
+
+  # Job polling
+  poll_timeout_sec: 600
+  poll_interval_sec: 5
+
+  # Cost guardrails — hard caps so an agent can't burn the budget
+  monthly_generation_budget_usd: 200   # TODO: confirm with owner
+  per_batch_max_concepts: 5            # Hard cap per batch regardless of request
+  per_day_max_batches: 10              # Hard cap per day

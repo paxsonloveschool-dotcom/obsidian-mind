@@ -149,6 +149,58 @@ These are OPTIONAL. Add them when GHL's native capabilities aren't enough — no
 
 Skip any of these unless you have a specific reason. Default posture: GHL handles it.
 
+### Video generation — Seedance 2.0 + LTX-2.3 (both via fal.ai)
+
+**This is NOT optional** if Restore Marketing Co is running social media automation — GHL doesn't generate video, so we plug in actual AI video models.
+
+Two providers, one unified adapter, auto-routing by use case.
+
+| Model | Access | Strengths | Best for |
+|---|---|---|---|
+| **Seedance 2.0** (ByteDance) | fal.ai / BytePlus / Replicate / PiAPI | Cinematic, native audio, strong image-to-video, up to 12 reference files, 4-15s output, director-level camera control | Landscape ads, product showcases, testimonials, facebook/linkedin/google ads |
+| **LTX-2.3** (Lightricks, Apache-2.0) | fal.ai / local NVIDIA / ComfyUI / LTX Desktop | Open source, **native portrait 1080×1920** (Reels/TikTok/Shorts), synced audio in one pass, 4 checkpoints (dev/fast/pro/distilled), 4K at 50fps | Short-form vertical social, hero visuals (pro 4K), educational explainers, fast iteration (distilled = 8 denoising steps) |
+
+**Adapter**: `scripts/adapters/video.py` — stdlib-only, mock mode by default, provider-router based on `use_case` parameter.
+
+**Built-in routing table**:
+
+| Use case | Auto-routes to | Aspect | Duration | Rationale |
+|---|---|---|---|---|
+| `instagram_reel`, `tiktok`, `youtube_shorts` | LTX-2.3 fast | 9:16 | 6s | Portrait-native, fast/cheap |
+| `instagram_feed` | LTX-2.3 fast | 1:1 | 6s | Feed square, high volume |
+| `website_hero`, `youtube_long` | LTX-2.3 pro | 16:9 | 8s | 4K hero quality |
+| `google_ad`, `facebook_post`, `linkedin_post` | Seedance 2.0 | 16:9 | 8s | Cinematic ad polish + native audio |
+| `product_showcase`, `testimonial` | Seedance 2.0 | 16:9 | 10s | Best image-to-video + reference support |
+| `educational_explainer` | LTX-2.3 dev | 16:9 | 10s | Open source + synced audio, longer form |
+| `general` (fallback) | LTX-2.3 fast | 9:16 | 6s | Cheapest default |
+
+**Auth**: single `FAL_KEY` in `.env` covers both providers (fal.ai hosts both). Optional env vars override the model endpoint slugs if fal.ai renames them.
+
+**Mock mode**: if `FAL_KEY` is missing or `VIDEO_MOCK=1`, every call returns fake URLs and plausible job metadata — the full social content pipeline runs end-to-end without burning generation credits.
+
+**Cost guardrails** (in `config.yaml` → `video:`):
+- `monthly_generation_budget_usd` — hard cap per month
+- `per_batch_max_concepts` — hard cap per batch regardless of request
+- `per_day_max_batches` — hard cap per day
+- `require_owner_approval_before_publish` — v0.1 default true; nothing posts without owner seeing it first
+
+**End-to-end workflow**: `scripts/social_video_e2e.py` takes a campaign brief, drafts N concepts (pain-first, transformation, social-proof angles), routes each through the VideoRouter, writes a reviewable vault note with all prompts + URLs. Verified working for `instagram_reel` use case (HVAC client brief → 3 concepts → LTX-2.3 fast → mock URLs → vault note).
+
+**Smoke test**:
+```bash
+python3 scripts/adapters/video.py --use-case instagram_reel --no-wait
+python3 scripts/adapters/video.py --use-case google_ad --no-wait
+python3 scripts/social_video_e2e.py --input sample-brief.json
+```
+
+**To go live**:
+1. Create a fal.ai account at https://fal.ai and grab an API key
+2. Add `FAL_KEY=fal_xxx` to `.env`
+3. Set `video.monthly_generation_budget_usd` in `config.yaml` to your real budget
+4. Flip `VIDEO_MOCK` off (remove from `.env` or set to 0)
+5. Run `scripts/social_video_e2e.py` against a real client brief for the first live test batch
+
+
 ### Analytics — for deeper client reports
 
 GHL's built-in analytics cover campaign performance + ad spend. For *client-facing* reports that need GA4 or Plausible data on the client's website, add a secondary adapter.

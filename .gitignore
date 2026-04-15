@@ -34,3 +34,12 @@ service-account-*.json
 # Adapter logs (local observability, regenerated)
 work/active/*/runs/*.log
 work/active/*/runs/*ghl-adapter*
+work/active/*/runs/*video-adapter*
+
+# Generated automation artifacts (local, produced on every run)
+work/active/*/social-video-batches/
+work/active/*/proposals/
+work/active/*/invoices/
+work/active/*/reports/
+work/active/*/engagements/
+work/active/*/leads/
