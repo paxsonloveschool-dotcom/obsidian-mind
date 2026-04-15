@@ -44,6 +44,8 @@ type: index
 | `/think` | Scaffold a thinking note |
 | `/promote` | Promote thinking note → durable notes |
 | `/connect` | Find missing wikilinks |
+| `/verify` | Verify a change/claim/note with concrete evidence |
+| `/remember` | Curate session findings into the right memory surface |
 
 ## Capture Commands
 

@@ -1,7 +1,7 @@
 {
   "template": "obsidian-mind",
-  "version": "3.3.0",
-  "released": "2026-03-29",
+  "version": "3.4.0",
+  "released": "2026-04-15",
   "infrastructure": [
     "CLAUDE.md",
     "Home.md",
@@ -16,6 +16,26 @@
     "bases/**",
     "vault-manifest.json",
     "brain/Skills.md",
+    "brain/Capabilities.md",
+    "brain/Workflows.md",
+    "brain/playbooks/README.md",
+    "brain/playbooks/Create Work Note.md",
+    "brain/playbooks/Capture Decision.md",
+    "brain/playbooks/Capture 1-1.md",
+    "brain/playbooks/Capture Incident.md",
+    "brain/playbooks/Onboard Person.md",
+    "brain/playbooks/Promote Thinking.md",
+    "brain/playbooks/Find Missing Links.md",
+    "brain/playbooks/Archive Project.md",
+    "brain/playbooks/Run Vault Audit.md",
+    "brain/playbooks/Emergency Token Triage.md",
+    "brain/playbooks/Sync Self-Description.md",
+    "reference/README.md",
+    "reference/vault-architecture.md",
+    "reference/command-reference.md",
+    "reference/agent-reference.md",
+    "reference/ohmyclaude-catalog.md",
+    "reference/codebase-doc-template.md",
     "perf/competencies/README.md",
     "thinking/README.md"
   ],
@@ -25,6 +45,7 @@
     "brain/Key Decisions.md": "Decision log — replace if non-empty",
     "brain/Patterns.md": "Observed patterns — replace if non-empty",
     "brain/Gotchas.md": "Known gotchas — replace if non-empty",
+    "brain/Build Log.md": "Session-by-session vault expansion history — append only, never replace",
     "work/Index.md": "Work notes MOC — replace if has real entries",
     "org/People & Context.md": "People MOC — replace if has real entries",
     "perf/Brag Doc.md": "Brag doc index — replace if has entries"
@@ -65,7 +86,19 @@
       "missing": ["vault-manifest.json"]
     },
     "v3.3": {
-      "exists": ["vault-manifest.json"]
+      "exists": ["vault-manifest.json"],
+      "missing": ["brain/playbooks/README.md"]
+    },
+    "v3.4": {
+      "exists": [
+        "brain/playbooks/README.md",
+        "brain/Build Log.md",
+        "brain/Capabilities.md",
+        "reference/ohmyclaude-catalog.md",
+        ".claude/agents/omc-analyst.md",
+        ".claude/commands/think.md",
+        ".claude/commands/verify.md"
+      ]
     }
   },
   "frontmatter_required": {

@@ -186,9 +186,12 @@ These appear as deferred tools — load schemas via `ToolSearch` before calling.
 
 | Note | Contents |
 |------|----------|
+| `[[../reference/README|Reference index]]` | Index for reference/ folder |
 | `[[../reference/vault-architecture]]` | How the vault is structured |
 | `[[../reference/command-reference]]` | Quick lookup for all slash commands |
 | `[[../reference/agent-reference]]` | Quick lookup for all subagents |
+| `[[../reference/ohmyclaude-catalog]]` | oh-my-claudecode import status and rationale |
+| `[[../reference/codebase-doc-template]]` | Template for project reference docs |
 
 ## Composition Heuristics
 

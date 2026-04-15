@@ -1,5 +1,66 @@
 # Changelog
 
+## v3.4 — 2026-04-15
+
+A large expansion session landing the operational-memory layer, a set of curated sub-systems, an import from oh-my-claudecode, and the sync machinery that keeps this layer from drifting from reality. Commits: `eb0c945`, `773df6c`, `c7e22ca`, `4bd270f`, plus v3.4 self-description sync.
+
+### Added
+
+**Brain content (operational memory)**
+- `brain/Workflows.md` — multi-step orchestrations chaining commands and agents (daily, capture, performance, maintenance)
+- `brain/Capabilities.md` — inventory of every tool, skill, command, subagent, hook, MCP integration, base, template, brain topic, and reference doc available to Claude in this vault
+- `brain/Build Log.md` — append-only session history; cross-session continuity layer. Read at every session start to know what was built and what's suggested next.
+- `brain/playbooks/` — 11 repeatable procedures (`Create Work Note`, `Capture Decision`, `Capture 1-1`, `Capture Incident`, `Onboard Person`, `Promote Thinking`, `Find Missing Links`, `Archive Project`, `Run Vault Audit`, `Emergency Token Triage`, `Sync Self-Description`) plus `README.md` index.
+- `brain/Patterns.md` — rewritten with graph-first thinking, node roles, atomicity, linking discipline, token discipline, context pressure levels, workflow patterns, vault-specific patterns, and anti-patterns
+- `brain/Gotchas.md` — expanded with vault frontmatter rules, linking pitfalls, folder discipline, validation hook behavior, classify-message hook, Obsidian CLI, Bases, templates, subagent behavior, GitHub, Claude Code specifics, bash hygiene, MCP, performance reviews, and memory system
+
+**Slash commands** (15 → 20)
+- `/think` — scaffold a thinking note with standard structure (Question, Analysis, Conclusions, Next Steps, Feeds Into, Promote To)
+- `/promote` — promote thinking note findings into durable atomic notes; atomicity-aware, polishes before promoting
+- `/connect` — find missing wikilinks for a note or recent activity (wraps `cross-linker` subagent)
+- `/verify` — verify a claim/change/note with concrete evidence (adapted from oh-my-claudecode)
+- `/remember` — curate session findings into the right memory surface with explicit confirmation (adapted from oh-my-claudecode)
+
+**Subagents** (9 → 28)
+- `memory-curator` — scans `brain/` for stale claims, duplication, overgrowth, promotion candidates, link health, voice drift. Reports only, does not modify files directly.
+- `playbook-generator` — takes an observed pattern and generates a new playbook in `brain/playbooks/` following the strict playbook shape. Updates index, capabilities, memories.
+- 17 omc-adapted agents (prefixed `omc-`): `analyst`, `architect`, `code-reviewer`, `critic`, `debugger`, `designer`, `document-specialist`, `executor`, `git-master`, `planner`, `qa-tester`, `scientist`, `security-reviewer`, `test-engineer`, `tracer`, `verifier`, `writer`. Imported from [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode); see `reference/ohmyclaude-catalog.md`. `explore` and `code-simplifier` skipped (conflict with Claude Code built-ins).
+
+**Bases** (7 → 9)
+- `Playbooks.base` — three views (All, By Reference Count, Recently Updated) over `brain/playbooks/`
+- `Brain Topics.base` — three views (All, By Reference Count, Stale 30+ days) over `brain/` (excluding playbooks)
+
+**Reference docs**
+- `reference/README.md` — index for reference/ with guidance on what lives there (meta, codebase, external) and how to write reference notes
+- `reference/vault-architecture.md` — full meta documentation of folder roles, frontmatter contracts, dataflow between capture/commands/agents/bases/indexes, hooks pipeline, auto-loaded vs on-demand context budget
+- `reference/command-reference.md` — quick-lookup table for all 20 slash commands with per-command detail (purpose, usage, subagents, when-to-use, outputs, related)
+- `reference/agent-reference.md` — quick-lookup table for all 28 subagents with per-agent detail, token budget per invocation, vault-native vs omc decision heuristic
+- `reference/ohmyclaude-catalog.md` — oh-my-claudecode import history; status for all 36 skills + 19 agents (adapted, cataloged-only, skipped) with rationale for each decision
+- `reference/codebase-doc-template.md` — template for project-scoped reference docs
+
+**Hook scripts**
+- `.claude/scripts/stop-checklist.sh` — real vault health check at session end. Detects uncommitted changes, oversized `work/active/`, stale thinking notes (>7 days), potential orphans (>300 chars without wikilinks), recent notes missing frontmatter. Non-blocking.
+- `.claude/scripts/classify-message.py` — expanded with signals for new project, project completion, memory, pattern, gotcha, new person, review cycle, wrap-up, thinking note, vault health, competency (previously covered only 7 signals)
+
+### Changed
+
+- `brain/North Star.md` — rewritten as rich scaffold with vision, goals, quarter focus, active projects, principles, anti-goals, how-it-gets-updated table, and guidance for filling in. Real content still TODO — placeholders remain where user input is needed.
+- `brain/Memories.md` — rewritten as a proper index pointing to topic notes, playbooks, and reference docs
+- `brain/Skills.md` — rewritten as substantive registry with daily/capture/performance/maintenance/thinking/verification groups, subagents table (11 + 17), playbooks reference
+- `Home.md` — added Build Log, playbook index, reference folder, thinking-promotion commands, verification commands
+- `CLAUDE.md` — updated command table (20 commands, grouped by phase), agents table (11 vault + 17 omc, split by tier), playbooks table, reference pointers, Continuous Self-Improvement section, Session Continuity section, stop hook description
+- `.claude/settings.json` — Stop hook rewired from inline echo to `stop-checklist.sh`
+- `vault-manifest.json` — bumped to v3.4, added v3.4 fingerprint, added new infrastructure paths
+
+### Source & adaptation notes
+
+- oh-my-claudecode agents imported with light adaptation: stripped `level:` frontmatter, rewrote `oh-my-claudecode:<name>` cross-refs to `omc-<name>`, redirected `.omc/` paths to `thinking/omc-*`, added provenance comment. See `reference/ohmyclaude-catalog.md` for decisions.
+- Most omc skills NOT imported — they are tightly coupled to omc's pipeline engine (ralplan, autopilot, team, state management) and would drag in broken infrastructure. Only `verify` and `remember` were portable.
+
+### Continuity
+
+- Build Log has three session entries (2026-04-13 Session 1, 2026-04-15 Session 2, 2026-04-15 Session 3) plus the v3.4 self-description sync. Future sessions read the most recent entry at startup to know what state the vault is in.
+
 ## v3.3 — 2026-03-29
 
 ### Added

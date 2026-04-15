@@ -15,7 +15,9 @@ This vault has [obsidian-skills](https://github.com/kepano/obsidian-skills) inst
 
 ### Custom Slash Commands
 
-Defined in `.claude/commands/`. See [[Skills]] for full documentation.
+Defined in `.claude/commands/`. See [[Skills]] for full documentation and [[reference/command-reference]] for the full lookup with usage examples.
+
+**Daily workflow**
 
 | Command | Purpose |
 |---------|---------|
@@ -24,16 +26,46 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 | `/wrap-up` | Full session review -- verify notes, indexes, links, suggest improvements |
 | `/humanize` | Voice-calibrated editing -- make notes sound like you, not AI |
 | `/weekly` | Weekly synthesis -- cross-session patterns, North Star alignment, uncaptured wins |
+
+**Capture**
+
+| Command | Purpose |
+|---------|---------|
 | `/capture-1on1` | Capture 1:1 meeting transcript into structured vault note |
 | `/incident-capture` | Capture incident from Slack channels/DMs into structured vault notes |
 | `/slack-scan` | Deep scan Slack channels/DMs for evidence |
+
+**Performance**
+
+| Command | Purpose |
+|---------|---------|
 | `/peer-scan` | Deep scan a peer's GitHub PRs for review prep |
 | `/review-brief` | Generate review brief (manager or peer version) |
 | `/self-review` | Write self-assessment for review tool -- projects, competencies, principles |
 | `/review-peer` | Write peer review -- projects, principles, performance summary |
+
+**Vault maintenance**
+
+| Command | Purpose |
+|---------|---------|
 | `/vault-audit` | Audit indexes, links, orphans, stale context |
 | `/vault-upgrade` | Import content from an existing vault into this obsidian-mind instance |
 | `/project-archive` | Move completed project from active/ to archive/, update indexes |
+
+**Thinking & promotion**
+
+| Command | Purpose |
+|---------|---------|
+| `/think` | Scaffold a properly-structured thinking note in `thinking/` |
+| `/promote` | Promote a thinking note's findings into durable atomic notes |
+| `/connect` | Find missing wikilinks (wraps `cross-linker` subagent) |
+
+**Verification & curation** (adapted from oh-my-claudecode)
+
+| Command | Purpose |
+|---------|---------|
+| `/verify` | Verify a claim/change/note with concrete evidence — code, vault note, factual claim, or decision |
+| `/remember` | Curate session findings into the right memory surface with explicit confirmation |
 
 ## Vault Structure
 
@@ -41,8 +73,8 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 |--------|---------|-----------|
 | `Home.md` | **Vault entry point** -- embedded Base views, quick links | Open this first |
 | `vault-manifest.json` | **Template metadata** -- version, infrastructure vs user content boundaries, frontmatter schemas, version fingerprints | Used by `/vault-upgrade` for migration |
-| `CHANGELOG.md` | **Version history** -- tracks template releases (v1--v3.3) with what changed | Reference for upgrade paths |
-| `bases/` | **All Bases centralized** -- dynamic views for navigation | `Work Dashboard`, `Incidents`, `People Directory`, `1-1 History`, `Review Evidence`, `Competency Map`, `Templates` |
+| `CHANGELOG.md` | **Version history** -- tracks template releases (v1--v3.4) with what changed | Reference for upgrade paths |
+| `bases/` | **All Bases centralized** -- dynamic views for navigation | `Work Dashboard`, `Incidents`, `People Directory`, `1-1 History`, `Review Evidence`, `Competency Map`, `Templates`, `Playbooks`, `Brain Topics` |
 | `work/` | Work notes index | `Index.md` (detailed MOC) |
 | `work/active/` | **Current projects only** (1-3 files) | Move here when starting, move to archive when done |
 | `work/archive/YYYY/` | Completed work organized by year | Grows over time |
@@ -53,16 +85,17 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 | `perf/competencies/` | Atomic competency notes (link targets) | One note per competency |
 | `perf/evidence/` | PR deep scans, data extracts for reviews | Named `<Person> PRs - <Period>.md` |
 | `perf/<cycle>/` | Review cycle briefs + artifacts | Review briefs (private, manager, peer) |
-| `brain/` | Claude's operational knowledge | `Memories.md`, `Key Decisions.md`, `Patterns.md`, `Gotchas.md`, `Skills.md`, `North Star.md` |
+| `brain/` | Claude's operational knowledge | `Memories`, `North Star`, `Build Log`, `Key Decisions`, `Patterns`, `Gotchas`, `Skills`, `Workflows`, `Capabilities` |
+| `brain/playbooks/` | Repeatable procedures Claude follows | 11 playbooks; see `README.md` |
 | `org/` | Organizational knowledge index | `People & Context.md` (MOC) |
 | `org/people/` | Atomic person notes | One note per person |
 | `org/teams/` | Team notes as graph nodes | One note per team |
-| `reference/` | Codebase knowledge, architecture maps | Flow docs, architecture docs |
-| `thinking/` | Scratchpad for drafts and reasoning | Named `YYYY-MM-DD-topic.md` |
+| `reference/` | Meta docs + codebase knowledge + external reference | `vault-architecture.md`, `command-reference.md`, `agent-reference.md`, `ohmyclaude-catalog.md`, `codebase-doc-template.md` |
+| `thinking/` | Scratchpad for drafts and reasoning | Named `YYYY-MM-DD-topic.md`; promote then delete |
 | `templates/` | Obsidian templates | `Work Note.md`, `Decision Record.md`, etc. |
-| `.claude/commands/` | 15 slash commands | See command table above |
-| `.claude/agents/` | 9 subagents | See subagents table below |
-| `.claude/scripts/` | Hook scripts | `session-start.sh`, `classify-message.py`, `validate-write.py`, `pre-compact.sh` |
+| `.claude/commands/` | 20 slash commands | See command tables above |
+| `.claude/agents/` | 28 subagents (11 vault-native + 17 omc-adapted) | See [[reference/agent-reference]] for the full catalog |
+| `.claude/scripts/` | Hook scripts | `session-start.sh`, `classify-message.py`, `validate-write.py`, `pre-compact.sh`, `stop-checklist.sh` |
 | `.claude/skills/` | Obsidian + QMD skills | Loaded automatically via Skill tool |
 
 ## Obsidian CLI
@@ -203,8 +236,14 @@ Update these when creating or archiving notes:
 - **`work/Index.md`** -- add to Active Projects or Recent Notes, move completed to Archive
 - **`brain/Memories.md`** -- index of memory topics. Add new memories to the relevant topic note, not here.
 - **`brain/Skills.md`** -- register vault-specific workflows and slash commands
+- **`brain/Capabilities.md`** -- update when new agents, commands, bases, or playbooks are added
+- **`brain/Build Log.md`** -- append-only session continuity log. Every substantive session gets an entry with goal, builds, decisions, files touched, and next suggested steps.
 - **`org/People & Context.md`** -- update when people, teams, or org structure changes
 - **`perf/Brag Doc.md`** -- log wins with links to evidence, add new quarters as needed
+
+### Session Continuity
+
+[[brain/Build Log]] is the cross-session memory layer. At session start, reading the most recent entry tells you what state the vault is in and what was suggested for follow-up. At session end, append an entry documenting what you built so the next session can pick up cleanly. This is what makes the vault self-improving over time — Claude's own record of how Claude has been editing the vault.
 
 ### Decision Records
 
@@ -299,19 +338,80 @@ When capturing data from Slack, DMs, or meetings:
 
 ## Subagents
 
-Specialized agents in `.claude/agents/` for heavy operations. They run in isolated context windows.
+Specialized agents in `.claude/agents/` for heavy operations. They run in isolated context windows with their own tokens — use them to protect main context. Full reference at [[reference/agent-reference]]; omc adaptation history at [[reference/ohmyclaude-catalog]].
+
+**Vault-native agents (11)** — built for this vault, know the conventions.
 
 | Agent | Purpose | Invoked by |
 |-------|---------|------------|
 | `brag-spotter` | Finds uncaptured wins and competency gaps | `/wrap-up`, `/weekly` |
 | `context-loader` | Loads all vault context about a person, project, or concept | Direct |
-| `cross-linker` | Finds missing wikilinks, orphans, broken backlinks | `/vault-audit` |
+| `cross-linker` | Finds missing wikilinks, orphans, broken backlinks | `/vault-audit`, `/connect` |
+| `memory-curator` | Curates `brain/` — stale claims, duplication, overgrowth, promotion candidates | Direct, or `/remember` at scale |
 | `people-profiler` | Bulk creates/updates person notes from Slack profiles | `/incident-capture` |
+| `playbook-generator` | Turns an observed pattern into a new playbook in `brain/playbooks/` | Direct |
 | `review-prep` | Aggregates all performance evidence for a review period | `/review-brief` |
 | `slack-archaeologist` | Full Slack reconstruction -- every message, thread, profile | `/incident-capture` |
 | `vault-librarian` | Deep vault maintenance -- orphans, broken links, stale notes | `/vault-audit` |
-| `review-fact-checker` | Verifies every claim in a review draft against vault sources | `/self-review`, `/review-peer` |
+| `review-fact-checker` | Verifies every claim in a review draft against vault sources | `/self-review`, `/review-peer`, `/verify` |
 | `vault-migrator` | Classifies, transforms, and migrates content from a source vault | `/vault-upgrade` |
+
+**omc-adapted agents (17)** — imported from [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode). Use for **code/plan/analysis work** — they don't know vault conventions, so brief them on frontmatter/linking/folders if using for vault tasks. All prefixed `omc-`.
+
+| Agent | Best for |
+|-------|----------|
+| `omc-analyst` | Pre-planning requirements gap analysis (Opus) |
+| `omc-architect` | Architecture review, steelman counters, trade-offs (Opus) |
+| `omc-code-reviewer` | Thorough multi-perspective code review |
+| `omc-critic` | Final quality gate with ADVERSARIAL escalation (Opus) |
+| `omc-debugger` | Structured debugging — reproduce, isolate, verify |
+| `omc-designer` | UX/UI design review |
+| `omc-document-specialist` | Documentation writing and external lookup |
+| `omc-executor` | Implement a plan step-by-step with verification |
+| `omc-git-master` | Atomic git operations — commits, merges, tags, PRs |
+| `omc-planner` | Work plan creation with testable acceptance criteria |
+| `omc-qa-tester` | End-to-end QA testing |
+| `omc-scientist` | Hypothesis-driven analysis |
+| `omc-security-reviewer` | Security audit with threat modeling |
+| `omc-test-engineer` | Test design — unit/integration/e2e coverage |
+| `omc-tracer` | Causal investigation with competing hypotheses |
+| `omc-verifier` | Verify a claim actually worked (invoked by `/verify`) |
+| `omc-writer` | Prose/docs writing assistance |
+
+## Playbooks
+
+Repeatable procedures in `brain/playbooks/`. When a task matches a playbook shape, follow the playbook instead of reasoning from first principles. Full index at [[brain/playbooks/README]].
+
+| Playbook | When to use |
+|----------|-------------|
+| [[brain/playbooks/Create Work Note]] | Starting a new project or capturing work |
+| [[brain/playbooks/Capture Decision]] | A decision was just made that needs durable recording |
+| [[brain/playbooks/Capture 1-1]] | A 1:1 meeting transcript needs structuring |
+| [[brain/playbooks/Capture Incident]] | An outage/alert/postmortem needs a vault home |
+| [[brain/playbooks/Onboard Person]] | A new person needs an `org/people/` note |
+| [[brain/playbooks/Promote Thinking]] | A thinking note has produced durable knowledge |
+| [[brain/playbooks/Find Missing Links]] | A note feels orphaned or under-connected |
+| [[brain/playbooks/Archive Project]] | A project is complete |
+| [[brain/playbooks/Run Vault Audit]] | Vault feels messy, or before a substantive session |
+| [[brain/playbooks/Emergency Token Triage]] | Context is filling up faster than expected |
+| [[brain/playbooks/Sync Self-Description]] | CLAUDE.md / README / CHANGELOG lag behind reality |
+
+## Continuous Self-Improvement
+
+The vault is a **self-editing system**. When you add a new command, agent, hook, base, or playbook, the CLAUDE.md / README.md / CHANGELOG.md / vault-manifest.json layer should be updated in the same session. If they aren't, the next session loads stale counts and stale guidance — and the system degrades silently.
+
+**Triggers for self-improvement work:**
+- You added a new command → update CLAUDE.md command table + README.md + CHANGELOG.md
+- You added a new agent → update CLAUDE.md agent table + [[reference/agent-reference]] + README.md
+- You added a new hook → update CLAUDE.md hooks table + README.md
+- You added a new base or playbook → update CLAUDE.md structure table + [[reference/vault-architecture]]
+- You imported from another source → add to [[reference/ohmyclaude-catalog]] or a similar import catalog
+- You finished a session with substantive changes → append to [[brain/Build Log]]
+- `/wrap-up` and `/weekly` should both surface sync drift when detected
+
+**The sync playbook** ([[brain/playbooks/Sync Self-Description]]) describes the full procedure. It exists specifically because this layer is the one most likely to fall behind.
+
+**At session end**, if the session added anything to `.claude/`, `brain/`, `bases/`, or `reference/`, the wrap-up routine must run the sync playbook — not just update the Build Log.
 
 ## Hooks
 
@@ -320,10 +420,10 @@ Five lifecycle hooks in `.claude/settings.json`:
 | Hook | When | What |
 |------|------|------|
 | SessionStart | On startup/resume | QMD re-index, inject North Star, active work, recent changes, tasks, file listing |
-| UserPromptSubmit | Every message | Classifies content (decision, incident, win, 1:1, architecture, person) and injects routing hints |
+| UserPromptSubmit | Every message | Classifies content (decision, incident, win, 1:1, architecture, person, pattern, gotcha, win, wrap-up, etc.) and injects routing hints |
 | PostToolUse | After writing `.md` | Validates frontmatter, checks for wikilinks, verifies folder placement |
 | PreCompact | Before context compaction | Backs up session transcript to `thinking/session-logs/` |
-| Stop | End of every session | Lightweight checklist reminder: archive, update indexes, check orphans. For thorough review, use `/wrap-up` instead. |
+| Stop | End of every session | `stop-checklist.sh` runs a real vault health check (uncommitted changes, stale thinking, oversized `work/active/`, potential orphans, recent notes missing frontmatter). For thorough review, use `/wrap-up`. |
 
 ## Rules
 

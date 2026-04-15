@@ -27,6 +27,7 @@ CLAUDE.md describes *what* the vault is. Playbooks describe *how to do things in
 | [[Archive Project]] | A project is complete and should leave `work/active/` |
 | [[Run Vault Audit]] | The vault feels messy or before a substantive session |
 | [[Emergency Token Triage]] | Context is filling up faster than expected |
+| [[Sync Self-Description]] | CLAUDE.md / README / CHANGELOG / vault-manifest lag behind the operational layer |
 
 ## Playbook conventions
 

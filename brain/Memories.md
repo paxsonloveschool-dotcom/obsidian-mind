@@ -38,6 +38,7 @@ Concrete step-by-step procedures. See [[playbooks/README]] for the index.
 | [[playbooks/Archive Project]] | Completed project leaving active/ |
 | [[playbooks/Run Vault Audit]] | Vault hygiene check |
 | [[playbooks/Emergency Token Triage]] | Context window pressure |
+| [[playbooks/Sync Self-Description]] | CLAUDE.md / README / CHANGELOG / vault-manifest lag behind the operational layer |
 
 ## Structural Reference (reference/)
 

@@ -13,6 +13,85 @@ Append-only record of how the obsidian-mind vault has been expanded. This is the
 
 ---
 
+## 2026-04-15 — Session 4: Self-description sync + continuous improvement mechanism
+
+### Goal
+
+User asked: "how can we get it to sync up with all the upgrades that have been made" and then affirmed: "perfect as long as claude code is continuously editing itself and improving."
+
+The operational layer (agents, commands, brain, reference) had grown substantially across sessions 1–3, but the **self-description layer** (CLAUDE.md, README.md, CHANGELOG.md, vault-manifest.json) was still reflecting the v3.3 pre-expansion state. Future sessions would load stale counts and miss new capabilities. This session closed that gap AND added the durable mechanism to keep it closed.
+
+### Audit findings
+
+Before fixing, I audited the self-description layer:
+
+- `CLAUDE.md`: "15 commands, 9 subagents" (actual: 20 commands, 28 agents), no mention of playbooks folder, no Build Log, stale command/agent tables, Stop hook described as inline echo (actual: `stop-checklist.sh`)
+- `README.md`: command table missing `/think`, `/promote`, `/connect`, `/verify`, `/remember`; agent table missing memory-curator, playbook-generator, and all 17 omc agents; vault structure ASCII tree showed "15 slash commands, 9 subagents"; bases table missing Playbooks, Brain Topics
+- `CHANGELOG.md`: last entry was v3.3 (2026-03-29), no entry for any of the sessions 1–3 expansions
+- `vault-manifest.json`: version "3.3.0", infrastructure list missing new playbooks / reference docs, scaffold missing Build Log, no v3.4 fingerprint
+
+### Built
+
+**Updated self-description layer**
+- `CLAUDE.md` — rewrote command table into phase-grouped sub-tables (Daily, Capture, Performance, Maintenance, Thinking & Promotion, Verification & Curation); rewrote subagents table with vault-native (11) and omc-adapted (17) tiers; added Playbooks section with all 11 playbooks; added Continuous Self-Improvement section with trigger list; added Session Continuity section pointing at Build Log; updated Vault Structure table with new counts, playbooks folder, reference subfolder contents; updated Hooks table to reference `stop-checklist.sh` instead of inline echo; added `brain/Capabilities.md` and `brain/Build Log.md` to Maintaining Indexes
+- `README.md` — rewrote command tables with phase grouping and v3.4 annotations; rewrote subagents section with vault-native table + omc summary list + pointer to catalog; added Playbooks section; added Brain Topics and Playbooks bases to Bases table; expanded vault structure ASCII tree with Build Log, Capabilities, Workflows, playbooks/, reference/ subfolder contents, and updated `.claude/` counts
+- `CHANGELOG.md` — added comprehensive v3.4 entry covering all of sessions 1–4 with sub-sections for Brain Content, Slash Commands, Subagents, Bases, Reference Docs, Hook Scripts, Changed items, source/adaptation notes, and continuity
+- `vault-manifest.json` — bumped to 3.4.0, released 2026-04-15; added explicit paths for all 11 playbook files and 6 reference docs to `infrastructure`; added `brain/Build Log.md` to `scaffold` with note that it's append-only (never replace); added v3.4 fingerprint keyed on `brain/playbooks/README.md`, `brain/Build Log.md`, `brain/Capabilities.md`, `reference/ohmyclaude-catalog.md`, `.claude/agents/omc-analyst.md`, `.claude/commands/think.md`, `.claude/commands/verify.md`; updated v3.3 fingerprint's `missing` to point at `brain/playbooks/README.md`
+
+**Continuous improvement mechanism** (the durable part)
+- `brain/playbooks/Sync Self-Description.md` — 11-step playbook for keeping CLAUDE.md, README.md, CHANGELOG.md, vault-manifest.json, reference docs, brain indexes, Home.md, and Build Log in sync with the operational layer. Triggered whenever a command/agent/hook/base/playbook/brain-topic/reference-doc is added. The specific triggers are listed in CLAUDE.md's new "Continuous Self-Improvement" section so future sessions can't miss them.
+- CLAUDE.md "Continuous Self-Improvement" section — documents the rule: never land an operational change without a matching self-description update in the same session. Lists specific triggers. References the sync playbook. Wires the sync into `/wrap-up` and `/weekly`.
+- CLAUDE.md "Session Continuity" section — establishes Build Log as the cross-session memory layer and makes appending to it part of session wrap-up.
+
+**Index updates**
+- `brain/playbooks/README.md` — added Sync Self-Description row
+- `brain/Memories.md` — added Sync Self-Description to playbook index table; added `reference/ohmyclaude-catalog.md` and other reference docs to structural reference table
+- `brain/Capabilities.md` — playbook count updated (10 → 11), added Sync Self-Description to most-used list, added full reference notes table (was missing ohmyclaude-catalog, README, codebase-doc-template)
+- `Home.md` — added `/verify` and `/remember` to Daily Commands table
+
+### Key decisions this session
+
+- **Sync is a playbook, not a script.** A script could check file existence, but deciding what to write into CLAUDE.md / README.md / CHANGELOG.md requires judgment — is this a new capability worth a README mention? Is this a version bump or a patch? A script would be brittle. A playbook lets Claude apply judgment consistently across sessions.
+- **Trigger list goes in CLAUDE.md, not just the playbook.** The playbook is read on-demand. CLAUDE.md is auto-loaded. Putting the triggers in CLAUDE.md guarantees Claude sees them before they're needed.
+- **v3.4 is one version, not three.** Sessions 1–3 produced a coherent expansion. Splitting into v3.4, v3.5, v3.6 would be theater — one CHANGELOG entry with everything is clearer.
+- **vault-manifest fingerprint uses 7 files, not 1.** The more distinctive markers, the less likely a false positive on version detection. All 7 must exist for `/vault-upgrade` to detect a v3.4 source vault.
+- **Append to Build Log, not rewrite.** The Build Log is append-only. Past session entries are historical record; they never get edited even if decisions they described were later overridden. New decisions go in new entries.
+- **The "continuous self-editing" frame from the user is now a rule, not a hope.** CLAUDE.md explicitly says: "The vault is a self-editing system." This is the frame future sessions should operate under.
+
+### Files touched
+
+```
+CLAUDE.md                                updated (major — command/agent tables, playbooks section, continuous self-improvement, session continuity, hooks table)
+README.md                                updated (major — command/agent tables, bases, playbooks, vault structure)
+CHANGELOG.md                             appended (v3.4 entry)
+vault-manifest.json                      updated (v3.4 bump, infrastructure, scaffold, fingerprints)
+Home.md                                  updated (daily commands table)
+brain/playbooks/Sync Self-Description.md created
+brain/playbooks/README.md                updated (added Sync row)
+brain/Memories.md                        updated (added Sync playbook, reference docs)
+brain/Capabilities.md                    updated (playbook count, reference notes table)
+brain/Build Log.md                       appended (this entry)
+```
+
+### Next suggested steps (for session 5)
+
+1. **First real exercise of the sync playbook.** The next session that adds anything operational should invoke [[playbooks/Sync Self-Description]] in the same session and validate it works end-to-end.
+2. **Consider a `/sync` slash command** that wraps the sync playbook — would make it a one-command operation for future sessions.
+3. **Add a sync-drift check to `stop-checklist.sh`.** Specifically, detect if `.claude/commands/` has more files than CLAUDE.md mentions, same for agents, bases, and playbooks. Warn if drift detected.
+4. **Fill the North Star with real content.** Still the oldest open todo.
+5. **Run `memory-curator` on the now-substantive brain/** — validate the agent design and find early duplications.
+6. **Add `/self-improve` meta-command** — wraps the loop: run memory-curator → run sync playbook → append Build Log. Makes continuous improvement a single command.
+7. **Import catalog format** — `reference/ohmyclaude-catalog.md` established a pattern (status: adapted / cataloged / skipped, with rationale). Future imports from other sources (claude-skills, everything-claude-code, etc.) should use the same shape.
+
+### Open questions for session 5
+
+- Should the sync playbook be invokable via a slash command (`/sync`) or stay manual?
+- Should `/wrap-up` automatically invoke the sync playbook when it detects changes in `.claude/`, `brain/`, `bases/`, or `reference/`?
+- The `stop-checklist.sh` sync-drift check would be a useful feedback loop — worth implementing?
+- North Star is still scaffold — is it blocking anything, or is it OK to stay unfilled until there's real content?
+
+---
+
 ## 2026-04-15 — Session 3: oh-my-claudecode import
 
 ### Goal

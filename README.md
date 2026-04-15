@@ -119,7 +119,9 @@ Five lifecycle hooks handle routing automatically:
 
 ## 🛠️ Commands
 
-Defined in `.claude/commands/`. Run them in any Claude Code session.
+Defined in `.claude/commands/`. Run them in any Claude Code session. See `reference/command-reference.md` for the full lookup with usage examples.
+
+**Daily & Capture**
 
 | Command | What It Does |
 |---------|-------------|
@@ -131,34 +133,69 @@ Defined in `.claude/commands/`. Run them in any Claude Code session.
 | `/capture-1on1` | Capture a 1:1 meeting transcript into a structured vault note |
 | `/incident-capture` | Capture an incident from Slack/channels into structured notes |
 | `/slack-scan` | Deep scan Slack channels/DMs for evidence |
+
+**Performance**
+
+| Command | What It Does |
+|---------|-------------|
 | `/peer-scan` | Deep scan a peer's GitHub PRs for review prep |
 | `/review-brief` | Generate a review brief (manager or peer version) |
 | `/self-review` | Write your self-assessment for review season — projects, competencies, principles |
 | `/review-peer` | Write a peer review — projects, principles, performance summary |
+
+**Vault Maintenance**
+
+| Command | What It Does |
+|---------|-------------|
 | `/vault-audit` | Audit indexes, links, orphans, stale context |
 | `/vault-upgrade` | Import content from an existing vault — version detection, classification, migration |
 | `/project-archive` | Move a completed project from active/ to archive/, update indexes |
+
+**Thinking & Promotion** (added in v3.4)
+
+| Command | What It Does |
+|---------|-------------|
+| `/think` | Scaffold a properly-structured thinking note with standard sections |
+| `/promote` | Promote thinking note findings into durable atomic notes |
+| `/connect` | Find missing wikilinks in active context (wraps `cross-linker`) |
+
+**Verification & Curation** (adapted from oh-my-claudecode in v3.4)
+
+| Command | What It Does |
+|---------|-------------|
+| `/verify` | Verify a change/claim/note with concrete evidence — code, vault note, factual claim, or decision |
+| `/remember` | Curate session findings into the right memory surface with explicit confirmation |
 
 ---
 
 ## 🤖 Subagents
 
-Specialized agents that run in isolated context windows. They handle heavy operations without polluting your main conversation.
+Specialized agents that run in isolated context windows. They handle heavy operations without polluting your main conversation. The vault now ships **28 agents** — 11 vault-native and 17 adapted from [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode). See `reference/agent-reference.md` for the full catalog with per-agent detail and `reference/ohmyclaude-catalog.md` for the omc import history.
+
+**Vault-native (11)** — built for this vault, know its conventions:
 
 | Agent | Purpose | Invoked by |
 |-------|---------|------------|
 | `brag-spotter` | Finds uncaptured wins and competency gaps | `/wrap-up`, `/weekly` |
 | `context-loader` | Loads all vault context about a person, project, or concept | Direct |
-| `cross-linker` | Finds missing wikilinks, orphans, broken backlinks | `/vault-audit` |
+| `cross-linker` | Finds missing wikilinks, orphans, broken backlinks | `/vault-audit`, `/connect` |
+| `memory-curator` | Curates `brain/` — stale claims, duplication, overgrowth, promotion candidates | Direct, or `/remember` at scale |
 | `people-profiler` | Bulk creates/updates person notes from Slack profiles | `/incident-capture` |
+| `playbook-generator` | Turns an observed pattern into a new playbook in `brain/playbooks/` | Direct |
 | `review-prep` | Aggregates all performance evidence for a review period | `/review-brief` |
 | `slack-archaeologist` | Full Slack reconstruction — every message, thread, profile | `/incident-capture` |
 | `vault-librarian` | Deep vault maintenance — orphans, broken links, stale notes | `/vault-audit` |
-| `review-fact-checker` | Verify every claim in a review draft against vault sources | `/self-review`, `/review-peer` |
+| `review-fact-checker` | Verify every claim in a review draft against vault sources | `/self-review`, `/review-peer`, `/verify` |
 | `vault-migrator` | Classify, transform, and migrate content from a source vault | `/vault-upgrade` |
 
+**omc-adapted (17)** — for code/plan/analysis work (prefixed `omc-`):
+
+`omc-analyst`, `omc-architect`, `omc-code-reviewer`, `omc-critic`, `omc-debugger`, `omc-designer`, `omc-document-specialist`, `omc-executor`, `omc-git-master`, `omc-planner`, `omc-qa-tester`, `omc-scientist`, `omc-security-reviewer`, `omc-test-engineer`, `omc-tracer`, `omc-verifier`, `omc-writer`
+
+These don't know vault conventions — brief them on frontmatter/linking/folders when using for vault tasks. See `reference/ohmyclaude-catalog.md` for full import history and `reference/agent-reference.md` for per-agent detail.
+
 > [!NOTE]
-> Subagents are defined in `.claude/agents/`. You can add your own for domain-specific workflows.
+> Subagents are defined in `.claude/agents/`. You can add your own for domain-specific workflows. `playbook-generator` can turn a recurring pattern into a new playbook for you.
 
 ---
 
@@ -191,8 +228,32 @@ The `bases/` folder contains database views that query your notes' frontmatter p
 | Review Evidence | PR scans and evidence grouped by person and cycle |
 | Competency Map | Competencies with evidence counts from backlinks |
 | Templates | Quick access to all templates |
+| Playbooks | All playbooks with reference count and recency (added v3.4) |
+| Brain Topics | All `brain/` topic notes with stale-flag view (added v3.4) |
 
 `Home.md` embeds these views, making it the vault's dashboard.
+
+---
+
+## 📘 Playbooks
+
+Repeatable procedures in `brain/playbooks/`. When a task matches a playbook shape, Claude follows the playbook instead of reasoning from first principles — consistent, low-token, and proven.
+
+| Playbook | When to use |
+|----------|-------------|
+| Create Work Note | Starting a project or capturing work |
+| Capture Decision | A decision was just made that needs durable recording |
+| Capture 1-1 | A 1:1 meeting transcript needs structuring |
+| Capture Incident | An outage/alert/postmortem needs a vault home |
+| Onboard Person | A new person needs an `org/people/` note |
+| Promote Thinking | A thinking note has produced durable knowledge |
+| Find Missing Links | A note feels orphaned or under-connected |
+| Archive Project | A project is complete |
+| Run Vault Audit | Vault feels messy or before a substantive session |
+| Emergency Token Triage | Context is filling up faster than expected |
+| Sync Self-Description | CLAUDE.md / README / CHANGELOG / vault-manifest lag behind reality |
+
+The `playbook-generator` subagent turns any recurring pattern into a new playbook automatically.
 
 ---
 
@@ -284,20 +345,30 @@ perf/
 
 brain/
   North Star.md         Goals and focus areas — read every session
+  Build Log.md          Append-only session history — what was built and why
   Memories.md           Index of memory topics
+  Capabilities.md       Inventory of what Claude can do in this vault
+  Workflows.md          Multi-step orchestrations chaining commands and agents
   Key Decisions.md      Significant decisions and their reasoning
   Patterns.md           Recurring patterns observed across work
   Gotchas.md            Things that have gone wrong and why
   Skills.md             Custom workflows and slash commands
+  playbooks/            Repeatable procedures (11 playbooks)
 
-reference/              Codebase knowledge, architecture maps, flow docs
+reference/
+  README.md             Reference index
+  vault-architecture.md Meta doc — how the vault is wired together
+  command-reference.md  Quick lookup for all slash commands
+  agent-reference.md    Quick lookup for all subagents
+  ohmyclaude-catalog.md oh-my-claudecode import history and rationale
+  codebase-doc-template.md  Template for project reference docs
 thinking/               Scratchpad for drafts — promote findings, then delete
 templates/              Obsidian templates with YAML frontmatter
 
 .claude/
-  commands/             15 slash commands
-  agents/               9 subagents
-  scripts/              Hook scripts + charcount.sh utility
+  commands/             20 slash commands
+  agents/               28 subagents (11 vault-native + 17 omc-adapted)
+  scripts/              Hook scripts (session-start, classify-message, validate-write, pre-compact, stop-checklist) + charcount utility
   skills/               Obsidian + QMD skills
   settings.json         5 hooks configuration
 ```
