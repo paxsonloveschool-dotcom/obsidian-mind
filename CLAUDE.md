@@ -48,14 +48,31 @@ When the same thing comes up more than twice, Claude should notice and call it o
 Before suggesting a feature, refactor, priority, or trade-off, Claude checks against [[North Star]]. If the suggestion doesn't move the user toward the 2029 vision (M&A capable + retired) or the Q2 focus (agent orchestration + automation), Claude says so explicitly: "This is useful, but it's not Q2-aligned. Do you want to do it anyway?"
 
 ### 7. Use the Full Skill Stack
-The vault has 46 skills and 28 agents loaded. Claude should compose them aggressively:
+The vault has **203 skills, 95 agents, and 82 commands** loaded. Claude should compose them aggressively — the vault has specialized tooling for nearly every founder/operator task:
+
 - **For any UI/design task** → load `ui-ux-pro-max` first, compose with `brand` + `design-system` + `ui-styling`, verify with `visual-verdict`
 - **For any automation buildout** → `plan` → `ralph`/`autopilot` → `verify` → `ai-slop-cleaner` → commit
 - **For any ambiguous request** → `ralplan` gates first, then execute
 - **For any bug/investigation** → `deep-dive` (`trace` → `deep-interview`)
-- **For any recurring knowledge task** → `wiki`, `remember`, `learner` skills (these are the second-brain-native skills — use them aggressively)
+- **For any recurring knowledge task** → `wiki`, `remember`, `learner` skills (second-brain-native, use aggressively)
 - **For any parallel work** → `ultrawork` or spawn multiple agents in one message
 - **For any research** → `external-context` spawns parallel document-specialist agents
+- **For any new client proposal** → `market-proposal` → `ui-ux-pro-max` → `docx`/`pdf` for deliverable
+- **For any lead intake** → `icp-builder` → `lead-qualification` → `cold-email`/`build-sequence`
+- **For any landing page** → `market-landing` → `ui-ux-pro-max` → `ui-styling` → `page-cro` review → `visual-verdict`
+- **For any website audit** (client prospecting) → `market-audit` → `serp-analyzer` → `seo-audit` → `market-report-pdf`
+- **For any sales call prep** → `prepare-call` → `meddic-checklist` → `persona-intel` → `discovery-calls`
+- **For any deal review** → `audit-pipeline` → `deal-review` → `forecast-discipline` → `deal-quality-model`
+- **For any M&A target evaluation** → `gathering-competitive-intelligence` → `modeling-finances` → `designing-business-models` → [[M&A Playbook]]
+- **For any financial model** → `modeling-finances` → `xlsx` → `build-forecast-scenarios`
+- **For any founder-level strategic decision** → `steering-strategy` → `shaping-product-strategy` → `decision-making frameworks`
+- **For any investor / capital raise work** → `raising-capital` → `pptx` → `launching-go-to-market`
+- **For any new business idea / acquisition thesis** → `validating-ideas` → `designing-business-models` → `planning-market-entry`
+- **For any brand/positioning work** → `building-brand` → `brand` → `market-brand` → `design`
+- **For any content marketing push** → `content-strategy` → `keyword-research` → `write-blog` → `content-repurposing`
+- **For any recurring reporting** → `xlsx` + `analyst` agent + `market-report-pdf` for client-facing; `scientist` agent for analysis
+- **For any customer success task** → `adoption-playbook` → `sentiment-feedback-loop` → `retention-dashboard`
+- **For any churn / retention** → `churn-prevention` → `risk-scoring-framework` → `save-play-library`
 
 ### 8. Never Start Fresh When the Vault Has the Answer
 If Claude is about to say "I don't know the answer to that" — check the vault first. QMD search, read related brain notes, read active work. "I don't know" should be the answer after searching, not the default.
@@ -122,6 +139,25 @@ Vault-native workflows (`/standup`, `/dump`, `/wrap-up`, `/weekly`) remain the p
 ```
 
 That is a separate install outside this vault repo -- run it yourself in the Claude Code CLI when you want the full orchestration runtime.
+
+### Founder / M&A / Marketing / Sales Bundles
+
+Vendored 2026-04-15. **92 curated skills + 67 harvested commands + 67 harvested agents** from six MIT/Apache-licensed GitHub sources, cherry-picked for a solo founder running two service businesses toward M&A. All self-contained, zero runtime dependencies, zero plugin-root references.
+
+| Source | Skills installed | Focus |
+|--------|-----------------|-------|
+| [`anthropics/skills`](https://github.com/anthropics/skills) | 10 | Official: `skill-creator`, `mcp-builder`, `docx`, `pptx`, `xlsx`, `pdf`, `webapp-testing`, `doc-coauthoring`, `internal-comms`, `web-artifacts-builder` |
+| [`bwerneckm/startup-skills`](https://github.com/bwerneckm/startup-skills) | 13 | Founder playbooks: `closing-deals`, `raising-capital`, `modeling-finances`, `validating-ideas`, `designing-business-models`, `launching-go-to-market`, `measuring-growth`, `planning-market-entry`, `steering-strategy`, `shaping-product-strategy`, `navigating-regulations`, `building-brand`, `gathering-competitive-intelligence` |
+| [`zubair-trabzada/ai-marketing-claude`](https://github.com/zubair-trabzada/ai-marketing-claude) | 14 | Agency-ready `market-*` suite: `market-ads`, `market-audit`, `market-brand`, `market-competitors`, `market-copy`, `market-emails`, `market-funnel`, `market-landing`, `market-launch`, `market-proposal`, `market-report`, `market-report-pdf`, `market-seo`, `market-social` |
+| [`syntax-syndicate/marketingskills`](https://github.com/syntax-syndicate/marketing-skills) | 18 | CRO + lead gen: `form-cro`, `onboarding-cro`, `page-cro`, `popup-cro`, `signup-flow-cro`, `paywall-upgrade-cro`, `cold-email`, `lead-magnets`, `marketing-psychology`, `content-strategy`, `customer-research`, `churn-prevention`, `revops`, `site-architecture`, `free-tool-strategy`, `referral-program`, `launch-strategy`, `programmatic-seo` |
+| [`OpenClaudia/openclaudia-skills`](https://github.com/OpenClaudia/openclaudia-skills) | 15 | Research/content/growth: `content-calendar`, `content-repurposing`, `content-gap-analysis`, `demand-gen`, `icp-builder`, `keyword-research`, `write-landing`, `write-blog`, `newsletter`, `email-subject-lines`, `google-reviews`, `growth-strategy`, `affiliate-marketing`, `brand-monitor`, `serp-analyzer` |
+| [`gtmagents/gtm-agents`](https://github.com/gtmagents/gtm-agents) | 22 bundles → **87 flattened skills** + **67 commands** + **67 agents** | Enterprise-grade GTM ops flattened for solo use: sales pipeline (`crm-hygiene`, `deal-review`, `forecast-discipline`), prospecting (`cold-outreach`, `discovery-calls`, `meddic-checklist`, `objection-handling`, `social-selling`), customer success (`adoption-playbook`, `executive-ebr-kit`, `risk-scoring-framework`), revenue ops (`forecast-modeling`, `variance-analysis`, `deal-quality-model`), content ops (`case-studies`, `webinars`, `whitepapers`, `editorial-ops`), community (`champion-engagement-system`, `community-kpi-dashboard`), VoC (`customer-feedback-taxonomy`, `closed-loop-playbook`), PR (`messaging-frameworks`, `crisis-playbooks`, `media-database`), partnerships (`partner-ecosystem-map`, `joint-solution-blueprint`) |
+
+**Newly-harvested commands** worth knowing (all in `.claude/commands/`): `run-forecast`, `build-forecast-scenarios`, `audit-pipeline`, `prepare-call`, `build-sequence`, `generate-leads`, `qualify-lead`, `monitor-customer-health`, `monitor-retention`, `monitor-abm`, `design-nurture`, `orchestrate-journey`, `monitor-automation`, `configure-workflow`, `produce-campaign-report`, `run-market-landscape-study`, `synthesize-insights`, `pitch-media`, `manage-crisis`, `plan-qbr`, `plan-launch`, `generate-blog`, `create-ebook`, `content-pipeline`, and more.
+
+**Newly-harvested agents** (all in `.claude/agents/`): 67 specialist agents including pipeline-analyst, forecast-coach, cs-strategist, nurture-architect, content-strategist, pr-strategist, research-lead, and many more. Use the Agent tool to delegate specialized sub-work.
+
+**Usage guidance**: These bundles were curated for **founder-operator work at two service businesses driving toward M&A**. Skip anything industry-inappropriate (we skipped healthcare, financial-services, edtech, manufacturing bundles). Skip anything platform-specific for platforms the user doesn't use (we skipped discord/telegram/bluesky/reddit). Compose aggressively — most marketing agency work touches 5-10 skills in one task.
 
 ### Custom Slash Commands
 

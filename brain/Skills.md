@@ -119,4 +119,114 @@ Added to `.claude/agents/` alongside the vault-specific agents. No name collisio
 
 **Usage guidance**: OMC skills are for **dev/orchestration work**, not note-taking. Vault workflows (notes, people, reviews, incidents) stay on `/standup`, `/dump`, `/wrap-up`, etc. When working inside this repo on actual code/config (`.claude/`, hooks, templates), compose: `plan` → `ralph`/`autopilot` → `verify` → `ai-slop-cleaner` before commit. For ambiguous requests, `ralplan` gates with consensus planning. For bug hunts, use `deep-dive`.
 
-Related: [[Patterns]], [[Gotchas]], [[Key Decisions]]
+## Founder / M&A / Marketing / Sales Bundles
+
+Vendored 2026-04-15. **92 curated skills + 67 commands + 67 agents harvested** from six MIT/Apache-licensed GitHub sources. All self-contained, zero runtime deps, matched to a solo founder running two service businesses toward M&A.
+
+### Source summary
+
+| Source | Skills | License | Focus |
+|--------|--------|---------|-------|
+| [anthropics/skills](https://github.com/anthropics/skills) | 10 | Apache-2.0 | Official Anthropic skills (office docs, skill creation, MCP) |
+| [bwerneckm/startup-skills](https://github.com/bwerneckm/startup-skills) | 13 | MIT | Founder-operating playbooks |
+| [zubair-trabzada/ai-marketing-claude](https://github.com/zubair-trabzada/ai-marketing-claude) | 14 | MIT | Marketing agency `market-*` suite |
+| [syntax-syndicate/marketingskills](https://github.com/syntax-syndicate/marketing-skills) | 18 | MIT | CRO + lead gen |
+| [OpenClaudia/openclaudia-skills](https://github.com/OpenClaudia/openclaudia-skills) | 15 | MIT | Research, content, growth |
+| [gtmagents/gtm-agents](https://github.com/gtmagents/gtm-agents) | 87 (flattened from 22 bundles) + 67 commands + 67 agents | MIT | Enterprise-grade GTM ops (flattened for solo use) |
+
+### Deep-use categories
+
+**Founder-operator playbooks** (run these when making strategic / business decisions)
+- `steering-strategy` — annual planning, OKRs, operating rhythm
+- `shaping-product-strategy` — Shape Up + DIBB + ICE + Opportunity Solution Trees
+- `validating-ideas` — Lean Canvas + RAT + Mom Test + Pretotyping
+- `designing-business-models` — Business Model Canvas + WTP + unit economics
+- `modeling-finances` — forecasts, burn, runway, scenario planning
+- `launching-go-to-market` — Crossing the Chasm + growth diagnostics
+- `planning-market-entry` — market scoring, regulatory readiness
+- `navigating-regulations` — multi-jurisdiction compliance
+- `measuring-growth` — AARRR metrics, North Star, funnel analysis
+- `gathering-competitive-intelligence` — Wardley Mapping + 7 Powers + battlecards
+- `building-brand` — Dunford Positioning + StoryBrand + content architecture
+- `closing-deals` — pipeline, qualification, objection handling
+- `raising-capital` — deck, investor CRM, updates (repurpose for M&A deal flow)
+
+**Marketing agency delivery** (Restore Marketing Co client work)
+- `market-audit` — client website audit (use for prospecting + onboarding)
+- `market-proposal` — client proposal generation
+- `market-landing` — landing page CRO analysis
+- `market-copy`, `market-ads`, `market-emails`, `market-social` — content generation
+- `market-funnel` — funnel analysis and optimization
+- `market-brand`, `market-competitors`, `market-seo` — research
+- `market-launch` — product/service launch playbook
+- `market-report-pdf` — client-ready PDF reports
+- `content-strategy`, `content-calendar`, `content-repurposing`, `content-gap-analysis` — content ops
+- `write-blog`, `write-landing`, `newsletter` — long-form writing
+- `keyword-research`, `serp-analyzer`, `programmatic-seo` — SEO
+- `email-subject-lines`, `cold-email`, `build-sequence` — email
+- `page-cro`, `form-cro`, `popup-cro`, `signup-flow-cro`, `onboarding-cro`, `paywall-upgrade-cro` — CRO suite
+- `lead-magnets`, `free-tool-strategy`, `referral-program` — lead gen
+- `marketing-psychology` — persuasion primitives
+- `growth-strategy`, `demand-gen`, `launch-strategy`, `revops` — strategy
+- `icp-builder`, `customer-research` — ICP + research
+- `churn-prevention`, `brand-monitor`, `google-reviews` — lifecycle + local
+
+**Sales pipeline + RevOps** (directly usable for both businesses)
+- `crm-hygiene`, `deal-review`, `forecast-discipline` — pipeline management
+- `cold-outreach`, `discovery-calls`, `meddic-checklist`, `objection-handling`, `lead-qualification`, `social-selling` — prospecting
+- `call-brief-framework`, `call-analysis-framework`, `call-review-kit`, `persona-intel` — call prep + review
+- `battlecard-system`, `messaging-framework`, `reinforcement-loop` — sales enablement
+- `coaching-framework`, `reinforcement-drills` — sales coaching
+- `capacity-modeling`, `comp-mechanics`, `territory-optimization`, `roe-governance`, `quota-health` — sales ops
+- `forecast-modeling`, `variance-analysis`, `executive-briefs` — forecasting
+- `cohort-analysis`, `deal-quality-model`, `revenue-health-dashboard`, `exec-briefing-kit` — revenue analytics
+
+**Customer success** (any recurring client engagement)
+- `adoption-playbook`, `executive-ebr-kit`, `risk-scoring-framework`, `sentiment-feedback-loop` — CS playbooks
+- `retention-dashboard`, `activation-map`, `save-play-library`, `segmentation-framework` — customer analytics
+- `expansion-playbook`, `account-health-framework`, `exec-briefing`, `success-planning-framework` — account management
+
+**Content + PR**
+- `case-studies`, `thought-leadership`, `storytelling`, `seo-writing`, `editorial-ops`, `webinars`, `whitepapers` — content marketing
+- `messaging-frameworks`, `crisis-playbooks`, `media-database` — PR/comms
+
+**Community + advocacy**
+- `champion-engagement-system`, `community-program-matrix`, `community-kpi-dashboard`, `moderation-safety-playbook`, `community-insight-taxonomy`, `closed-loop-community-playbook` — community building
+- `advocacy-roster-system`, `customer-feedback-taxonomy`, `closed-loop-playbook`, `signal-correlation-workbench` — VoC
+
+**Marketing analytics + automation**
+- `attribution-playbook`, `exec-dashboard-blueprint`, `channel-pacing-guardrails`, `roi-benchmark-library` — analytics
+- `lifecycle-mapping`, `data-governance`, `workflow-testing` — automation governance
+- `personalization-logic`, `lifecycle-cadence`, `nurture-testing` — nurture programs
+- `hypothesis-library`, `experiment-design-kit`, `guardrail-scorecard` — experimentation
+
+**ABM + partnerships**
+- `account-tiering`, `signal-intel`, `personalization` — ABM
+- `partner-ecosystem-map`, `joint-solution-blueprint`, `partner-revenue-desk`, `co-marketing-governance` — partnerships
+
+**Office deliverables** (client-ready)
+- `docx` — Word docs, proposals, memos, letters
+- `pptx` — pitch decks, presentations, investor decks
+- `xlsx` — financial models, spreadsheets, data cleanup
+- `pdf` — invoices, reports, contracts, forms, OCR
+- `web-artifacts-builder` — interactive React/shadcn/ui artifacts
+- `webapp-testing` — Playwright-based UI testing
+- `internal-comms` — status reports, newsletters, announcements
+- `doc-coauthoring` — structured documentation workflows
+
+**Meta / skill authoring**
+- `skill-creator` — build new skills programmatically (critical for the Q2 automation buildout)
+- `mcp-builder` — build MCP servers for custom integrations (critical for connecting to CRMs, invoicing, scheduling systems)
+
+### Bonus: 67 GTM-ops commands (in `.claude/commands/`)
+
+Single-purpose slash-command style entry points, all usable via the harness. Examples:
+`run-forecast`, `build-forecast-scenarios`, `audit-pipeline`, `prepare-call`, `build-sequence`, `generate-leads`, `qualify-lead`, `monitor-customer-health`, `monitor-retention`, `monitor-abm`, `design-nurture`, `orchestrate-journey`, `monitor-automation`, `configure-workflow`, `produce-campaign-report`, `run-market-landscape-study`, `synthesize-insights`, `pitch-media`, `manage-crisis`, `plan-qbr`, `plan-launch`, `generate-blog`, `create-ebook`, `content-pipeline`, `design-territories`, `design-comp-plan`, `build-capacity-plan`, `build-coaching-plan`, `launch-coaching-program`, `launch-experiment`, `prioritize-hypotheses`, `synthesize-learnings`, `build-success-plan`, `build-adoption-program`, `run-account-review`, `run-escalation-playbook`, `run-partner-qbr`, `build-co-sell-playbook`, `design-partner-ecosystem`, `plan-plays`, `ingest-pipeline`, `forecast-coverage`, `inspect-pipeline-levers`, `run-call-review`, `review-call`, `analyze-call`, `reinforce-program`, `evaluate-attribution-models`, `report-variance`, `monitor-revenue-health`, `monitor-channel-pacing`, `audit-content`, `audit-pipeline`, `launch-community-activation-series`, `launch-quantitative-survey`, `orchestrate-qualitative-lab`, `launch-program`, `design-community-strategy`, `enablement-kit`, `target-accounts`, `segment-customers`, `run-voc-listening-tour`, `run-member-insight-sprint`, `activate-advocacy-program`, `configure-branches`, `optimize-nurture`, `synthesize-voc-insights`, `review-call`, `build-playbook`, `pitch-media`
+
+### Vault counts after install
+
+- **203 skills** — 46 from prior installs + 37 curated + 87 flattened + 33 from other sources
+- **95 agents** — 28 prior + 67 harvested
+- **82 commands** — 15 prior + 67 harvested
+
+Related: [[Patterns]], [[Gotchas]], [[Key Decisions]], [[Automation]], [[M&A Playbook]]
