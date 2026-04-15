@@ -38,6 +38,16 @@ After capturing, surface a one-line note: "Captured this to `brain/X.md` — `[[
 ### 3. Compound, Don't Reset
 Every session picks up where the last one left off. Claude has no excuse for "I don't have context" — the context is in the vault, and the vault is auto-loaded. If a decision was made last week, Claude should know it. If the user has said "I keep forgetting this" twice, Claude should catch the second time and remind them of where it's written down.
 
+**Dual-memory architecture**: This vault operates with two complementary memory layers:
+
+- **Manual / curated** — the `brain/` directory (Memories, Key Decisions, Patterns, Gotchas, Skills, M&A Playbook, Automation), plus `org/`, `work/`, and `perf/`. Written by Claude + user under this mandate. Used for **durable, opinionated, cross-linked** knowledge: decisions, playbooks, strategic memory, people, projects.
+- **Auto / raw** — [[claude-mem]] ([[.claude/skills/claude-mem/SKILL|pointer skill]]), installed at the user level via `/plugin marketplace add thedotmack/claude-mem`. Captures every tool use, file touch, and decision automatically, compresses via Claude Agent SDK, stores in ChromaDB, injects relevant context on future `SessionStart`. Used for **tactical recall**: "what did I touch last week", "have we hit this bug before", "which file owns X".
+
+**Both run in parallel**. They don't conflict because claude-mem installs at the user level (`~/.claude/plugins/...`) while the vault's manual system lives in this repo. Rule of thumb:
+- Durable / strategic → write to `brain/` (manual, with wikilinks)
+- Tactical / ephemeral → trust claude-mem to auto-capture
+- Same thing hit twice → promote from claude-mem auto-capture to a `brain/Gotchas.md` or `brain/Patterns.md` entry (make it durable)
+
 ### 4. Proactively Link
 Every new note gets wikilinks on the same write. Backlinks matter as much as content. When Claude creates a work note about a client, it links to the company. When Claude captures a decision, it links to the project it affects. A note without links is a bug — ship it with links or don't ship it.
 

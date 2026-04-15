@@ -7,6 +7,39 @@ type: brain
 
 # Key Decisions
 
+## 2026-04-15 — Install claude-mem as User-Level Plugin, NOT Vendored
+
+**Decision:** Add [[claude-mem]] (thedotmack/claude-mem) as a **user-level plugin** via `/plugin marketplace add` — create only a pointer skill in `.claude/skills/claude-mem/` inside the vault, NOT a full vendor.
+
+**Context:** User asked to "add thedotmack/claude-mem from github". Two install options:
+- (a) Vendor the repo into `.claude/skills/claude-mem/` like we did with UI/UX Pro Max, oh-my-claudecode, and the marketing skill bundles.
+- (b) Install at user level via `/plugin marketplace add thedotmack/claude-mem` + `/plugin install claude-mem` and add only a pointer skill to the vault.
+
+**Rationale — why vendoring fails for claude-mem specifically:**
+1. **Hooks hard-depend on `$CLAUDE_PLUGIN_ROOT`** — every hook in `plugin/hooks/hooks.json` resolves `$CLAUDE_PLUGIN_ROOT` or falls back to `$HOME/.claude/plugins/cache/thedotmack/claude-mem/...`. Vendored into `.claude/skills/` neither path is set; every hook would fail on every tool call.
+2. **Collides with the vault's existing hooks** on `SessionStart`, `UserPromptSubmit`, `PostToolUse`, `PreToolUse(Read)`, `Stop`. The vault already has hooks on those events via `.claude/scripts/*.sh` + `.claude/scripts/*.py`. Merging would either double-fire or break existing behavior.
+3. **Runs a persistent Node.js + Bun background worker service** on `localhost:37777` (`worker-service.cjs`). Not a script-that-runs-and-exits — it's a long-running process. The vault would have to manage its lifecycle (start, stop, health check, restart).
+4. **Runtime dependency chain**: Bun, Node, ChromaDB, Claude Agent SDK. Heavy for a vault that's been stdlib-first for adapters.
+5. **AGPL-3.0 license** — copyleft. Vendoring a modified fork creates obligations if obsidian-mind is ever served as a network service. MIT-licensed bundles we vendored have no such obligation.
+6. **101 MB repo**. Vendoring bloats git history.
+7. **Nothing cherry-pickable** — `.claude/skills/` in the upstream has one CLAUDE.md, `.claude/commands/` has one command. Value is 100% in the worker + compression pipeline, not in markdown content.
+
+**What was installed:**
+- [[.claude/skills/claude-mem/SKILL|Pointer skill]] at `.claude/skills/claude-mem/SKILL.md` — describes what it is, when to use it, how to install, post-install checks, dual-memory architecture, troubleshooting. Future sessions discover it in the skill registry automatically.
+- Dual-memory section added to [[CLAUDE#3. Compound, Don't Reset]] documenting how `brain/` (manual) and claude-mem (auto) complement each other.
+- Updates to [[Memories]] with the dual-memory rule of thumb.
+
+**Actual install** (user task, outside this vault):
+```
+/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem
+```
+
+**Alternatives rejected:**
+- Full vendor — breaks hooks, requires Bun runtime, 101 MB bloat, AGPL drag.
+- Skip entirely — rejected because the auto-memory layer is complementary value.
+- Submodule — added complexity without solving the runtime issues.
+
 ## 2026-04-15 — Vault Repurposed for Solo Founder / M&A Operator
 
 **Decision:** Repurpose obsidian-mind from generic corporate knowledge-worker template to a solo-founder operating vault, oriented toward the 2029 M&A vision.
