@@ -1,0 +1,37 @@
+name: vault-checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check-vault:
+    name: Vault structure, hooks, and frontmatter
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run vault checks (warn-only)
+        # warn-only because the vault has 6 pre-existing wikilink warnings on
+        # brain/ index notes that will be addressed in a follow-up. Hard errors
+        # (missing required files, broken hook references, script syntax) still
+        # fail the build.
+        run: python3 .claude/scripts/check-vault.py --warn-only
+
+      - name: Summarize hook script permissions
+        run: |
+          echo "### Hook script permissions" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          ls -l .claude/scripts/ >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
