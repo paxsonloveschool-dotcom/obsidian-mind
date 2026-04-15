@@ -46,6 +46,7 @@ Concrete step-by-step procedures. See [[playbooks/README]] for the index.
 | [[../reference/vault-architecture]] | Understanding how the vault is wired together |
 | [[../reference/command-reference]] | Quick lookup for any slash command |
 | [[../reference/agent-reference]] | Quick lookup for any subagent |
+| [[../reference/ohmyclaude-catalog]] | What was imported from oh-my-claudecode, when to use omc vs vault |
 
 ## Lookup Table
 

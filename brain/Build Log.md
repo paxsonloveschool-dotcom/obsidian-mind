@@ -13,6 +13,127 @@ Append-only record of how the obsidian-mind vault has been expanded. This is the
 
 ---
 
+## 2026-04-15 — Session 3: oh-my-claudecode import
+
+### Goal
+
+Pull the rest of the oh-my-claudecode (omc) GitHub repo's skills and agents and implement them in this vault. The user explicitly asked to "pull the rest of the ohmyclaude code github repo skills and then implement them as well".
+
+### What omc is
+
+[Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) is a multi-agent orchestration plugin for Claude Code: 19 agents + 36 skills, built for a pipeline engine (ralplan, autopilot, team, ultrawork) with `.omc/` state folders, tmux runners, and cross-skill handoffs via state management.
+
+### Approach
+
+**Agents** port cleanly — they're largely self-contained instructions.
+**Skills** are tightly coupled to omc's infrastructure — direct import would drag in broken dependencies.
+
+Decision: import all 17 portable agents with light adaptation, adapt 2 skills to vault commands, catalog the rest for reference.
+
+### Built
+
+**Source acquisition**
+- Shallow-cloned `https://github.com/Yeachan-Heo/oh-my-claudecode` to `/tmp/ohmyclaude-import/` (not committed — scratch)
+
+**Adapted agents** (17 copied to `.claude/agents/omc-*.md`)
+- `omc-analyst` — requirements gap analysis
+- `omc-architect` — architecture review
+- `omc-code-reviewer` — code review
+- `omc-critic` — quality gate with ADVERSARIAL escalation
+- `omc-debugger` — structured debugging
+- `omc-designer` — UX/UI design review
+- `omc-document-specialist` — documentation writing
+- `omc-executor` — plan execution
+- `omc-git-master` — atomic git ops
+- `omc-planner` — work plan creation
+- `omc-qa-tester` — end-to-end QA
+- `omc-scientist` — hypothesis-driven analysis
+- `omc-security-reviewer` — security audit
+- `omc-test-engineer` — test design
+- `omc-tracer` — causal investigation
+- `omc-verifier` — verify claims actually worked
+- `omc-writer` — prose/docs writing
+
+**Skipped agents** (2)
+- `explore` — conflicts with Claude Code built-in `Explore` agent type
+- `code-simplifier` — duplicates the built-in `simplify` skill
+
+**Adaptations applied to every omc agent**
+- Rename `name:` field in frontmatter from `X` to `omc-X`
+- Strip omc-specific `level: N` frontmatter
+- Rewrite `oh-my-claudecode:X` cross-references to `omc-X`
+- Redirect `oh-my-claudecode:explore` → `Agent(subagent_type="Explore")`
+- Redirect `oh-my-claudecode:code-simplifier` → `Skill("simplify")`
+- Redirect `.omc/` paths to `thinking/omc-*/`
+- Add provenance comment: `<!-- Adapted from oh-my-claudecode ... -->`
+
+**Adapted skills as slash commands**
+- `/verify` — verify a change/claim/note with concrete evidence. Supports code/vault-note/factual-claim/process/decision targets.
+- `/remember` — curate session findings into the right memory surface (brain topic note, playbook, work note, indexes). Differentiated from `/dump` by focus on session curation with explicit per-item confirmation.
+
+**Reference catalog**
+- `reference/ohmyclaude-catalog.md` — complete inventory of all 36 skills + 19 agents with import status (adapted / cataloged / skipped) and rationale for each decision. Provenance, usage notes, when-to-use-which guidance.
+
+**Brain index updates**
+- `brain/Capabilities.md` — 28 agents now (11 vault-native + 17 omc), 20 slash commands (was 18), with separate tables for vault vs omc agents
+- `brain/Skills.md` — same agent/command table updates
+- Both include a "when to use omc vs vault" heuristic: omc for code/plan/analysis-shaped work, vault for vault-shaped work
+
+### Key decisions this session
+
+- **`omc-` prefix for imported agents.** Makes provenance clear, prevents name collisions with vault-native agents, enables future imports from other sources without conflict.
+- **Adapted the agents, not the skills.** Agents port cleanly; skills drag in infrastructure. Adapting 36 skills would have been a rewrite, not an import.
+- **Catalog-only for skipped skills.** Instead of silently dropping them, the catalog lists every one with a reason. If a future session needs one, the catalog tells you what's there.
+- **`/verify` and `/remember` were the only two skills worth porting.** Most others duplicate existing vault commands (dump, connect, promote, vault-audit) or require infrastructure that doesn't exist here.
+- **omc agents don't know vault conventions.** Their prompt is about software engineering, not Obsidian. When calling them for vault tasks, the invocation must brief them on frontmatter/linking/folder rules — this is noted in the catalog.
+
+### Files touched
+
+```
+.claude/agents/omc-analyst.md            created (adapted)
+.claude/agents/omc-architect.md          created (adapted)
+.claude/agents/omc-code-reviewer.md      created (adapted)
+.claude/agents/omc-critic.md             created (adapted)
+.claude/agents/omc-debugger.md           created (adapted)
+.claude/agents/omc-designer.md           created (adapted)
+.claude/agents/omc-document-specialist.md created (adapted)
+.claude/agents/omc-executor.md           created (adapted)
+.claude/agents/omc-git-master.md         created (adapted)
+.claude/agents/omc-planner.md            created (adapted)
+.claude/agents/omc-qa-tester.md          created (adapted)
+.claude/agents/omc-scientist.md          created (adapted)
+.claude/agents/omc-security-reviewer.md  created (adapted)
+.claude/agents/omc-test-engineer.md      created (adapted)
+.claude/agents/omc-tracer.md             created (adapted)
+.claude/agents/omc-verifier.md           created (adapted)
+.claude/agents/omc-writer.md             created (adapted)
+.claude/commands/verify.md               created (adapted)
+.claude/commands/remember.md             created (adapted)
+reference/ohmyclaude-catalog.md          created
+brain/Capabilities.md                    updated (omc tables)
+brain/Skills.md                          updated (omc tables)
+brain/Build Log.md                       appended (this entry)
+```
+
+### Next suggested steps (for session 4)
+
+1. **Exercise the new commands.** Next substantive task should use `/verify` and `/remember` so friction surfaces.
+2. **Invoke an omc agent on a real task.** Try `omc-critic` on the next review draft, or `omc-analyst` on the next decision. Validate the adaptations work end-to-end.
+3. **Update `reference/agent-reference.md`** — it still reflects only 9 agents. Should show 28 now (vault + omc).
+4. **Update `reference/command-reference.md`** — should reflect 20 commands.
+5. **Consider a `/consult` meta-command** — wrapper that picks the right omc agent for a task (analyst for requirements, critic for review, scientist for hypothesis, etc.).
+6. **Consider adapting omc's `deep-interview` skill** — it's the closest analog to `/think` but with interactive interview. Could strengthen thinking note creation.
+7. **Run `memory-curator` now that brain/ has real content.** Validate it finds useful things.
+8. **Fill North Star with real goals.** Still scaffolded — user input is the blocker.
+
+### Open questions for session 4
+
+- Which omc agents actually get used? Should we trim the unused ones or keep them all for completeness?
+- Does the omc-prefix convention scale if we import from more sources (e.g. affaan-m/everything-claude-code, claude-skills)?
+- Should omc agents be updated when upstream releases new versions? (Currently a one-time snapshot as of session 3.)
+
+---
+
 ## 2026-04-15 — Session 2: Subagents, Bases, Hooks, /think
 
 ### Goal

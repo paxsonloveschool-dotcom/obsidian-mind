@@ -36,7 +36,7 @@ Inventory of everything available to Claude when operating in this vault. This i
 
 ## Slash Commands
 
-18 commands in `.claude/commands/`. Full reference: [[../reference/command-reference]].
+20 commands in `.claude/commands/`. Full reference: [[../reference/command-reference]].
 
 | Command | Purpose |
 |---------|---------|
@@ -58,10 +58,14 @@ Inventory of everything available to Claude when operating in this vault. This i
 | `/promote` | Promote thinking note findings to durable atomic notes |
 | `/connect` | Find missing wikilinks (wraps cross-linker) |
 | `/think` | Scaffold a properly-structured thinking note |
+| `/verify` | Verify a claim/change/note with concrete evidence (adapted from omc) |
+| `/remember` | Curate session findings into the right memory surface (adapted from omc) |
 
 ## Subagents
 
-11 agents in `.claude/agents/`. Full reference: [[../reference/agent-reference]].
+28 agents in `.claude/agents/` — 11 vault-native + 17 adapted from oh-my-claudecode. Full reference: [[../reference/agent-reference]]. Import history: [[../reference/ohmyclaude-catalog]].
+
+### Vault-native (11)
 
 | Agent | Best for |
 |-------|----------|
@@ -76,6 +80,30 @@ Inventory of everything available to Claude when operating in this vault. This i
 | `vault-librarian` | Deep vault maintenance — orphans, broken links, stale notes |
 | `review-fact-checker` | Verify every claim in a review draft |
 | `vault-migrator` | Classify, transform, migrate from a source vault |
+
+### Adapted from oh-my-claudecode (17, prefixed `omc-`)
+
+Use these for code-side, plan-side, and analytical work. They don't know vault conventions — for pure vault tasks, use vault-native agents.
+
+| Agent | Best for |
+|-------|----------|
+| `omc-analyst` | Pre-planning requirements gap analysis (Opus) |
+| `omc-architect` | Architecture review, steelman counters, trade-offs (Opus) |
+| `omc-code-reviewer` | Thorough multi-perspective code review |
+| `omc-critic` | Final quality gate — plan/code/analysis with ADVERSARIAL escalation |
+| `omc-debugger` | Structured debugging — reproduce, isolate, verify |
+| `omc-designer` | UX/UI design review |
+| `omc-document-specialist` | Documentation writing and external lookup |
+| `omc-executor` | Implement a plan step-by-step with verification |
+| `omc-git-master` | Atomic git operations — commits, merges, tags, PRs |
+| `omc-planner` | Work plan creation with testable acceptance criteria |
+| `omc-qa-tester` | End-to-end QA testing with structured verdicts |
+| `omc-scientist` | Hypothesis-driven analysis |
+| `omc-security-reviewer` | Security audit with threat modeling |
+| `omc-test-engineer` | Test design — unit, integration, e2e coverage |
+| `omc-tracer` | Causal investigation — evidence-driven tracing |
+| `omc-verifier` | Verify a claim or change actually worked |
+| `omc-writer` | Writing assistance — prose, docs, technical content |
 
 ## Built-in Agent Types (from Claude Code)
 
