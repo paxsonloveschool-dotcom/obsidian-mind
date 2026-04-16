@@ -16,3 +16,7 @@
 
 # Session logs (local transcripts)
 thinking/session-logs/
+
+# Social poster deps (installed in CI; never committed)
+scripts/social/node_modules/
+scripts/social/package-lock.json

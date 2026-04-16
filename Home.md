@@ -13,6 +13,7 @@ type: index
 - [[brain/Memories|Memories]] — What Claude remembers
 - [[perf/Brag Doc|Brag Doc]] — Wins & achievements
 - [[org/People & Context|People & Context]] — Org knowledge
+- [[social/README|Social Pipeline]] — Fan-out posting
 
 ## Brain
 - [[brain/Key Decisions|Key Decisions]]
