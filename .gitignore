@@ -32,9 +32,7 @@ credentials.json
 service-account-*.json
 
 # Adapter logs (local observability, regenerated)
-work/active/*/runs/*.log
-work/active/*/runs/*ghl-adapter*
-work/active/*/runs/*video-adapter*
+work/active/*/runs/
 
 # Generated automation artifacts (local, produced on every run)
 work/active/*/social-video-batches/
