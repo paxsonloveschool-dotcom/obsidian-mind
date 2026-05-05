@@ -1,0 +1,70 @@
+name: social-post
+
+# Fans out queued posts in social/queue/ to every configured platform.
+# Triggers on push to main when the queue changes, plus manual dispatch, plus
+# an hourly cron so that future-dated `post_at` posts go out on time.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "social/queue/**"
+      - "scripts/social/**"
+      - ".github/workflows/social-post.yml"
+  schedule:
+    - cron: "5 * * * *" # hourly — picks up anything whose post_at has arrived
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    if: ${{ vars.SOCIAL_PAUSED != '1' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        working-directory: scripts/social
+        run: npm install --no-audit --no-fund
+
+      - name: Run poster
+        working-directory: scripts/social
+        env:
+          VAULT_ROOT: ${{ github.workspace }}
+          SOCIAL_PAUSED: ${{ vars.SOCIAL_PAUSED }}
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          LINKEDIN_URN: ${{ secrets.LINKEDIN_URN }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: npx tsx post.ts
+
+      - name: Commit archived posts
+        run: |
+          if [[ -n "$(git status --porcelain social/)" ]]; then
+            git config user.name "social-bot"
+            git config user.email "social-bot@users.noreply.github.com"
+            git add social/
+            git commit -m "chore(social): archive posted items"
+            git push
+          else
+            echo "No archive changes."
+          fi
