@@ -20,6 +20,7 @@ type: index
 - CLAUDE.md — Autopilot + efficiency rules
 - [[North Star]] — Goals and priorities
 - MASTER_SOP.md — Complete operational manual (in claude-code-config repo)
+- [[Skills]] — Installed Claude Code plugins (skill-creator, superpowers, gsd, context-mode, claude-mem, frontend-design) and reinstall commands
 
 ## Lookup Table
 | Topic | Location |
