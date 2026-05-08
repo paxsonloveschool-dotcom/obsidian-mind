@@ -16,3 +16,6 @@
 
 # Session logs (local transcripts)
 thinking/session-logs/
+
+# GSD plugin working state (auto-checkpoint, regenerated per session)
+.planning/
