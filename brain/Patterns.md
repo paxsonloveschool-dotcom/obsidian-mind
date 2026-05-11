@@ -19,6 +19,14 @@ type: brain
 - 50% normal, 70% optimize, 80% /compact, 90% mandatory split
 - Offload to files: agents write reports to disk, next agent reads file not chat
 - Grep before Read — only load what you need
+- Edit prompts instead of sending "no, fix this" follow-ups (mistake + correction stay in context forever)
+- Connect ALL MCP servers before starting work — adding mid-session busts prompt cache
+- `/model opusplan` for architecture, then Sonnet/Haiku to execute
+- Isolate heavy reads in Haiku sub-agents — sub-agent context dies with the sub-agent
+- Run `/compact` MANUALLY before auto-compact fires; 3 failed auto-compacts trips the circuit breaker
+- Fast Path tools (ls/grep/glob/TodoWrite) skip the AI classifier in Auto mode — zero latency
+- CLAUDE.md = pointers (~150 chars/line), not walls of text — memory is hints, not facts
+- See `context-hygiene` skill for the full playbook
 
 ## Workflow
 - Two-part execution: Research & Plan -> Execute & Verify
