@@ -38,3 +38,11 @@ Auto-discovered by Claude Code via SKILL.md frontmatter. No registration needed.
 ## Updating Skills
 - Obsidian skills: `.claude/update-skills.sh` (pulls from `kepano/obsidian-skills`)
 - RTK skills: `.claude/update-rtk-skills.sh` (pulls from `adityahimaone/hermes-agent-rtk-caveman`)
+- Daily discovery: `.github/workflows/skill-scout.yml` runs 09:17 UTC, opens a draft PR if new skills are worth adopting. On-demand: `/skill-scout [lookback_days]`.
+
+## Self-Improvement Loop
+- **Agent**: `.claude/agents/skill-scout.md` — searches GitHub for newly-released Claude Code skills, evaluates, proposes adoptions
+- **Playbook**: `.github/scripts/skill-scout-prompt.md` — source of truth for evaluation criteria + report format
+- **Trigger**: daily cron (09:17 UTC) OR `workflow_dispatch` OR `/skill-scout` in-session
+- **Output**: `thinking/skill-scout-YYYY-MM-DD.md` + optional skill additions in `.claude/skills/`
+- **Setup**: requires `ANTHROPIC_API_KEY` in repo Actions secrets
