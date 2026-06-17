@@ -13,19 +13,25 @@ This directory drives **daily discovery + local auto-install** of reputable Clau
 
 ## Two moving parts
 
-### 1. Daily discovery (GitHub Actions)
+### 1. Continuous discovery + reflection (GitHub Actions)
 
-`.github/workflows/discover-plugins.yml` runs `python .github/scripts/discover_plugins.py` on cron (default `0 7 * * *` UTC).
+`.github/workflows/discover-plugins.yml` runs on cron `*/15 * * * *` (every 15 minutes -- effectively continuous; cron's min granularity is 5min, 15 keeps us safely under GitHub's 1000 req/hr API limit). Manual trigger available via `workflow_dispatch`.
 
-The script:
+Each cycle runs two scripts:
+
+**`.github/scripts/discover_plugins.py`** -- the discovery pass:
 1. Reads `allowlist.yml`.
 2. Searches GitHub for repos matching `search_queries`.
 3. Keeps a repo if (a) its owner is in `authors`, OR (b) `stars >= min_stars` AND `pushed within max_age_days`.
 4. Fetches `.claude-plugin/marketplace.json` from each surviving repo to confirm it's a real Claude Code marketplace.
 5. Appends new `{marketplace, name}` pairs to `discovered.yml`.
-6. Commits with `[skip ci]` and pushes to the current branch.
 
-Idempotent -- existing `(marketplace, name)` pairs are skipped.
+**`.github/scripts/reflect_plugins.py`** -- the self-improvement pass:
+1. Reads the discovery script's stdout.
+2. Appends a timestamped entry to `research-log.md` recording what was found, what was new, current manifest size.
+3. This is the agent's durable memory across cycles -- inspect it to see what the loop has been doing.
+
+Both files are committed in one cycle commit (`chore(plugins): discovery cycle YYYY-MM-DDTHH:MMZ [skip ci]`). Workflow runs are serialized via `concurrency:` -- a slow cycle won't pile up on the next tick.
 
 ### 2. Local install (SessionStart hook)
 
