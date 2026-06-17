@@ -19,3 +19,6 @@ thinking/session-logs/
 
 # GSD plugin working state (auto-checkpoint, regenerated per session)
 .planning/
+
+# Python bytecode
+__pycache__/

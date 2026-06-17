@@ -1,0 +1,28 @@
+# Auto-discovery policy for Claude Code plugins.
+# Consumed by .github/workflows/discover-plugins.yml.
+#
+# A candidate plugin is ADDED to discovered.yml if it has a valid
+# .claude-plugin/marketplace.json AND it matches either:
+#   - author in `authors` (trusted maintainers, any star count), OR
+#   - stars >= min_stars AND pushed within `max_age_days`.
+#
+# A plugin in `denylist` is NEVER added, regardless of other criteria.
+
+authors:
+  - anthropics
+  - obra
+  - thedotmack
+  - mksglu
+  - jnuyens
+  - gsd-build
+
+min_stars: 1000
+max_age_days: 90
+
+search_queries:
+  - 'topic:claude-code-plugin'
+  - 'topic:claude-code-skill'
+  - 'topic:claude-plugin'
+  - '"claude-plugin/marketplace.json" in:path'
+
+denylist: []

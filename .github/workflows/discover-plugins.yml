@@ -1,0 +1,34 @@
+name: discover-plugins
+
+on:
+  schedule:
+    - cron: "0 7 * * *"  # 07:00 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Run discovery
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/discover_plugins.py
+      - name: Commit new entries
+        run: |
+          if git diff --quiet .claude/plugins/discovered.yml; then
+            echo "no changes"
+            exit 0
+          fi
+          git config user.name "obsidian-mind-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add .claude/plugins/discovered.yml
+          git commit -m "chore(plugins): daily discovery [skip ci]"
+          git push
