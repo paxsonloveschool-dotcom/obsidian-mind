@@ -1,0 +1,46 @@
+# Auto-managed by .github/workflows/discover-plugins.yml.
+# DO NOT edit by hand -- entries are appended by the workflow.
+# The local SessionStart hook (.claude/scripts/auto-install-plugins.sh)
+# reads this file and installs any plugin not already present in
+# `claude plugin list`.
+#
+# Format per entry:
+#   - name:        plugin name as it appears in plugin.json
+#     marketplace: GitHub repo (owner/name) hosting the marketplace
+#     author:      GitHub owner (for audit)
+#     stars:       star count at time of discovery
+#     pushed_at:   ISO timestamp of last push at time of discovery
+#     reason:      "author-allowlisted" | "popularity-threshold"
+#     discovered:  ISO date this entry was added
+
+plugins:
+  - name: skill-creator
+    marketplace: anthropics/claude-plugins-official
+    author: anthropics
+    reason: author-allowlisted
+    discovered: 2026-05-08
+  - name: superpowers
+    marketplace: anthropics/claude-plugins-official
+    author: anthropics
+    reason: author-allowlisted
+    discovered: 2026-05-08
+  - name: frontend-design
+    marketplace: anthropics/claude-code
+    author: anthropics
+    reason: author-allowlisted
+    discovered: 2026-05-08
+  - name: gsd
+    marketplace: jnuyens/gsd-plugin
+    author: jnuyens
+    reason: author-allowlisted
+    discovered: 2026-05-08
+  - name: context-mode
+    marketplace: mksglu/context-mode
+    author: mksglu
+    reason: author-allowlisted
+    discovered: 2026-05-08
+  - name: claude-mem
+    marketplace: thedotmack/claude-mem
+    author: thedotmack
+    reason: author-allowlisted
+    discovered: 2026-05-08

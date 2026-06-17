@@ -1,0 +1,53 @@
+name: discover-plugins
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # every 15min -- effectively continuous
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discover-plugins
+  cancel-in-progress: false
+
+jobs:
+  loop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+
+      - name: Discover new plugins
+        id: discover
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python .github/scripts/discover_plugins.py | tee /tmp/discover.out
+          if grep -q "^added:" /tmp/discover.out; then
+            echo "added=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "added=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Reflect (log to research-log.md)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCOVERY_OUTPUT: /tmp/discover.out
+        run: python .github/scripts/reflect_plugins.py
+
+      - name: Commit
+        run: |
+          if git diff --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git config user.name "obsidian-mind-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add .claude/plugins/discovered.yml .claude/plugins/research-log.md
+          git commit -m "chore(plugins): discovery cycle $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push

@@ -8,6 +8,11 @@
             "type": "command",
             "command": "bash .claude/scripts/session-start.sh",
             "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/scripts/auto-install-plugins.sh",
+            "timeout": 120
           }
         ]
       }

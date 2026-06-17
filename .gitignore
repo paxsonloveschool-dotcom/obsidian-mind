@@ -16,3 +16,12 @@
 
 # Session logs (local transcripts)
 thinking/session-logs/
+
+# GSD plugin working state (auto-checkpoint, regenerated per session)
+.planning/
+
+# Auto-install cooldown stamp (local, regenerated)
+.claude/plugins/.last-install
+
+# Python bytecode
+__pycache__/
