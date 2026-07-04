@@ -403,3 +403,10 @@ plugins:
   pushed_at: '2026-06-05'
   reason: popularity-threshold
   discovered: '2026-06-17'
+- name: council
+  marketplace: 0xNyk/council-of-high-intelligence
+  author: 0xNyk
+  stars: 3214
+  pushed_at: '2026-07-04'
+  reason: popularity-threshold
+  discovered: '2026-07-04'

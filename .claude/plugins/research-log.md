@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-04T09:09:04+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 60
+- **Added this cycle**:
+  - 0xNyk/council-of-high-intelligence::council (popularity-threshold)
+
 ## 2026-07-04T06:35:15+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 59
