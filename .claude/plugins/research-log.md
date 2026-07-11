@@ -4,6 +4,35 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-11T01:02:48+00:00
+
+- **Outcome**: discovered 24 new plugin(s); manifest now tracks 84
+- **Added this cycle**:
+  - composio-community/awesome-claude-plugins::connect-apps (popularity-threshold)
+  - composio-community/awesome-claude-plugins::frontend-design (popularity-threshold)
+  - composio-community/awesome-claude-plugins::artifacts-builder (popularity-threshold)
+  - composio-community/awesome-claude-plugins::theme-factory (popularity-threshold)
+  - composio-community/awesome-claude-plugins::canvas-design (popularity-threshold)
+  - composio-community/awesome-claude-plugins::senior-frontend (popularity-threshold)
+  - composio-community/awesome-claude-plugins::frontend-developer (popularity-threshold)
+  - composio-community/awesome-claude-plugins::commit (popularity-threshold)
+  - composio-community/awesome-claude-plugins::create-pr (popularity-threshold)
+  - composio-community/awesome-claude-plugins::pr-review (popularity-threshold)
+  - composio-community/awesome-claude-plugins::changelog-generator (popularity-threshold)
+  - composio-community/awesome-claude-plugins::ship (popularity-threshold)
+  - composio-community/awesome-claude-plugins::code-review (popularity-threshold)
+  - composio-community/awesome-claude-plugins::test-writer-fixer (popularity-threshold)
+  - composio-community/awesome-claude-plugins::debugger (popularity-threshold)
+  - composio-community/awesome-claude-plugins::bug-fix (popularity-threshold)
+  - composio-community/awesome-claude-plugins::backend-architect (popularity-threshold)
+  - composio-community/awesome-claude-plugins::mcp-builder (popularity-threshold)
+  - composio-community/awesome-claude-plugins::agent-sdk-dev (popularity-threshold)
+  - composio-community/awesome-claude-plugins::perf (popularity-threshold)
+  - composio-community/awesome-claude-plugins::audit-project (popularity-threshold)
+  - composio-community/awesome-claude-plugins::documentation-generator (popularity-threshold)
+  - composio-community/awesome-claude-plugins::security-guidance (popularity-threshold)
+  - composio-community/awesome-claude-plugins::developer-growth-analysis (popularity-threshold)
+
 ## 2026-07-10T23:30:24+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 60
