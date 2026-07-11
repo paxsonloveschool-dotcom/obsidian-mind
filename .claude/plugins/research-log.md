@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-11T22:51:32+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 85
+- **Added this cycle**:
+  - eugeniughelbur/obsidian-second-brain::obsidian-second-brain (popularity-threshold)
+
 ## 2026-07-11T21:51:55+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 84

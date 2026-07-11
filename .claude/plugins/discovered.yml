@@ -578,3 +578,10 @@ plugins:
   pushed_at: '2026-05-01'
   reason: popularity-threshold
   discovered: '2026-07-11'
+- name: obsidian-second-brain
+  marketplace: eugeniughelbur/obsidian-second-brain
+  author: eugeniughelbur
+  stars: 3148
+  pushed_at: '2026-07-11'
+  reason: popularity-threshold
+  discovered: '2026-07-11'
