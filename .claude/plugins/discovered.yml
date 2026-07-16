@@ -592,3 +592,10 @@ plugins:
   pushed_at: '2026-07-16'
   reason: popularity-threshold
   discovered: '2026-07-16'
+- name: claude-video-vision
+  marketplace: jordanrendric/claude-video-vision
+  author: jordanrendric
+  stars: 1000
+  pushed_at: '2026-07-01'
+  reason: popularity-threshold
+  discovered: '2026-07-16'

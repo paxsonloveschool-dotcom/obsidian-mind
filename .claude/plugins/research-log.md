@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-16T22:15:48+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 87
+- **Added this cycle**:
+  - jordanrendric/claude-video-vision::claude-video-vision (popularity-threshold)
+
 ## 2026-07-16T21:01:13+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 86
