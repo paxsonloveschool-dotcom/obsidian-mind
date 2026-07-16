@@ -585,3 +585,10 @@ plugins:
   pushed_at: '2026-07-11'
   reason: popularity-threshold
   discovered: '2026-07-11'
+- name: metaskills
+  marketplace: wondelai/skills
+  author: wondelai
+  stars: 1644
+  pushed_at: '2026-07-16'
+  reason: popularity-threshold
+  discovered: '2026-07-16'

@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-16T14:24:05+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 86
+- **Added this cycle**:
+  - wondelai/skills::metaskills (popularity-threshold)
+
 ## 2026-07-16T12:09:56+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 85
