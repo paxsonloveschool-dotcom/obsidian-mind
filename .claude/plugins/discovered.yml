@@ -599,3 +599,10 @@ plugins:
   pushed_at: '2026-07-01'
   reason: popularity-threshold
   discovered: '2026-07-16'
+- name: internet-court
+  marketplace: internet-court/internet-court-skill
+  author: internet-court
+  stars: 1001
+  pushed_at: '2026-07-10'
+  reason: popularity-threshold
+  discovered: '2026-07-18'

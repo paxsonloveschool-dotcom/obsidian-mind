@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-18T09:27:32+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 88
+- **Added this cycle**:
+  - internet-court/internet-court-skill::internet-court (popularity-threshold)
+
 ## 2026-07-18T07:53:57+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 87
