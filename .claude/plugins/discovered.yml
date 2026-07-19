@@ -613,3 +613,10 @@ plugins:
   pushed_at: '2026-05-28'
   reason: popularity-threshold
   discovered: '2026-07-19'
+- name: engram
+  marketplace: nagisanzenin/engram
+  author: nagisanzenin
+  stars: 1004
+  pushed_at: '2026-07-19'
+  reason: popularity-threshold
+  discovered: '2026-07-19'
