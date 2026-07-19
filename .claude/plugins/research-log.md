@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-07-19T10:07:55+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 89
+- **Added this cycle**:
+  - ayghri/i-have-adhd::i-have-adhd (popularity-threshold)
+
 ## 2026-07-19T08:22:48+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 88

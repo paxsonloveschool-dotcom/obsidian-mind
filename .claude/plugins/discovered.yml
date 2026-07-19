@@ -606,3 +606,10 @@ plugins:
   pushed_at: '2026-07-10'
   reason: popularity-threshold
   discovered: '2026-07-18'
+- name: i-have-adhd
+  marketplace: ayghri/i-have-adhd
+  author: ayghri
+  stars: 1085
+  pushed_at: '2026-05-28'
+  reason: popularity-threshold
+  discovered: '2026-07-19'
