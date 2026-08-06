@@ -858,3 +858,10 @@ plugins:
   pushed_at: '2026-08-06'
   reason: popularity-threshold
   discovered: '2026-08-06'
+- name: ultralytics-branding
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1005
+  pushed_at: '2026-08-06'
+  reason: popularity-threshold
+  discovered: '2026-08-06'
