@@ -4,6 +4,45 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-06T03:38:18+00:00
+
+- **Outcome**: discovered 34 new plugin(s); manifest now tracks 124
+- **Added this cycle**:
+  - fcakyon/claude-codex-settings::simplify (popularity-threshold)
+  - fcakyon/claude-codex-settings::humanize (popularity-threshold)
+  - fcakyon/claude-codex-settings::fable-advisor (popularity-threshold)
+  - fcakyon/claude-codex-settings::codex-advisor (popularity-threshold)
+  - fcakyon/claude-codex-settings::adhd-output-style (popularity-threshold)
+  - fcakyon/claude-codex-settings::intelligent-compact (popularity-threshold)
+  - fcakyon/claude-codex-settings::claude-telemetry-hooks (popularity-threshold)
+  - fcakyon/claude-codex-settings::anthropic-office-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::openai-office-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::python-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::react-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::agent-browser (popularity-threshold)
+  - fcakyon/claude-codex-settings::frontend-design-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::mongodb-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::supabase-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::stripe-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::polar-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::livekit-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::cloudflare-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::web-performance-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::openobserve-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::hetzner-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::dokploy-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::anthropic-essentials (popularity-threshold)
+  - fcakyon/claude-codex-settings::anthropic-plugin-dev (popularity-threshold)
+  - fcakyon/claude-codex-settings::phd-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::github-dev (popularity-threshold)
+  - fcakyon/claude-codex-settings::ultralytics-dev (popularity-threshold)
+  - fcakyon/claude-codex-settings::azure-tools (popularity-threshold)
+  - fcakyon/claude-codex-settings::claude-tools (popularity-threshold)
+  - fcakyon/claude-codex-settings::gcloud-tools (popularity-threshold)
+  - fcakyon/claude-codex-settings::paper-search-tools (popularity-threshold)
+  - fcakyon/claude-codex-settings::tavily-tools (popularity-threshold)
+  - fcakyon/claude-codex-settings::overleaf-skills (popularity-threshold)
+
 ## 2026-08-06T00:10:40+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 90
