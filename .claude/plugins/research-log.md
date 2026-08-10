@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-10T01:54:22+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 126
+- **Added this cycle**:
+  - kenryu42/cc-safety-net::cc-safety-net (popularity-threshold)
+
 ## 2026-08-09T23:47:45+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 125

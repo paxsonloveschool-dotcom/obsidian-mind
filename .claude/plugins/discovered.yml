@@ -865,3 +865,10 @@ plugins:
   pushed_at: '2026-08-06'
   reason: popularity-threshold
   discovered: '2026-08-06'
+- name: cc-safety-net
+  marketplace: kenryu42/cc-safety-net
+  author: kenryu42
+  stars: 1476
+  pushed_at: '2026-08-10'
+  reason: popularity-threshold
+  discovered: '2026-08-10'
