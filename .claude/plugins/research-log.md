@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-11T02:53:34+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 127
+- **Added this cycle**:
+  - lackeyjb/playwright-skill::playwright-skill (popularity-threshold)
+
 ## 2026-08-11T00:34:29+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 126
