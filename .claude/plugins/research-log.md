@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-12T06:01:08+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 128
+- **Added this cycle**:
+  - nowork-studio/notfair-plugin::notfair (popularity-threshold)
+
 ## 2026-08-12T04:29:42+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 127
