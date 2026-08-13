@@ -886,3 +886,10 @@ plugins:
   pushed_at: '2026-08-12'
   reason: popularity-threshold
   discovered: '2026-08-12'
+- name: to-hook-probe
+  marketplace: alexgreensh/token-optimizer
+  author: alexgreensh
+  stars: 1865
+  pushed_at: '2026-08-13'
+  reason: popularity-threshold
+  discovered: '2026-08-13'

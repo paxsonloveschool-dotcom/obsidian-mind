@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-13T13:48:50+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 129
+- **Added this cycle**:
+  - alexgreensh/token-optimizer::to-hook-probe (popularity-threshold)
+
 ## 2026-08-13T12:10:33+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 128
