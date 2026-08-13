@@ -893,3 +893,10 @@ plugins:
   pushed_at: '2026-08-13'
   reason: popularity-threshold
   discovered: '2026-08-13'
+- name: token-optimizer-cowork
+  marketplace: alexgreensh/token-optimizer
+  author: alexgreensh
+  stars: 1867
+  pushed_at: '2026-08-13'
+  reason: popularity-threshold
+  discovered: '2026-08-13'
