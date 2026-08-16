@@ -900,3 +900,10 @@ plugins:
   pushed_at: '2026-08-13'
   reason: popularity-threshold
   discovered: '2026-08-13'
+- name: autoharness
+  marketplace: tigerless-labs/autoharness
+  author: tigerless-labs
+  stars: 1000
+  pushed_at: '2026-07-28'
+  reason: popularity-threshold
+  discovered: '2026-08-16'
