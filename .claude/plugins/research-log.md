@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-25T12:59:26+00:00
+
+- **Outcome**: no new plugins; manifest unchanged at 131
+- **Added this cycle**:
+  - (none)
+
 ## 2026-08-25T11:57:44+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 131
