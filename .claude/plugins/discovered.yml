@@ -907,3 +907,10 @@ plugins:
   pushed_at: '2026-07-28'
   reason: popularity-threshold
   discovered: '2026-08-16'
+- name: claude-mem-cowork
+  marketplace: thedotmack/claude-mem
+  author: thedotmack
+  stars: 91835
+  pushed_at: '2026-08-25'
+  reason: author-allowlisted
+  discovered: '2026-08-25'

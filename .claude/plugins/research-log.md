@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-25T23:25:49+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 132
+- **Added this cycle**:
+  - thedotmack/claude-mem::claude-mem-cowork (author-allowlisted)
+
 ## 2026-08-25T22:45:55+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 131
