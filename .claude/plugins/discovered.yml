@@ -914,3 +914,10 @@ plugins:
   pushed_at: '2026-08-25'
   reason: author-allowlisted
   discovered: '2026-08-25'
+- name: nateherk-design
+  marketplace: nateherkai/scroll-craft
+  author: nateherkai
+  stars: 1009
+  pushed_at: '2026-08-23'
+  reason: popularity-threshold
+  discovered: '2026-08-26'

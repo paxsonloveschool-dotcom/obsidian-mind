@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-26T23:35:45+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 133
+- **Added this cycle**:
+  - nateherkai/scroll-craft::nateherk-design (popularity-threshold)
+
 ## 2026-08-26T20:11:33+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 132
