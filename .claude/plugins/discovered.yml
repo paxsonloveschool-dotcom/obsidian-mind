@@ -928,3 +928,10 @@ plugins:
   pushed_at: '2026-08-27'
   reason: popularity-threshold
   discovered: '2026-08-27'
+- name: banana-claude
+  marketplace: AgriciDaniel/banana-claude
+  author: AgriciDaniel
+  stars: 1001
+  pushed_at: '2026-08-30'
+  reason: popularity-threshold
+  discovered: '2026-08-30'
