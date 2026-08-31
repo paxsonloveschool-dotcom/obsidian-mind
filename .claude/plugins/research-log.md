@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-08-31T00:54:59+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 136
+- **Added this cycle**:
+  - snflkd/fluent-korean::fluent-korean (popularity-threshold)
+
 ## 2026-08-30T22:45:15+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 135

@@ -935,3 +935,10 @@ plugins:
   pushed_at: '2026-08-30'
   reason: popularity-threshold
   discovered: '2026-08-30'
+- name: fluent-korean
+  marketplace: snflkd/fluent-korean
+  author: snflkd
+  stars: 1002
+  pushed_at: '2026-08-23'
+  reason: popularity-threshold
+  discovered: '2026-08-31'
