@@ -4,6 +4,27 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-02T10:50:20+00:00
+
+- **Outcome**: discovered 16 new plugin(s); manifest now tracks 152
+- **Added this cycle**:
+  - cbrock84/headcount::executive (popularity-threshold)
+  - cbrock84/headcount::technology (popularity-threshold)
+  - cbrock84/headcount::it-operations (popularity-threshold)
+  - cbrock84/headcount::product (popularity-threshold)
+  - cbrock84/headcount::marketing (popularity-threshold)
+  - cbrock84/headcount::demand-generation (popularity-threshold)
+  - cbrock84/headcount::revenue (popularity-threshold)
+  - cbrock84/headcount::finance (popularity-threshold)
+  - cbrock84/headcount::operations (popularity-threshold)
+  - cbrock84/headcount::pmo (popularity-threshold)
+  - cbrock84/headcount::people (popularity-threshold)
+  - cbrock84/headcount::legal-risk (popularity-threshold)
+  - cbrock84/headcount::security (popularity-threshold)
+  - cbrock84/headcount::customer-experience (popularity-threshold)
+  - cbrock84/headcount::data-analytics (popularity-threshold)
+  - cbrock84/headcount::corporate-strategy (popularity-threshold)
+
 ## 2026-09-02T05:54:56+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 136
