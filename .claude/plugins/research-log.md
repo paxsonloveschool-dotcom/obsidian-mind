@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-07T17:27:04+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 153
+- **Added this cycle**:
+  - alexgreensh/attention-span::attention-span (popularity-threshold)
+
 ## 2026-09-07T11:50:20+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 152

@@ -1054,3 +1054,10 @@ plugins:
   pushed_at: '2026-09-02'
   reason: popularity-threshold
   discovered: '2026-09-02'
+- name: attention-span
+  marketplace: alexgreensh/attention-span
+  author: alexgreensh
+  stars: 1006
+  pushed_at: '2026-09-06'
+  reason: popularity-threshold
+  discovered: '2026-09-07'
