@@ -1082,3 +1082,10 @@ plugins:
   pushed_at: '2026-09-08'
   reason: popularity-threshold
   discovered: '2026-09-08'
+- name: marketing-skills
+  marketplace: irinabuht12-oss/marketing-skills
+  author: irinabuht12-oss
+  stars: 1221
+  pushed_at: '2026-09-08'
+  reason: popularity-threshold
+  discovered: '2026-09-08'

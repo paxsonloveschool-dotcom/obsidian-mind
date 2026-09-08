@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-08T23:40:28+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 157
+- **Added this cycle**:
+  - irinabuht12-oss/marketing-skills::marketing-skills (popularity-threshold)
+
 ## 2026-09-08T21:38:48+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 156
