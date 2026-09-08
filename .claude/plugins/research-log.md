@@ -4,6 +4,13 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-08T06:00:56+00:00
+
+- **Outcome**: discovered 2 new plugin(s); manifest now tracks 155
+- **Added this cycle**:
+  - agentrq/agentrq::agentrq (popularity-threshold)
+  - agentrq/agentrq::agentrq-workspace (popularity-threshold)
+
 ## 2026-09-08T01:13:37+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 153

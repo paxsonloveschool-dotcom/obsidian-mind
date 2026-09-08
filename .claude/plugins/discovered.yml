@@ -1061,3 +1061,17 @@ plugins:
   pushed_at: '2026-09-06'
   reason: popularity-threshold
   discovered: '2026-09-07'
+- name: agentrq
+  marketplace: agentrq/agentrq
+  author: agentrq
+  stars: 1109
+  pushed_at: '2026-09-08'
+  reason: popularity-threshold
+  discovered: '2026-09-08'
+- name: agentrq-workspace
+  marketplace: agentrq/agentrq
+  author: agentrq
+  stars: 1109
+  pushed_at: '2026-09-08'
+  reason: popularity-threshold
+  discovered: '2026-09-08'
