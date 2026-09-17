@@ -1747,3 +1747,10 @@ plugins:
   pushed_at: '2026-09-13'
   reason: popularity-threshold
   discovered: '2026-09-13'
+- name: terminal-browser
+  marketplace: zenbu-labs/terminal-browser
+  author: zenbu-labs
+  stars: 3003
+  pushed_at: '2026-09-17'
+  reason: popularity-threshold
+  discovered: '2026-09-17'
