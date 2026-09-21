@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-21T22:29:30+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 253
+- **Added this cycle**:
+  - feder-cr/AIHawk::aihawk (popularity-threshold)
+
 ## 2026-09-21T18:55:19+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 252

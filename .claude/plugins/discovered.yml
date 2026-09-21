@@ -1754,3 +1754,10 @@ plugins:
   pushed_at: '2026-09-17'
   reason: popularity-threshold
   discovered: '2026-09-17'
+- name: aihawk
+  marketplace: feder-cr/AIHawk
+  author: feder-cr
+  stars: 31617
+  pushed_at: '2026-09-21'
+  reason: popularity-threshold
+  discovered: '2026-09-21'
