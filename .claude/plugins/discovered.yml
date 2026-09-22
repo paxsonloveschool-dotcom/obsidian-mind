@@ -1768,3 +1768,10 @@ plugins:
   pushed_at: '2026-09-22'
   reason: popularity-threshold
   discovered: '2026-09-22'
+- name: aihawk
+  marketplace: feder-cr/invisible_playwright_mcp
+  author: feder-cr
+  stars: 31624
+  pushed_at: '2026-09-22'
+  reason: popularity-threshold
+  discovered: '2026-09-22'
