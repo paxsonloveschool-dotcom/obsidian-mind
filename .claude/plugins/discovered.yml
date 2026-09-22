@@ -1761,3 +1761,10 @@ plugins:
   pushed_at: '2026-09-21'
   reason: popularity-threshold
   discovered: '2026-09-21'
+- name: aihawk
+  marketplace: feder-cr/aihawk_mcp_server
+  author: feder-cr
+  stars: 31621
+  pushed_at: '2026-09-22'
+  reason: popularity-threshold
+  discovered: '2026-09-22'
