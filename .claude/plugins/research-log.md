@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-28T15:17:43+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 257
+- **Added this cycle**:
+  - kharmanskyi/open-steps::open-steps (popularity-threshold)
+
 ## 2026-09-28T06:59:07+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 256
