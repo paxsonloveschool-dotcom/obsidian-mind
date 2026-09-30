@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-09-30T15:08:27+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 258
+- **Added this cycle**:
+  - fcakyon/claude-codex-settings::test-audit (popularity-threshold)
+
 ## 2026-09-30T08:21:53+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 257

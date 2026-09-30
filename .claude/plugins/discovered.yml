@@ -1789,3 +1789,10 @@ plugins:
   pushed_at: '2026-09-28'
   reason: popularity-threshold
   discovered: '2026-09-28'
+- name: test-audit
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1160
+  pushed_at: '2026-09-30'
+  reason: popularity-threshold
+  discovered: '2026-09-30'
