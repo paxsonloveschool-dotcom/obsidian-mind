@@ -1796,3 +1796,10 @@ plugins:
   pushed_at: '2026-09-30'
   reason: popularity-threshold
   discovered: '2026-09-30'
+- name: universal-modder
+  marketplace: rehan-remade/universal-modder
+  author: rehan-remade
+  stars: 1177
+  pushed_at: '2026-09-30'
+  reason: popularity-threshold
+  discovered: '2026-10-01'
