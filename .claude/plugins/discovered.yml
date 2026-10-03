@@ -1803,3 +1803,10 @@ plugins:
   pushed_at: '2026-09-30'
   reason: popularity-threshold
   discovered: '2026-10-01'
+- name: token-optimizer-desktop
+  marketplace: alexgreensh/token-optimizer
+  author: alexgreensh
+  stars: 2481
+  pushed_at: '2026-10-03'
+  reason: popularity-threshold
+  discovered: '2026-10-03'
