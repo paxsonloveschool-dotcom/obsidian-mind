@@ -1810,3 +1810,10 @@ plugins:
   pushed_at: '2026-10-03'
   reason: popularity-threshold
   discovered: '2026-10-03'
+- name: pstack
+  marketplace: michael-denyer/pstack-claude
+  author: michael-denyer
+  stars: 1049
+  pushed_at: '2026-10-03'
+  reason: popularity-threshold
+  discovered: '2026-10-04'
