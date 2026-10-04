@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-04T18:23:40+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 262
+- **Added this cycle**:
+  - AgriciDaniel/claude-seo::seo-cockpit (popularity-threshold)
+
 ## 2026-10-04T14:40:38+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 261

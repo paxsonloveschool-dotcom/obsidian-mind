@@ -1817,3 +1817,10 @@ plugins:
   pushed_at: '2026-10-03'
   reason: popularity-threshold
   discovered: '2026-10-04'
+- name: seo-cockpit
+  marketplace: AgriciDaniel/claude-seo
+  author: AgriciDaniel
+  stars: 18271
+  pushed_at: '2026-10-04'
+  reason: popularity-threshold
+  discovered: '2026-10-04'
