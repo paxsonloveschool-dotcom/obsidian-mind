@@ -4,6 +4,13 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-05T14:55:20+00:00
+
+- **Outcome**: discovered 2 new plugin(s); manifest now tracks 264
+- **Added this cycle**:
+  - lemomo-ai/lemo-opuscar::lemo-opuscar (popularity-threshold)
+  - rebelytics/one-skill-to-rule-them-all::task-observer (popularity-threshold)
+
 ## 2026-10-05T06:15:18+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 262

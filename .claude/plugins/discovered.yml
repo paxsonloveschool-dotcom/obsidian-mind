@@ -1824,3 +1824,17 @@ plugins:
   pushed_at: '2026-10-04'
   reason: popularity-threshold
   discovered: '2026-10-04'
+- name: lemo-opuscar
+  marketplace: lemomo-ai/lemo-opuscar
+  author: lemomo-ai
+  stars: 1106
+  pushed_at: '2026-10-05'
+  reason: popularity-threshold
+  discovered: '2026-10-05'
+- name: task-observer
+  marketplace: rebelytics/one-skill-to-rule-them-all
+  author: rebelytics
+  stars: 3163
+  pushed_at: '2026-10-02'
+  reason: popularity-threshold
+  discovered: '2026-10-05'
