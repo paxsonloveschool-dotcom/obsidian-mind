@@ -1838,3 +1838,10 @@ plugins:
   pushed_at: '2026-10-02'
   reason: popularity-threshold
   discovered: '2026-10-05'
+- name: answer-me-with-html
+  marketplace: QingYunA/answer-me-with-html
+  author: QingYunA
+  stars: 1717
+  pushed_at: '2026-10-06'
+  reason: popularity-threshold
+  discovered: '2026-10-06'
