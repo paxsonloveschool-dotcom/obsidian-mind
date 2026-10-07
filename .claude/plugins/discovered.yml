@@ -1845,3 +1845,10 @@ plugins:
   pushed_at: '2026-10-06'
   reason: popularity-threshold
   discovered: '2026-10-06'
+- name: marketing-skills
+  marketplace: coreyhaines31/marketingskills
+  author: coreyhaines31
+  stars: 53569
+  pushed_at: '2026-10-07'
+  reason: popularity-threshold
+  discovered: '2026-10-07'
