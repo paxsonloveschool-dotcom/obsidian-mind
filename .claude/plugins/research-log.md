@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-13T20:34:46+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 267
+- **Added this cycle**:
+  - AgriciDaniel/claude-blog::blog-studio (popularity-threshold)
+
 ## 2026-10-13T14:57:24+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 266

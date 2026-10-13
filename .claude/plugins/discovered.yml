@@ -1852,3 +1852,10 @@ plugins:
   pushed_at: '2026-10-07'
   reason: popularity-threshold
   discovered: '2026-10-07'
+- name: blog-studio
+  marketplace: AgriciDaniel/claude-blog
+  author: AgriciDaniel
+  stars: 2379
+  pushed_at: '2026-10-13'
+  reason: popularity-threshold
+  discovered: '2026-10-13'
