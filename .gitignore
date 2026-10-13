@@ -25,3 +25,6 @@ thinking/session-logs/
 
 # Python bytecode
 __pycache__/
+
+# Autoharness plugin runtime state (per-session locks and counters)
+.claude/autoharness/
