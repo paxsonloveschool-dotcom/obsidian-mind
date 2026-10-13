@@ -4,6 +4,22 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-13T23:56:18+00:00
+
+- **Outcome**: discovered 11 new plugin(s); manifest now tracks 278
+- **Added this cycle**:
+  - microsoft/power-platform-skills::power-pages (popularity-threshold)
+  - microsoft/power-platform-skills::model-apps (popularity-threshold)
+  - microsoft/power-platform-skills::pcf (popularity-threshold)
+  - microsoft/power-platform-skills::mcp-apps (popularity-threshold)
+  - microsoft/power-platform-skills::canvas-apps (popularity-threshold)
+  - microsoft/power-platform-skills::code-apps-preview (popularity-threshold)
+  - microsoft/power-platform-skills::mobile-app (popularity-threshold)
+  - microsoft/power-platform-skills::power-apps-mobile-extension (popularity-threshold)
+  - microsoft/power-platform-skills::power-automate (popularity-threshold)
+  - microsoft/power-platform-skills::process-intelligence (popularity-threshold)
+  - microsoft/power-platform-skills::dataverse (popularity-threshold)
+
 ## 2026-10-13T20:34:46+00:00
 
 - **Outcome**: discovered 1 new plugin(s); manifest now tracks 267
