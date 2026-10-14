@@ -27,3 +27,10 @@ type: brain
 ## Anti-Goals
 - Perfectionism over progress
 - Manual work that can be automated
+
+## Related
+- [[Memories]] — index of brain topics
+- [[Key Decisions]] — foundational choices that serve these goals
+- [[Patterns]] — reusable practices
+- [[Skills]] — workflows and plugins (see Plugin Auto-Discovery for "Automate the repetitive")
+- [[Gotchas]] — known pitfalls

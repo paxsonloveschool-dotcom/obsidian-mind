@@ -12,9 +12,8 @@ type: index
 - See [[Key Decisions]] for full decision records
 
 ## Lessons Learned
-- GitHub classic PATs need explicit `repo` scope — fine-grained tokens show "none"
-- `gh auth login --web` times out fast — use `--with-token` instead
-- Token-optimized context: only CLAUDE.md auto-loads (~450 tokens)
+- See [[Gotchas]] for pitfalls (GitHub tokens, Windows/Bash, Claude Code)
+- See [[Patterns]] for reusable practices (token saving, context mgmt, workflow)
 
 ## Systems Built
 - CLAUDE.md — Autopilot + efficiency rules
@@ -28,6 +27,8 @@ type: index
 | Goals & priorities | [[North Star]] |
 | Key decisions | [[Key Decisions]] |
 | Reusable patterns | [[Patterns]] |
+| Known pitfalls | [[Gotchas]] |
+| Workflows & plugins | [[Skills]] |
 | Active work | work/active/ |
 | People notes | org/people/ |
 | Performance | perf/ |
