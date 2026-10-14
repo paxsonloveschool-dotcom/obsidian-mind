@@ -18,3 +18,10 @@ type: brain
 **Context:** Default startup ~11,000 tokens; reduced to ~450
 **Rationale:** Based on claude-token-optimizer patterns (83-87% reduction)
 **Implementation:** CLAUDE.md auto-load + 3 on-demand files + .claudeignore
+**Related:** [[Patterns#Token Saving]], [[Gotchas#Claude Code]]
+
+## Related
+- [[Memories]] — index of brain topics
+- [[Patterns]] — reusable practices that implement these decisions
+- [[Skills]] — workflows and plugins following from the architecture decision
+- [[North Star]] — principles these decisions serve
