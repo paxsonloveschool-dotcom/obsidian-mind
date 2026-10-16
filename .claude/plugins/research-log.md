@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-16T21:33:23+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 279
+- **Added this cycle**:
+  - AgriciDaniel/claude-ads::ads-cockpit (popularity-threshold)
+
 ## 2026-10-16T18:24:19+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 278

@@ -1936,3 +1936,10 @@ plugins:
   pushed_at: '2026-10-13'
   reason: popularity-threshold
   discovered: '2026-10-13'
+- name: ads-cockpit
+  marketplace: AgriciDaniel/claude-ads
+  author: AgriciDaniel
+  stars: 10039
+  pushed_at: '2026-10-16'
+  reason: popularity-threshold
+  discovered: '2026-10-16'
