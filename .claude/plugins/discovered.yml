@@ -1943,3 +1943,10 @@ plugins:
   pushed_at: '2026-10-16'
   reason: popularity-threshold
   discovered: '2026-10-16'
+- name: agentrq-custom-supervisor
+  marketplace: agentrq/agentrq
+  author: agentrq
+  stars: 1162
+  pushed_at: '2026-10-17'
+  reason: popularity-threshold
+  discovered: '2026-10-17'
