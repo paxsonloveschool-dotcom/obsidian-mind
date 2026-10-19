@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-19T14:53:33+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 298
+- **Added this cycle**:
+  - alexgreensh/anidoodle::anidoodle (popularity-threshold)
+
 ## 2026-10-19T07:25:37+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 297

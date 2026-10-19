@@ -2069,3 +2069,10 @@ plugins:
   pushed_at: '2026-10-18'
   reason: popularity-threshold
   discovered: '2026-10-18'
+- name: anidoodle
+  marketplace: alexgreensh/anidoodle
+  author: alexgreensh
+  stars: 1001
+  pushed_at: '2026-10-17'
+  reason: popularity-threshold
+  discovered: '2026-10-19'
