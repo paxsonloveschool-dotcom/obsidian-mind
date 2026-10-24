@@ -23,3 +23,9 @@ See CLAUDE.md for full command table (15 commands, 9 agents).
 - Local installer: `.claude/scripts/auto-install-plugins.sh` (SessionStart, 6h cooldown)
 - Audit log: `thinking/session-logs/plugin-install-YYYY-MM-DD.log`
 - Edit allowlist to broaden/narrow the funnel; add repos to `denylist` to block.
+
+## Related
+- [[Patterns#Workflow]] — two-part execution pattern this registry references
+- [[Key Decisions#2026-04-05 — Token Optimization Strategy]] — origin of the 4-file context
+- [[North Star]] — Plugin Auto-Discovery enacts the "Automate the repetitive" principle
+- [[Memories]] — index of brain topics

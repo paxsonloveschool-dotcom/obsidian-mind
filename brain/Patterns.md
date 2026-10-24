@@ -21,6 +21,12 @@ type: brain
 - Grep before Read — only load what you need
 
 ## Workflow
-- Two-part execution: Research & Plan -> Execute & Verify
+- Two-part execution: Research & Plan -> Execute & Verify (see [[Skills#Claude Code Setup]])
 - Parallel quality gates: validator + tester simultaneously (40% faster)
 - Version-first: determine version before work starts
+
+## Related
+- [[Key Decisions#2026-04-05 — Token Optimization Strategy]] — origin of the Token Saving patterns
+- [[Gotchas]] — pitfalls these patterns avoid
+- [[Skills]] — workflows and commands that apply these patterns
+- [[Memories]] — index of brain topics

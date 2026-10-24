@@ -22,3 +22,8 @@ type: brain
 - `.claudeignore` blocks: sessions/, backups/, shell-snapshots/
 - Only CLAUDE.md auto-loads (~450 tokens)
 - Write tool requires Read first on existing files
+
+## Related
+- [[Key Decisions#2026-04-05 — Token Optimization Strategy]] — why `.claudeignore` and single auto-load
+- [[Patterns#Token Saving]] — practices that build on these constraints
+- [[Memories]] — index of brain topics
