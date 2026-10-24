@@ -21,6 +21,7 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 |---------|---------|
 | `/standup` | Morning kickoff -- load context, review yesterday, surface tasks, priorities |
 | `/dump` | Freeform capture -- dump anything, gets routed to the right notes |
+| `/email` | Email assistant -- triage inbox, draft replies, compose/send via Gmail (approve-then-send) |
 | `/wrap-up` | Full session review -- verify notes, indexes, links, suggest improvements |
 | `/humanize` | Voice-calibrated editing -- make notes sound like you, not AI |
 | `/weekly` | Weekly synthesis -- cross-session patterns, North Star alignment, uncaptured wins |
@@ -60,7 +61,7 @@ Defined in `.claude/commands/`. See [[Skills]] for full documentation.
 | `reference/` | Codebase knowledge, architecture maps | Flow docs, architecture docs |
 | `thinking/` | Scratchpad for drafts and reasoning | Named `YYYY-MM-DD-topic.md` |
 | `templates/` | Obsidian templates | `Work Note.md`, `Decision Record.md`, etc. |
-| `.claude/commands/` | 15 slash commands | See command table above |
+| `.claude/commands/` | 16 slash commands | See command table above |
 | `.claude/agents/` | 9 subagents | See subagents table below |
 | `.claude/scripts/` | Hook scripts | `session-start.sh`, `classify-message.py`, `validate-write.py`, `pre-compact.sh` |
 | `.claude/skills/` | Obsidian + QMD skills | Loaded automatically via Skill tool |
