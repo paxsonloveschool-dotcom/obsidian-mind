@@ -22,12 +22,16 @@ type: index
 - MASTER_SOP.md — Complete operational manual (in claude-code-config repo)
 - [[Skills]] — Installed Claude Code plugins (skill-creator, superpowers, gsd, context-mode, claude-mem, frontend-design) and reinstall commands
 
+## External Tools & Models
+- [[Seedance 2.0]] — ByteDance multimodal video-gen model, Higgsfield pipeline (2026)
+
 ## Lookup Table
 | Topic | Location |
 |-------|----------|
 | Goals & priorities | [[North Star]] |
 | Key decisions | [[Key Decisions]] |
 | Reusable patterns | [[Patterns]] |
+| External AI tools | [[Seedance 2.0]] |
 | Active work | work/active/ |
 | People notes | org/people/ |
 | Performance | perf/ |
