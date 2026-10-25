@@ -2076,3 +2076,10 @@ plugins:
   pushed_at: '2026-10-17'
   reason: popularity-threshold
   discovered: '2026-10-19'
+- name: qa
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1189
+  pushed_at: '2026-10-25'
+  reason: popularity-threshold
+  discovered: '2026-10-25'
