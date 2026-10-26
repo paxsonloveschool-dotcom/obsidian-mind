@@ -2090,3 +2090,10 @@ plugins:
   pushed_at: '2026-10-25'
   reason: popularity-threshold
   discovered: '2026-10-26'
+- name: beautiful-rust
+  marketplace: morganlinton/BeautifulRust
+  author: morganlinton
+  stars: 1133
+  pushed_at: '2026-10-26'
+  reason: popularity-threshold
+  discovered: '2026-10-26'
