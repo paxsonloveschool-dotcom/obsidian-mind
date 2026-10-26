@@ -2083,3 +2083,10 @@ plugins:
   pushed_at: '2026-10-25'
   reason: popularity-threshold
   discovered: '2026-10-25'
+- name: egm
+  marketplace: google/elephant-goldfish-model
+  author: google
+  stars: 1061
+  pushed_at: '2026-10-25'
+  reason: popularity-threshold
+  discovered: '2026-10-26'

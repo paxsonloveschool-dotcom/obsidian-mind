@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-26T03:42:36+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 300
+- **Added this cycle**:
+  - google/elephant-goldfish-model::egm (popularity-threshold)
+
 ## 2026-10-25T23:54:39+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 299
