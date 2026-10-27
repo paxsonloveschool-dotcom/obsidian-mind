@@ -2097,3 +2097,10 @@ plugins:
   pushed_at: '2026-10-26'
   reason: popularity-threshold
   discovered: '2026-10-26'
+- name: animate
+  marketplace: cth9191/animate
+  author: cth9191
+  stars: 1000
+  pushed_at: '2026-10-05'
+  reason: popularity-threshold
+  discovered: '2026-10-27'
