@@ -2111,3 +2111,24 @@ plugins:
   pushed_at: '2026-10-25'
   reason: popularity-threshold
   discovered: '2026-10-28'
+- name: aeo
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1192
+  pushed_at: '2026-10-28'
+  reason: popularity-threshold
+  discovered: '2026-10-28'
+- name: reusable-app-components
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1192
+  pushed_at: '2026-10-28'
+  reason: popularity-threshold
+  discovered: '2026-10-28'
+- name: openqodex
+  marketplace: openqodex/openqodex
+  author: openqodex
+  stars: 1021
+  pushed_at: '2026-10-28'
+  reason: popularity-threshold
+  discovered: '2026-10-28'
