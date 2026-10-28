@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-28T05:43:44+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 303
+- **Added this cycle**:
+  - renezander030/capcut-cli::capcut-cli (popularity-threshold)
+
 ## 2026-10-28T00:05:30+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 302

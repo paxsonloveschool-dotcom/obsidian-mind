@@ -2104,3 +2104,10 @@ plugins:
   pushed_at: '2026-10-05'
   reason: popularity-threshold
   discovered: '2026-10-27'
+- name: capcut-cli
+  marketplace: renezander030/capcut-cli
+  author: renezander030
+  stars: 1005
+  pushed_at: '2026-10-25'
+  reason: popularity-threshold
+  discovered: '2026-10-28'
