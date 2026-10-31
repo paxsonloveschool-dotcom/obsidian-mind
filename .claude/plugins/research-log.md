@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-31T17:56:54+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 309
+- **Added this cycle**:
+  - patch-gg/pixelfx::pixelfx (popularity-threshold)
+
 ## 2026-10-31T13:34:50+00:00
 
 - **Outcome**: discovered 1 new plugin(s); manifest now tracks 308

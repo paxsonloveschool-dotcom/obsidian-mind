@@ -2146,3 +2146,10 @@ plugins:
   pushed_at: '2026-10-29'
   reason: popularity-threshold
   discovered: '2026-10-31'
+- name: pixelfx
+  marketplace: patch-gg/pixelfx
+  author: patch-gg
+  stars: 1188
+  pushed_at: '2026-10-31'
+  reason: popularity-threshold
+  discovered: '2026-10-31'
