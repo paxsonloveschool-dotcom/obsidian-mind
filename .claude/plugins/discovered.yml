@@ -2139,3 +2139,10 @@ plugins:
   pushed_at: '2026-10-30'
   reason: popularity-threshold
   discovered: '2026-10-30'
+- name: bama
+  marketplace: daveebbelaar/bama
+  author: daveebbelaar
+  stars: 1015
+  pushed_at: '2026-10-29'
+  reason: popularity-threshold
+  discovered: '2026-10-31'

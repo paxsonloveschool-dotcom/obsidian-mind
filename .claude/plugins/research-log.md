@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-10-31T13:34:50+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 308
+- **Added this cycle**:
+  - daveebbelaar/bama::bama (popularity-threshold)
+
 ## 2026-10-31T07:00:29+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 307
