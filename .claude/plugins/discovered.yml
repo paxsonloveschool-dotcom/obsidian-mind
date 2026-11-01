@@ -2160,3 +2160,10 @@ plugins:
   pushed_at: '2026-10-31'
   reason: popularity-threshold
   discovered: '2026-11-01'
+- name: labrat
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1195
+  pushed_at: '2026-11-01'
+  reason: popularity-threshold
+  discovered: '2026-11-01'
