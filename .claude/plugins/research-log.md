@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-01T13:26:22+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 310
+- **Added this cycle**:
+  - haydenschmitty/floorplan::floorplan (popularity-threshold)
+
 ## 2026-11-01T06:08:30+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 309

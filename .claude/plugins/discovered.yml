@@ -2153,3 +2153,10 @@ plugins:
   pushed_at: '2026-10-31'
   reason: popularity-threshold
   discovered: '2026-10-31'
+- name: floorplan
+  marketplace: haydenschmitty/floorplan
+  author: haydenschmitty
+  stars: 1189
+  pushed_at: '2026-10-31'
+  reason: popularity-threshold
+  discovered: '2026-11-01'
