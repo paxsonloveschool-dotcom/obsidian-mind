@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-02T18:42:46+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 312
+- **Added this cycle**:
+  - rebelytics/one-skill-to-rule-them-all::task-observer-flush (popularity-threshold)
+
 ## 2026-11-02T08:22:23+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 311

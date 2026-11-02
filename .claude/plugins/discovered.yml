@@ -2167,3 +2167,10 @@ plugins:
   pushed_at: '2026-11-01'
   reason: popularity-threshold
   discovered: '2026-11-01'
+- name: task-observer-flush
+  marketplace: rebelytics/one-skill-to-rule-them-all
+  author: rebelytics
+  stars: 3697
+  pushed_at: '2026-11-02'
+  reason: popularity-threshold
+  discovered: '2026-11-02'
