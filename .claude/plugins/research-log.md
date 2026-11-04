@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-04T22:28:52+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 313
+- **Added this cycle**:
+  - OpenOSINT/OpenOSINT::openosint (popularity-threshold)
+
 ## 2026-11-04T16:55:53+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 312

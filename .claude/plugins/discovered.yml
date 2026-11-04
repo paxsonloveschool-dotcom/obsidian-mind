@@ -2174,3 +2174,10 @@ plugins:
   pushed_at: '2026-11-02'
   reason: popularity-threshold
   discovered: '2026-11-02'
+- name: openosint
+  marketplace: OpenOSINT/OpenOSINT
+  author: OpenOSINT
+  stars: 1850
+  pushed_at: '2026-11-04'
+  reason: popularity-threshold
+  discovered: '2026-11-04'
