@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-05T17:53:42+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 314
+- **Added this cycle**:
+  - wshobson/agents::deja-vu (popularity-threshold)
+
 ## 2026-11-05T09:52:51+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 313

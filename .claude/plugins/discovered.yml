@@ -2181,3 +2181,10 @@ plugins:
   pushed_at: '2026-11-04'
   reason: popularity-threshold
   discovered: '2026-11-04'
+- name: deja-vu
+  marketplace: wshobson/agents
+  author: wshobson
+  stars: 42232
+  pushed_at: '2026-11-05'
+  reason: popularity-threshold
+  discovered: '2026-11-05'
