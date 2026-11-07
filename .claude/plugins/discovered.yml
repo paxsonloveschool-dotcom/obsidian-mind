@@ -2188,3 +2188,10 @@ plugins:
   pushed_at: '2026-11-05'
   reason: popularity-threshold
   discovered: '2026-11-05'
+- name: cmem-pro
+  marketplace: thedotmack/claude-mem
+  author: thedotmack
+  stars: 114323
+  pushed_at: '2026-11-07'
+  reason: author-allowlisted
+  discovered: '2026-11-07'
