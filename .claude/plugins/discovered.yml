@@ -2195,3 +2195,10 @@ plugins:
   pushed_at: '2026-11-07'
   reason: author-allowlisted
   discovered: '2026-11-07'
+- name: google-telemetry
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1200
+  pushed_at: '2026-11-08'
+  reason: popularity-threshold
+  discovered: '2026-11-08'
