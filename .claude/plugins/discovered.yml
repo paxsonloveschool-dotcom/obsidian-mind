@@ -3259,3 +3259,17 @@ plugins:
   pushed_at: '2026-08-12'
   reason: popularity-threshold
   discovered: '2026-11-09'
+- name: heroui-skills
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1205
+  pushed_at: '2026-11-11'
+  reason: popularity-threshold
+  discovered: '2026-11-11'
+- name: typescript-skills
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1205
+  pushed_at: '2026-11-11'
+  reason: popularity-threshold
+  discovered: '2026-11-11'

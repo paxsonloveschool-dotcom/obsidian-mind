@@ -4,6 +4,13 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-11T02:06:16+00:00
+
+- **Outcome**: discovered 2 new plugin(s); manifest now tracks 469
+- **Added this cycle**:
+  - fcakyon/claude-codex-settings::heroui-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::typescript-skills (popularity-threshold)
+
 ## 2026-11-10T22:24:37+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 467
