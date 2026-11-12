@@ -3273,3 +3273,10 @@ plugins:
   pushed_at: '2026-11-11'
   reason: popularity-threshold
   discovered: '2026-11-11'
+- name: shared-session
+  marketplace: Paradigm-Study/claude-share
+  author: Paradigm-Study
+  stars: 1001
+  pushed_at: '2026-10-30'
+  reason: popularity-threshold
+  discovered: '2026-11-12'
