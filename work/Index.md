@@ -8,7 +8,7 @@ type: index
 # Work Index
 
 ## Active Projects
-*None yet — start a project by creating a note in `work/active/`*
+- [[Revive Shorts Content Engine]] (Nov 14, 2026)
 
 ## Recent Notes
 - 2026-04-05: System setup complete (Claude Code + obsidian-mind)
