@@ -3280,3 +3280,10 @@ plugins:
   pushed_at: '2026-10-30'
   reason: popularity-threshold
   discovered: '2026-11-12'
+- name: chisle
+  marketplace: JayPokale/Chisle
+  author: JayPokale
+  stars: 1028
+  pushed_at: '2026-11-14'
+  reason: popularity-threshold
+  discovered: '2026-11-14'

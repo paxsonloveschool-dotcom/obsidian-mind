@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-14T15:58:53+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 471
+- **Added this cycle**:
+  - JayPokale/Chisle::chisle (popularity-threshold)
+
 ## 2026-11-14T09:27:07+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 470
