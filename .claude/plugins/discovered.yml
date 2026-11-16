@@ -3287,3 +3287,10 @@ plugins:
   pushed_at: '2026-11-14'
   reason: popularity-threshold
   discovered: '2026-11-14'
+- name: mod-finder
+  marketplace: karanb192/awesome-claude-code-mods
+  author: karanb192
+  stars: 1000
+  pushed_at: '2026-11-16'
+  reason: popularity-threshold
+  discovered: '2026-11-16'
