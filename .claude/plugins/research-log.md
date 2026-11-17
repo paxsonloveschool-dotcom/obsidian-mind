@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-17T14:25:58+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 473
+- **Added this cycle**:
+  - EricJujianZou/rederive::rederive (popularity-threshold)
+
 ## 2026-11-17T05:07:30+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 472

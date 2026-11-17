@@ -3294,3 +3294,10 @@ plugins:
   pushed_at: '2026-11-16'
   reason: popularity-threshold
   discovered: '2026-11-16'
+- name: rederive
+  marketplace: EricJujianZou/rederive
+  author: EricJujianZou
+  stars: 1006
+  pushed_at: '2026-10-25'
+  reason: popularity-threshold
+  discovered: '2026-11-17'
