@@ -133,6 +133,38 @@ def cut_audio(wav, frame_ranges, fps, out):
         "-ar", "48000", out])
 
 
+def cut_phone(src, wav, frame_ranges, fps, out):
+    """Phone footage path, no Resolve: same frame ranges for picture and clean audio, 1080x1920 out."""
+    parts, n = [], len(frame_ranges)
+    for k, (a, b) in enumerate(frame_ranges):
+        parts.append(f"[0:v]trim=start_frame={a}:end_frame={b},setpts=PTS-STARTPTS[v{k}]")
+        parts.append(f"[1:a]atrim={a / fps:.4f}:{b / fps:.4f},asetpts=PTS-STARTPTS,"
+                     f"afade=t=in:d=0.01,afade=t=out:st={max(0, (b - a) / fps - 0.01):.4f}:d=0.01[a{k}]")
+    graph = ";".join(parts) + ";" + "".join(f"[v{k}][a{k}]" for k in range(n)) + \
+        f"concat=n={n}:v=1:a=1[cv][ca];[cv]scale=1080:1920:force_original_aspect_ratio=increase," \
+        "crop=1080:1920,setsar=1[ov]"
+    sh(["ffmpeg", "-y", "-v", "error", "-i", src, "-i", wav, "-filter_complex", graph, "-map", "[ov]",
+        "-map", "[ca]", "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", out])
+
+
+def cut(work, out):
+    """Every pick in every work folder -> tight 9:16 talking clip. Then add_broll.py and finish_shorts.py."""
+    out = Path(out)
+    out.mkdir(parents=True, exist_ok=True)
+    for d in sorted(p for p in Path(work).iterdir() if (p / "picks.txt").exists()):
+        src = (d / "source.txt").read_text()
+        num, den = sh(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate",
+                       "-of", "csv=p=0", src]).strip().split("/")
+        fps = float(num) / float(den or 1)
+        segs = json.loads((d / "words.json").read_text())["segments"]
+        for name, ids in parse_picks((d / "picks.txt").read_text()).items():
+            words = [w for i in ids if i < len(segs) for w in segs[i].get("words", [])]
+            dst = out / f"{d.name} {name}.mp4"
+            if words and not dst.exists():
+                cut_phone(src, d / "clean.wav", to_frames(keep_ranges(words), fps), fps, dst)
+                print(f"cut {dst.name}")
+
+
 # ---------- Resolve ----------
 
 def resolve_app():
@@ -281,5 +313,13 @@ if __name__ == "__main__":
     b.add_argument("out")
     b.add_argument("--lut")
     b.add_argument("--every", type=float, default=3.0, help="seconds of face between B-roll shots, and B-roll length")
+    c = sub.add_parser("cut", help="phone footage: cut picks with ffmpeg, no Resolve")
+    c.add_argument("work")
+    c.add_argument("out")
     a = ap.parse_args()
-    prep(a.work, a.clips, a.model) if a.cmd == "prep" else build(a.work, a.raw_dir, a.out, a.lut, a.every)
+    if a.cmd == "prep":
+        prep(a.work, a.clips, a.model)
+    elif a.cmd == "cut":
+        cut(a.work, a.out)
+    else:
+        build(a.work, a.raw_dir, a.out, a.lut, a.every)

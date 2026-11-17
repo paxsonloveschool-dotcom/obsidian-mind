@@ -53,3 +53,16 @@ with tempfile.TemporaryDirectory() as t:
                                      "stream=index", "-of", "csv=p=0", str(T / "out.mp4")], text=True).strip()
     assert has_a
 print("add_broll ok")
+
+# cut_phone: landscape phone clip -> 1080x1920, length = sum of kept frames
+from talking_head import cut_phone
+with tempfile.TemporaryDirectory() as t:
+    T = Path(t)
+    subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "testsrc=s=640x360:d=6:r=30", str(T / "src.mp4")], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "sine=d=6", "-ar", "48000", str(T / "a.wav")], check=True)
+    cut_phone(T / "src.mp4", T / "a.wav", [(0, 30), (90, 150)], 30.0, T / "o.mp4")
+    info = subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "stream=width,height,duration",
+                                    "-of", "csv=p=0", str(T / "o.mp4")], text=True).split()
+    assert info[0].startswith("1080,1920"), info
+    assert all(abs(float(x.split(",")[-1]) - 3.0) < 0.06 for x in info), info
+print("cut_phone ok")

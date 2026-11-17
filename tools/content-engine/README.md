@@ -58,3 +58,16 @@ The Chandler (15) and Stone Vale (13) interview reels and the 22 Revive phone re
 python add_broll.py "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\Reels 9x16\Interview reels" "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\B-Roll" "D:\work\chandler broll"
 python finish_shorts.py "D:\work\chandler broll" "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\Reels 9x16\Ready to Post" --music "D:\Music\licensed_bed.mp3"
 ```
+
+# Paxson brand and personal brand (tag PAXSON)
+
+Raw talking head: Dropbox `Paxson STUFF\Facial Content` (21 iPhone clips, Jun 17 to 19) and `Paxson STUFF\Talking head`. Phone footage needs no Resolve:
+
+```bat
+python talking_head.py prep "D:\work\paxson" "D:\Dropbox\Paxson STUFF\Facial Content\*.mov"
+python talking_head.py cut "D:\work\paxson" "D:\work\paxson cut"
+python add_broll.py "D:\work\paxson cut" "<Paxson B-roll folder>" "D:\work\paxson broll"
+python finish_shorts.py "D:\work\paxson broll" "D:\Dropbox\Paxson STUFF\Ready to Post" --music "D:\Music\licensed_bed.mp3"
+```
+
+Format to match: the reference in Restore's Google Drive, folder `Paxson` (`Copy of Captions_A53F88.mp4`), plus `Paxson Brands\Paxson Stuff\Paxson Stuff 01.mp4` and `02.mp4`. [CONFIRM] caption style, zooms and pacing once someone watches it on the black PC; the file name points to the Captions app look (word by word captions).
