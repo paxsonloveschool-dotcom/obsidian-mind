@@ -27,3 +27,25 @@ Fix the Dropbox root to match the PC. Add `--lut house_look.cube` to force one l
 - The music track and license are still open. Without `--music` the shorts come out silent.
 - The earlier shorts plan said "do not burn captions". This tool burns them because burned captions are what was asked for on Nov 14. The .srt also ships beside each MP4.
 - Organic posting only. Nothing gets posted without the owner's yes.
+
+# Talking head shorts (talking_head.py)
+
+Revenue bucket: CLIENT_DELIVERABLES. Tag: RESTORE.
+
+For interview footage. Per short: mic peaks repaired and leveled gently to -14 LUFS, silences and fillers (um, uh, you know, I mean) cut, the best 20 to 45 s of lines picked from the transcript, a new B-roll shot every 3 s (3 s face, 3 s B-roll, repeat, face first for the hook), Resolve color management to Rec.709 plus a light finish, 1080x1920. B-roll only comes from the same client's raw folder.
+
+Run on the black PC with DaVinci Resolve open. Needs ffmpeg and `pip install openai-whisper`.
+
+```bat
+python talking_head.py prep "D:\work\chandler" "D:\Dropbox\CHANDLER\Raw Footage (Nov 2026 shoot)\CHANDLER shoot\Interview  (3).braw"
+python talking_head.py build "D:\work\chandler" "D:\Dropbox\CHANDLER\Raw Footage (Nov 2026 shoot)\CHANDLER shoot" "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\Talking Head Shorts"
+```
+
+Between the two steps, `picks.txt` in each work folder holds the auto picks (`Short 1: 4-9`). A person or Claude can swap in better lines from `transcript.txt` before building. Then run `finish_shorts.py` on the output for burned captions and a music bed.
+
+Interview clips found Nov 17:
+- Chandler: `Interview (1)` to `Interview (6)`.braw
+- Stonevale: the 5 clips in `Garrett interview audio`
+- Revive: no clip is named as an interview. The longest are C003 (28 GB) and C045 (8 GB). [CONFIRM] which one has the owner on camera.
+
+Not yet run inside Resolve. [CONFIRM] on first run: the 9:16 crop keeps the speaker in frame (setting `scaleFullFrameWithCrop`), and external scripting is on (Studio) or the script runs from Resolve's console.
