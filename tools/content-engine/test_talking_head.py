@@ -34,3 +34,22 @@ with tempfile.TemporaryDirectory() as t:  # mic cleanup holds loudness and survi
                                          "-of", "csv=p=0", str(cut)], text=True))
     assert abs(dur - 2.0) < 0.03, dur
 print("ok")
+
+# add_broll: B-roll lands in the slots, face stays elsewhere, audio and length unchanged
+from add_broll import add_broll
+with tempfile.TemporaryDirectory() as t:
+    T = Path(t)
+    subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "color=red:s=270x480:d=13:r=30",
+                    "-f", "lavfi", "-i", "sine=d=13", "-shortest", str(T / "reel.mp4")], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "color=blue:s=640x360:d=5:r=30", str(T / "b.mp4")],
+                   check=True)
+    assert add_broll(T / "reel.mp4", [T / "b.mp4"], T / "out.mp4", 3.0) == 2
+    def px(sec):
+        return subprocess.check_output(["ffmpeg", "-v", "error", "-ss", str(sec), "-i", str(T / "out.mp4"),
+                                        "-frames:v", "1", "-vf", "crop=2:2:134:240", "-f", "rawvideo",
+                                        "-pix_fmt", "rgb24", "-"])
+    assert px(1)[0] > 200 and px(4)[2] > 200 and px(7)[0] > 200 and px(10)[2] > 200 and px(12.5)[0] > 200, (px(1), px(4))
+    has_a = subprocess.check_output(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries",
+                                     "stream=index", "-of", "csv=p=0", str(T / "out.mp4")], text=True).strip()
+    assert has_a
+print("add_broll ok")

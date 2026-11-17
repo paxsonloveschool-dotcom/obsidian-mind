@@ -49,3 +49,12 @@ Interview clips found Nov 17:
 - Revive: no clip is named as an interview. The longest are C003 (28 GB) and C045 (8 GB). [CONFIRM] which one has the owner on camera.
 
 Not yet run inside Resolve. [CONFIRM] on first run: the 9:16 crop keeps the speaker in frame (setting `scaleFullFrameWithCrop`), and external scripting is on (Studio) or the script runs from Resolve's console.
+
+# B-roll on finished reels (add_broll.py)
+
+The Chandler (15) and Stone Vale (13) interview reels and the 22 Revive phone reels are already cut tight, cleaned and graded. This adds a new B-roll shot every 3 s from the same client's `Edited Videos (Nov 2026 shoot)\B-Roll` folder, then `finish_shorts.py` burns captions back on and adds music.
+
+```bat
+python add_broll.py "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\Reels 9x16\Interview reels" "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\B-Roll" "D:\work\chandler broll"
+python finish_shorts.py "D:\work\chandler broll" "D:\Dropbox\CHANDLER\Edited Videos (Nov 2026 shoot)\Reels 9x16\Ready to Post" --music "D:\Music\licensed_bed.mp3"
+```
