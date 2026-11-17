@@ -3301,3 +3301,10 @@ plugins:
   pushed_at: '2026-10-25'
   reason: popularity-threshold
   discovered: '2026-11-17'
+- name: code-review
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1213
+  pushed_at: '2026-11-17'
+  reason: popularity-threshold
+  discovered: '2026-11-17'
