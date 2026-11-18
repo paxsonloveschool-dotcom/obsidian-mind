@@ -32,6 +32,9 @@ def main(folder):
             print("skip, done:", note.name); continue
         if not src.exists():
             print("missing:", src); continue
+        probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index", "-of", "csv=p=0", str(src)], capture_output=True, text=True)
+        if not probe.stdout.strip():
+            print("no audio, skip:", name); continue  # Pt1 and Pt2 are silent screen recordings
         with tempfile.TemporaryDirectory() as tmp:
             wav = pathlib.Path(tmp) / "a.wav"
             subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(src), "-vn", "-ac", "1", "-ar", "16000", str(wav)], check=True)
