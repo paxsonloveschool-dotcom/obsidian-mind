@@ -4,6 +4,13 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-18T20:56:03+00:00
+
+- **Outcome**: discovered 2 new plugin(s); manifest now tracks 476
+- **Added this cycle**:
+  - fcakyon/claude-codex-settings::modern-web-guidance (popularity-threshold)
+  - alexeyw/lot-map::lot-map (popularity-threshold)
+
 ## 2026-11-18T12:44:16+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 474

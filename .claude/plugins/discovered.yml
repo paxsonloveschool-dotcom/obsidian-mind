@@ -3308,3 +3308,17 @@ plugins:
   pushed_at: '2026-11-17'
   reason: popularity-threshold
   discovered: '2026-11-17'
+- name: modern-web-guidance
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1213
+  pushed_at: '2026-11-18'
+  reason: popularity-threshold
+  discovered: '2026-11-18'
+- name: lot-map
+  marketplace: alexeyw/lot-map
+  author: alexeyw
+  stars: 1004
+  pushed_at: '2026-11-18'
+  reason: popularity-threshold
+  discovered: '2026-11-18'
