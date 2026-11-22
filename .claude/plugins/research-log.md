@@ -4,6 +4,14 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-22T15:06:10+00:00
+
+- **Outcome**: discovered 3 new plugin(s); manifest now tracks 502
+- **Added this cycle**:
+  - fcakyon/claude-codex-settings::remote-mcp-skills (popularity-threshold)
+  - fcakyon/claude-codex-settings::compliance (popularity-threshold)
+  - EL4CTEO/fast-anything::fast-anything (popularity-threshold)
+
 ## 2026-11-22T06:49:35+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 499

@@ -3483,3 +3483,24 @@ plugins:
   pushed_at: '2026-11-21'
   reason: popularity-threshold
   discovered: '2026-11-22'
+- name: remote-mcp-skills
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1217
+  pushed_at: '2026-11-22'
+  reason: popularity-threshold
+  discovered: '2026-11-22'
+- name: compliance
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1217
+  pushed_at: '2026-11-22'
+  reason: popularity-threshold
+  discovered: '2026-11-22'
+- name: fast-anything
+  marketplace: EL4CTEO/fast-anything
+  author: EL4CTEO
+  stars: 1118
+  pushed_at: '2026-11-22'
+  reason: popularity-threshold
+  discovered: '2026-11-22'
