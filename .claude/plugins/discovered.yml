@@ -3476,3 +3476,10 @@ plugins:
   pushed_at: '2026-11-19'
   reason: popularity-threshold
   discovered: '2026-11-19'
+- name: swift-skills
+  marketplace: fcakyon/claude-codex-settings
+  author: fcakyon
+  stars: 1215
+  pushed_at: '2026-11-21'
+  reason: popularity-threshold
+  discovered: '2026-11-22'

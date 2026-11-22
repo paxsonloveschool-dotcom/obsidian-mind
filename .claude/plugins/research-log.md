@@ -4,6 +4,12 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-22T00:08:43+00:00
+
+- **Outcome**: discovered 1 new plugin(s); manifest now tracks 499
+- **Added this cycle**:
+  - fcakyon/claude-codex-settings::swift-skills (popularity-threshold)
+
 ## 2026-11-21T19:49:11+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 498
