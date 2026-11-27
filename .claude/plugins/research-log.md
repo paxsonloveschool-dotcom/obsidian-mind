@@ -4,6 +4,15 @@ Append-only audit trail. Newest first.
 
 ---
 
+## 2026-11-27T21:54:23+00:00
+
+- **Outcome**: discovered 4 new plugin(s); manifest now tracks 506
+- **Added this cycle**:
+  - Innei/artideck::adeck (popularity-threshold)
+  - Innei/artideck::adeck-lite (popularity-threshold)
+  - Innei/artideck::ryugi (popularity-threshold)
+  - Innei/artideck::ryugi-artifacts (popularity-threshold)
+
 ## 2026-11-27T12:58:52+00:00
 
 - **Outcome**: no new plugins; manifest unchanged at 502

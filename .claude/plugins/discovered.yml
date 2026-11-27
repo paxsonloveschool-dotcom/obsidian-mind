@@ -3504,3 +3504,31 @@ plugins:
   pushed_at: '2026-11-22'
   reason: popularity-threshold
   discovered: '2026-11-22'
+- name: adeck
+  marketplace: Innei/artideck
+  author: Innei
+  stars: 1017
+  pushed_at: '2026-11-27'
+  reason: popularity-threshold
+  discovered: '2026-11-27'
+- name: adeck-lite
+  marketplace: Innei/artideck
+  author: Innei
+  stars: 1017
+  pushed_at: '2026-11-27'
+  reason: popularity-threshold
+  discovered: '2026-11-27'
+- name: ryugi
+  marketplace: Innei/artideck
+  author: Innei
+  stars: 1017
+  pushed_at: '2026-11-27'
+  reason: popularity-threshold
+  discovered: '2026-11-27'
+- name: ryugi-artifacts
+  marketplace: Innei/artideck
+  author: Innei
+  stars: 1017
+  pushed_at: '2026-11-27'
+  reason: popularity-threshold
+  discovered: '2026-11-27'
