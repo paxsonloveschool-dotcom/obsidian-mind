@@ -8,7 +8,7 @@ type: index
 # Work Index
 
 ## Active Projects
-*None yet — start a project by creating a note in `work/active/`*
+- [[Google Rethink Sessions]]: transcripts and tips from the Google Ads Rethink Retail videos
 
 ## Recent Notes
 - 2026-04-05: System setup complete (Claude Code + obsidian-mind)
